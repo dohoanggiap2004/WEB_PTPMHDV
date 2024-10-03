@@ -1,12 +1,16 @@
 import Layout from "../../layout/Layout";
-import './style'
+import "./style.css";
 
 const Home = () => {
-  <>
-    <Layout>
-
-    </Layout>
-  </>;
+  return (
+    <>
+      <Layout>
+        <div>
+          hdaksjfhkasdhfksdf
+        </div>
+      </Layout>
+    </>
+  );
 };
 
 export default Home;

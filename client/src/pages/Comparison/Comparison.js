@@ -1,5 +1,5 @@
 import Layout from '../../layout/Layout'
-import './style'
+import './style.css'
 const Comparison = () => {
     <>
         <Layout>
