@@ -1,0 +1,133 @@
+2024-10-18/10:27:11		58b6fd4b-91ec-4b1a-8ad9-f41681a65c13		TokenError: Bad Request
+2024-10-18/10:28:24		a2bc9832-238a-4b55-8816-d6422f1134d7		TokenError: Bad Request
+2024-10-18/10:30:46		29d78ce0-b7b9-444f-908c-e48987c21f2b		TokenError: Bad Request
+2024-10-18/10:33:04		e775ee7f-dff5-49d8-8ea7-e37201b26e75		Error: Login sessions require session support. Did you forget to use `express-session` middleware?
+2024-10-18/10:36:23		54cae06e-a069-4fba-88b3-86ec59471344		TokenError: Bad Request
+2024-10-18/10:40:08		49a21c22-9af9-4f35-aabc-6892d04838a4		TokenError: Bad Request
+2024-10-18/10:40:44		993d7483-114d-47b9-9284-e7c36b50b890		TokenError: Bad Request
+2024-10-18/10:42:16		5d153e64-44c1-411d-a83b-f0e5e45d4de1		TokenError: Bad Request
+2024-10-18/10:42:53		f7fba4d5-b6e1-4fc7-a247-6a5e5cdbc871		TokenError: Bad Request
+2024-10-18/10:44:28		21b8e526-ced7-4386-80f9-566f9320dc3e		TokenError: Bad Request
+2024-10-18/10:45:38		3aaa71a4-338f-40ee-a8e8-8f9c70226602		TokenError: Bad Request
+2024-10-18/10:46:02		dda0042c-a483-4371-97f2-16ed0475e7d2		TokenError: Bad Request
+2024-10-18/10:50:00		5e175d49-a62e-442d-b8b6-ccaff1abe72e		TokenError: Bad Request
+2024-10-18/10:59:38		b250be4d-8a4e-43d8-afdf-5f1f494159d2		TokenError: Bad Request
+2024-10-18/11:04:08		ec55cbba-9cd7-42f9-8fb3-c1c6fabf9168		TokenError: Bad Request
+2024-10-18/11:04:24		dba20f6b-656d-4b29-a9f5-288847d17808		TokenError: Bad Request
+2024-10-18/11:06:58		68328895-4999-4540-abee-8eea800efdd4		TokenError: Bad Request
+2024-10-18/11:08:43		b20a0920-4f1d-4d94-b819-ab35ca81d7ec		TokenError: Bad Request
+2024-10-18/11:10:57		06a43cb3-cb54-4fd0-b2db-ab765d16c686		Error: Unknown column 'id' in 'where clause'
+2024-10-18/11:13:30		d1cff6e7-7ee4-44b8-8131-3658715c354d		TokenError: Bad Request
+2024-10-18/11:16:38		288566e6-a216-473c-aeb1-bb435b86d2a3		TokenError: Bad Request
+2024-10-18/11:19:08		03117265-2f18-4e64-adfa-1f1a5204200a		TokenError: Bad Request
+2024-10-18/11:19:17		09d1ab2d-2c92-49a8-8691-a7578adbf10f		TokenError: Bad Request
+2024-10-19/08:20:40		bd828461-6f2f-44b8-871f-6f11e1e0f6df		TokenError: Bad Request
+2024-10-19/08:21:39		415b7d84-59ab-4a13-b8c5-0497345348cd		TokenError: Bad Request
+2024-10-19/09:32:34		d3eb8f0d-bef6-4544-9831-a90717e7cead		TokenError: Bad Request
+2024-10-19/07:53:50		a21c0a48-e35f-4ab9-bf1f-8b3fe8741122		TokenError: Bad Request
+2024-10-19/08:31:19		0b2851c6-f375-467f-9e37-870174d4fbd8		TypeError: req.user.role.map is not a function
+2024-10-20/04:24:11		96343811-e374-453e-bfb0-594e4b9ea99e		Error: Not allowed to CORS
+2024-10-20/04:24:11		f21ba2a6-9cbb-4f6e-8b12-f4c5b55bb6de		Error: Not allowed to CORS
+2024-10-20/04:24:11		7d8d8645-5af6-4d37-97e5-3c2c5a8f4fe2		Error: Not allowed to CORS
+2024-10-20/04:24:11		a1e157d0-f00f-4b37-a795-b8beed0912eb		Error: Not allowed to CORS
+2024-10-20/04:24:11		2f27c3e8-a12c-4f2f-b35c-cb0b52ae9cba		Error: Not allowed to CORS
+2024-10-20/04:24:11		a1d8c6f6-51f7-4aca-ae7e-45b5ebbaf1fc		Error: Not allowed to CORS
+2024-10-20/04:24:11		88099927-4504-4669-aa63-355f99f43530		Error: Not allowed to CORS
+2024-10-20/04:24:11		c3ee69ca-3ec0-401f-a4ef-74e9eeddbd2f		Error: Not allowed to CORS
+2024-10-22/03:56:10		1ad5afa1-542a-41f6-b2c8-945cfd825d18		Error: Not allowed to CORS
+2024-10-22/03:56:10		6c1dfb33-c557-4bd0-9c4e-69259852c0b5		Error: Not allowed to CORS
+2024-10-22/03:56:10		87368d50-8b32-48c8-8f2f-70ed8f94dfc8		Error: Not allowed to CORS
+2024-10-22/03:56:10		e9609db7-4a80-4f67-9d14-a770f3e11ed8		Error: Not allowed to CORS
+2024-10-22/03:56:10		d9bfb976-9623-42ce-a54b-8af5766d350c		Error: Not allowed to CORS
+2024-10-22/03:56:10		b4a09c9a-30ad-45c4-97de-3e4410efdeda		Error: Not allowed to CORS
+2024-10-22/03:56:10		f13fc516-737f-4b7a-8172-a829f5a5ed0e		Error: Not allowed to CORS
+2024-10-22/03:56:10		05e2a396-f59d-44a7-9b03-ad182d96085f		Error: Not allowed to CORS
+2024-10-22/03:56:36		e39ca3ed-de8b-43f6-a83f-d74c814ea399		Error: Not allowed to CORS
+2024-10-22/03:56:36		3b47f600-ca7f-4ee7-ab00-0bf1c1283ad7		Error: Not allowed to CORS
+2024-10-22/03:56:36		f3d39b9a-6f7e-46cc-b915-f6b9a2f973a9		Error: Not allowed to CORS
+2024-10-22/03:56:36		34638607-56ab-44c3-931d-16ad60ffbd6d		Error: Not allowed to CORS
+2024-10-22/03:56:36		a3e6b285-d45d-441d-a88c-7294573878e0		Error: Not allowed to CORS
+2024-10-22/03:56:36		5fbb75a1-f1e4-456d-984c-d358d0265816		Error: Not allowed to CORS
+2024-10-22/03:56:36		f9be85e0-58a4-4106-a13c-4b75c751c066		Error: Not allowed to CORS
+2024-10-22/03:56:36		c9d7f79f-fb0f-41bb-88c0-0870e24cb19c		Error: Not allowed to CORS
+2024-10-22/03:56:52		14b94d35-1807-4a95-9c2d-718fb8708b60		Error: Not allowed to CORS
+2024-10-22/03:56:52		8063f39b-4b9c-4d51-b1ae-46288cbb0bc5		Error: Not allowed to CORS
+2024-10-22/03:56:52		f45b93b4-4329-4ee2-9fac-53f05847f406		Error: Not allowed to CORS
+2024-10-22/03:56:52		f99b7f3c-bb6e-490a-b87f-1dc08650b900		Error: Not allowed to CORS
+2024-10-22/03:56:52		f5228d2f-e5eb-44dd-8dfa-a2df13019f9c		Error: Not allowed to CORS
+2024-10-22/03:56:52		6a09f66d-edc9-4b41-b575-8a49073b2293		Error: Not allowed to CORS
+2024-10-22/03:56:52		bad36b21-a463-440c-be71-8b28789ad197		Error: Not allowed to CORS
+2024-10-22/03:56:52		9f65bf21-27ea-46f9-8494-d9432c60e417		Error: Not allowed to CORS
+2024-10-22/03:57:16		07ec3c5b-0348-48ec-94d7-c916c7c9c3f8		Error: Not allowed to CORS
+2024-10-22/03:57:16		5b818b2e-6b38-4bc7-ad46-f8575c7536d8		Error: Not allowed to CORS
+2024-10-22/03:57:16		d00899ed-46e5-4d10-8b40-8c2bf493f151		Error: Not allowed to CORS
+2024-10-22/03:57:16		df4083b4-0fc6-4781-95a0-e21b1f83e11e		Error: Not allowed to CORS
+2024-10-22/03:57:16		8e037de7-2e2c-4dde-a3e9-36ecda168a8b		Error: Not allowed to CORS
+2024-10-22/03:57:16		e772a20d-e054-4f32-a86e-ba2ae7bc1d14		Error: Not allowed to CORS
+2024-10-22/03:57:16		f861eba4-da3f-4aed-9f3d-9d210f26822b		Error: Not allowed to CORS
+2024-10-22/03:57:16		3d017585-87e8-4fd5-9f80-d9e29c69b3db		Error: Not allowed to CORS
+2024-10-22/03:57:45		df63c0ae-26f0-4a67-8a10-4eb74b3da82f		Error: Not allowed to CORS
+2024-10-22/03:57:45		c6b90f9a-38cd-442d-9678-6230fe35ae81		Error: Not allowed to CORS
+2024-10-22/03:57:45		c22b53b7-269e-4594-8792-389cbd4f7644		Error: Not allowed to CORS
+2024-10-22/03:57:45		149724bc-1a2b-4b7f-b9c7-e0dece94ff5d		Error: Not allowed to CORS
+2024-10-22/03:57:45		118eb91e-b461-479c-bd39-ec51171e2458		Error: Not allowed to CORS
+2024-10-22/03:57:45		29f3826e-0e21-43bb-b857-72e7cfa37a4c		Error: Not allowed to CORS
+2024-10-22/03:57:45		6319c04d-9c6a-4f1c-a102-bf4e2faa6b51		Error: Not allowed to CORS
+2024-10-22/03:57:45		188b33f2-ec72-44b3-a7ec-5d75323c912b		Error: Not allowed to CORS
+2024-10-22/05:11:57		d1826138-e755-4667-ba93-0109e20f0ece		Error: Not allowed to CORS
+2024-10-22/05:11:57		27642517-b36a-4b98-ba0d-1a452a8e1a77		Error: Not allowed to CORS
+2024-10-22/05:11:57		39b201e4-ed07-4b7d-b788-e7a1ef797faa		Error: Not allowed to CORS
+2024-10-22/05:11:57		c4a3e4e8-6650-4c72-8e3f-54f2b5e9d87e		Error: Not allowed to CORS
+2024-10-22/05:11:57		67249b1d-1338-4f42-bd9f-74406226cbab		Error: Not allowed to CORS
+2024-10-22/05:11:57		bde695b0-7262-4c91-8fc4-168bbd6f6157		Error: Not allowed to CORS
+2024-10-22/05:11:57		bf4c5676-878c-4acc-92f5-5a1c3412b589		Error: Not allowed to CORS
+2024-10-22/05:11:57		8081dac0-7733-4514-b178-cdb3347b1ca3		Error: Not allowed to CORS
+2024-10-22/06:58:27		d65bed16-c835-4b51-b510-d2c28ad86599		Error: Not allowed to CORS
+2024-10-22/06:58:27		50308a62-526b-41cb-871d-da0857d3b168		Error: Not allowed to CORS
+2024-10-22/06:58:27		e0f13756-8f3e-422c-b33d-731e7163c5e6		Error: Not allowed to CORS
+2024-10-22/06:58:27		689b4f73-bad4-4f6b-b7bc-3530df2cb2a3		Error: Not allowed to CORS
+2024-10-22/06:58:27		2907e647-f1f0-4cb2-9f2e-d83ff052d87d		Error: Not allowed to CORS
+2024-10-22/06:58:27		7b5c6a7b-3638-40ab-9a5f-0a6142cef0fd		Error: Not allowed to CORS
+2024-10-22/06:58:27		01d1eb71-5ff8-41ad-87ee-a7933bb260d0		Error: Not allowed to CORS
+2024-10-22/06:58:27		716d1dac-bf4c-4865-a4ba-26ba9cb4281e		Error: Not allowed to CORS
+2024-10-22/06:58:43		ebcf1658-6a20-4c18-8e7b-aef6b8fbe6cd		Error: Not allowed to CORS
+2024-10-22/06:58:43		3c9609bb-d14a-4802-81b1-7f5a89c92d14		Error: Not allowed to CORS
+2024-10-22/06:58:43		81db434c-4622-4066-89ed-0e2ad3b5996c		Error: Not allowed to CORS
+2024-10-22/06:58:43		8609943e-6cb4-40e0-b796-9d4b14767cff		Error: Not allowed to CORS
+2024-10-22/06:58:43		54b382a4-fa2e-4a3d-b97b-40616e80ad90		Error: Not allowed to CORS
+2024-10-22/06:58:43		65f3f287-359f-4af4-8f0a-1496d9d201fd		Error: Not allowed to CORS
+2024-10-22/06:58:43		2b1c1b64-3115-4457-b9fa-c820754e65ca		Error: Not allowed to CORS
+2024-10-22/06:58:43		6e3c417e-437b-4421-9bfc-9189655e9433		Error: Not allowed to CORS
+2024-10-22/06:59:13		87fe90cd-e81c-4828-97a8-1213f0b38478		Error: Not allowed to CORS
+2024-10-22/06:59:13		b0f6ede9-fbbd-4a5b-9889-6fbb5954eaa3		Error: Not allowed to CORS
+2024-10-22/06:59:13		1dc4e2ce-5070-48ff-98a2-6aca74524bcd		Error: Not allowed to CORS
+2024-10-22/06:59:13		0a28c706-d96e-424d-a6db-43fa6705f149		Error: Not allowed to CORS
+2024-10-22/06:59:13		33430f84-f6c4-4718-a7b3-2847f002f353		Error: Not allowed to CORS
+2024-10-22/06:59:13		35c14772-a156-448d-bb98-2e259726ec66		Error: Not allowed to CORS
+2024-10-22/06:59:13		c2d69430-e225-4969-9282-132bdba3dfbf		Error: Not allowed to CORS
+2024-10-22/06:59:13		f4d460b2-1718-4274-a88e-bdaa7e00beaf		Error: Not allowed to CORS
+2024-11-01/10:09:25		0728f2c6-00f6-4712-be0a-57584fb62fc9		Error: Not allowed to CORS
+2024-11-01/10:09:25		316a0c97-2bbe-4620-8736-6a3ee0bec727		Error: Not allowed to CORS
+2024-11-01/10:09:25		f0d2727f-574c-43c1-a81b-ff5ef8d52598		Error: Not allowed to CORS
+2024-11-01/10:09:25		6295a667-7dc7-40a6-ac27-f2e62ace812a		Error: Not allowed to CORS
+2024-11-01/10:09:25		c91b26f2-3230-4af3-bb50-46eae3c451cc		Error: Not allowed to CORS
+2024-11-01/10:09:25		9994d4b4-06c2-4189-848d-e8fb0958db1c		Error: Not allowed to CORS
+2024-11-01/10:09:25		597e41be-49e1-47b1-b565-fdc8910b2103		Error: Not allowed to CORS
+2024-11-01/10:09:25		149a852a-4300-432e-85d6-8f3c39c600e7		Error: Not allowed to CORS
+2024-11-01/10:09:33		2cc02718-374d-4ee7-a9a3-763001a8544b		Error: Not allowed to CORS
+2024-11-01/10:09:33		cf181a19-709d-4430-bdc5-1269ee42cca8		Error: Not allowed to CORS
+2024-11-01/10:09:33		5009b6bd-cb74-42bc-b557-7ff53f3bd623		Error: Not allowed to CORS
+2024-11-01/10:09:33		0620d531-8a68-4dd8-bda6-6b78e998697a		Error: Not allowed to CORS
+2024-11-01/10:09:33		510e63b7-d393-4598-83a4-ef3550f83cef		Error: Not allowed to CORS
+2024-11-01/10:09:33		ec9607c8-5086-43fd-b9de-53f1a361ea6e		Error: Not allowed to CORS
+2024-11-01/10:09:33		3b0cc751-253d-478a-86ac-ebda331fc38c		Error: Not allowed to CORS
+2024-11-01/10:09:33		5bdc4c8b-ba5e-4fe9-b07f-b9ecd5448325		Error: Not allowed to CORS
+2024-11-03/09:51:23		69688147-8970-4cc8-a0c8-916c97c9b5ed		TokenError: Bad Request
+2024-11-03/09:51:52		fbb8ae6c-f9ab-4609-9000-ae256867f364		TokenError: Bad Request
+2024-11-03/09:51:54		b25273fe-3f18-4bec-b794-7c5abd479bb8		TokenError: Bad Request
+2024-11-03/09:52:59		29e7f0b8-2cf0-498a-9f68-6a2bf3811e25		TokenError: Bad Request
+2024-11-03/09:54:09		1040aaa4-e806-402a-ba86-29b176207ffd		TokenError: Bad Request
+2024-11-03/09:54:37		aed3fc6f-d312-4530-ab22-bfe0779004aa		TokenError: Bad Request
+2024-11-03/09:55:54		e1920e0b-d7d5-4610-97e8-ed782e24a5e4		TokenError: Bad Request
+2024-11-06/06:17:10		219dd7db-0540-4f52-86e1-3b1263ec75ba		SyntaxError: Expected property name or '}' in JSON at position 7
+2024-11-06/06:17:22		18b46e24-3713-4457-aa7f-2aeb5e8edfec		SyntaxError: Expected property name or '}' in JSON at position 7
