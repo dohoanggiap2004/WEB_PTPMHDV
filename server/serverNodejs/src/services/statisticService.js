@@ -16,13 +16,19 @@ const calculateRevenueService = async () => {
 //total quantity of selling product desc
 const countProductSalesService = async () => {
     const [rows] = await sequelize.query(
-        'SELECT l.laptopId, l.model, b.brandName, l.price, l.stockQuantity, l.os, SUM(lo.quantity) AS totalQuantity \n '
+        'SELECT l.laptopId, l.model, b.brandName, l.price, l.stockQuantity, l.image, l.os, SUM(lo.quantity) AS' +
+        ' totalQuantity \n '
         + 'FROM laptops_orders lo left join laptops l ON lo.laptopId = l.laptopId ' +
         'left join brands b ON l.brandId = b.brandId \n ' +
         'left join orders o ON lo.orderId = o.orderId ' +
         'WHERE o.status = "Đã giao"'
         + ' GROUP BY l.laptopId, l.model, l.price, b.brandName, l.os, l.stockQuantity \n'
-        + 'ORDER BY totalQuantity DESC\n' + '\n' + '\n');
+        + 'ORDER BY totalQuantity DESC\n'
+        + 'LIMIT :limit', {
+            replacements: {
+                limit: 10
+            }
+        });
     return [rows]
 }
 

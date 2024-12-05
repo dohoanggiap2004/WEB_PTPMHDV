@@ -12,7 +12,7 @@ class Authentication {
       }
       if (!user) {
         console.log("Authentication failed:", info);
-        return res.status(401).send(info);
+        return res.status(404).send(info);
       }
       console.log("User authenticated successfully:", user);
 
@@ -57,7 +57,7 @@ class Authentication {
       }
       if (!user) {
         console.log("Authentication failed:", info);
-        return res.status(401).send(info); // Error message sent here
+        return res.status(404).send(info); // Error message sent here
       }
       console.log("User authenticated successfully:", user);
 
@@ -96,13 +96,14 @@ class Authentication {
 
   authenticateLocalAdmin(req, res, next) {
     passport.authenticate("local", async (err, user, info) => {
+      console.log(1)
       if (err) {
         console.log("Error during authentication:", err);
         return next(err);
       }
       if (!user) {
         console.log("Authentication failed:", info);
-        return res.status(401).send(info); // Error message sent here
+        return res.status(404).send(info); // Error message sent here
       }
       if (user.role !== 'admin') {
         console.log('user role not match admin')

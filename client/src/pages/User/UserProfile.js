@@ -1,25 +1,49 @@
 import Layout from "../../layout/Layout";
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { instanceNodeJs } from "../../config/axiosConfig";
-import { useDispatch } from "react-redux";
+import {Link, useNavigate, useParams} from "react-router-dom";
+import { instanceAxios8000 } from "../../config/axiosConfig";
+import {useDispatch, useSelector} from "react-redux";
 import { logoutUser } from "../../store/actions/authAction";
-import ConfirmModal from "../../components/Admin/Modal/ConfirmModal";
+import ConfirmModal from "../../components/Modal/ConfirmModal";
+import {getUserById} from "../../store/actions/userAction";
 export default function UserProfile() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { id } = useParams()
   const [error, setError] = useState("");
   const [isLogout, setIsLogout] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { users } = useSelector((state) => state.user);
+  useEffect(() => {
+    dispatch(getUserById(id))
+  }, [])
+  useEffect(() => {
+    console.log('check user', users)
+  }, [users])
+
   const [formData, setFormData] = useState({
     fullname: "",
-    phone: "",
-    username: "",
-    email: "",
+    phone: '',
+    username: '',
+    email: '',
     password: "",
     confirmPassword: "",
-    dob: "",
+    dob: '',
   });
+
+  useEffect(() => {
+    if (users) {
+      setFormData({
+        fullname: users.fullname || "",
+        phone: users.phone || "",
+        username: users.username || "",
+        email: users.email || "",
+        password: "",
+        confirmPassword: "",
+        dob: users.dob || "",
+      });
+    }
+  }, [users]);
 
   const toggleModal = () => {
     setIsModalOpen((prev) => !prev);
@@ -65,7 +89,7 @@ export default function UserProfile() {
     } else {
       setError("");
       // Xử lý logic gửi form ở đây
-      const response = instanceNodeJs.post("/register", formData);
+      const response = instanceAxios8000.post("/register", formData);
       if (response.ok) {
         navigate("/login");
       } else {
@@ -372,23 +396,23 @@ export default function UserProfile() {
                       />
                     </div>
 
-                    <div className="grid grid-cols-9 items-center">
-                      <label
-                        htmlFor="password"
-                        className="text-sm md:col-span-1 col-span-2 text-gray-700 dark:text-gray-200 mr-2"
-                      >
-                        Mật khẩu:
-                      </label>
-                      <input
-                        type="password"
-                        id="password"
-                        required
-                        name="password"
-                        value={formData.password}
-                        onChange={handleChange}
-                        className="px-3 ms-6 md:col-span-3 col-span-5  dark:text-gray-200 dark:bg-gray-900 py-1 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                      />
-                    </div>
+                    {/*<div className="grid grid-cols-9 items-center">*/}
+                    {/*  <label*/}
+                    {/*    htmlFor="password"*/}
+                    {/*    className="text-sm md:col-span-1 col-span-2 text-gray-700 dark:text-gray-200 mr-2"*/}
+                    {/*  >*/}
+                    {/*    Mật khẩu:*/}
+                    {/*  </label>*/}
+                    {/*  <input*/}
+                    {/*    type="password"*/}
+                    {/*    id="password"*/}
+                    {/*    required*/}
+                    {/*    name="password"*/}
+                    {/*    value={formData.password}*/}
+                    {/*    onChange={handleChange}*/}
+                    {/*    className="px-3 ms-6 md:col-span-3 col-span-5  dark:text-gray-200 dark:bg-gray-900 py-1 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500"*/}
+                    {/*  />*/}
+                    {/*</div>*/}
 
                     <button
                       type="submit"

@@ -1,4 +1,4 @@
-import {useState, useEffect} from "react";
+import {useState, useEffect, useRef} from "react";
 import {Link} from "react-router-dom";
 import Cookies from "js-cookie";
 import Cart from "../Cart/CartSvg.js";
@@ -30,11 +30,37 @@ import {
     ComputerDesktopIcon,
 } from "@heroicons/react/20/solid";
 import UserAvatar from "../User/UserAvatar.js";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {getLaptopByModel2} from "../../store/actions/laptopAction";
+
 
 const Navbar = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const {isLoginUser} = useSelector((state) => state.auth.login);
+
+    const [isSearchListVisible, setIsSearchListVisible] = useState(false); // Kiểm tra trạng thái hiển thị danh sách
+                                                                           // tìm kiếm
+    const searchBoxRef = useRef(null); // Tham chiếu tới phần tử chứa thanh tìm kiếm
+
+    const handleClickLink = () => {
+        setIsSearchListVisible(false);
+    }
+
+    // Thêm sự kiện click khi người dùng click ra ngoài
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (searchBoxRef.current && !searchBoxRef.current.contains(event.target)) {
+                setIsSearchListVisible(false); // Ẩn danh sách khi click ngoài
+            }
+        };
+
+        document.addEventListener('click', handleClickOutside);
+
+        return () => {
+            document.removeEventListener('click', handleClickOutside); // Dọn dẹp sự kiện khi component unmount
+        };
+    }, []);
+
     const products = [
         {
             name: "HP",
@@ -67,8 +93,15 @@ const Navbar = () => {
             icon: ComputerDesktopIcon,
         },
     ];
-
-
+    const dispatch = useDispatch();
+    const {laptopsSearch} = useSelector((state) => state.laptop);
+    const handleSearch = (e) => {
+        dispatch(getLaptopByModel2(e.target.value))
+        setIsSearchListVisible(true); // Hiển thị danh sách khi có kết quả tìm kiếm
+    }
+    useEffect(() => {
+        console.log('check laptops search', laptopsSearch);
+    }, [laptopsSearch]);
     return (
         <header className="fixed top-0 left-0 z-50 w-full bg-red-600 py-1">
             <nav
@@ -85,11 +118,13 @@ const Navbar = () => {
                 </div>
 
                 {/* md open */}
-                <div className="flex lg:hidden items-center justify-end w-full">
+                <div className="flex lg:hidden items-center justify-end w-full " ref={searchBoxRef}>
                     {/* Search Bar */}
                     <div className="relative border border-gray-200 rounded-md w-full flex-grow mx-2">
                         <input
                             type="text"
+                            name='query'
+                            onChange={handleSearch}
                             className="rounded-md text-md p-1.5 px-8 w-full"
                             placeholder="Bạn cần tìm gì"
                         />
@@ -109,6 +144,35 @@ const Navbar = () => {
                                 />
                             </svg>
                         </button>
+                        {/*list search*/}
+                        {isSearchListVisible && (
+                            <div className={'bg-white absolute top-full left-0 w-full  border' +
+                                ' border-gray-200' +
+                                ' rounded-lg shadow-lg mt-1 z-10 w-[500px] overflow-auto max-h-[500px]'}>
+                                {laptopsSearch.map((laptop) => (
+                                    <div key={laptop.laptopId} className={'m-4 flex items-center'}>
+                                        <Link to={`/productdetail/${laptop.laptopId}`} onClick={handleClickLink}
+                                              className={'flex'}>
+                                            <img src={laptop.image} className={'object-cover h-20 w-20'}/>
+
+                                            <div className={'flex flex-col justify-center ml-3'}>
+                                                <h1 className={'block'}>{laptop.model}</h1>
+                                                <div className={'flex'}>
+                                                    <h1 className={'block text-red-700 font-semibold'}>{(
+                                                        laptop.price
+                                                    ).toLocaleString('vi-VN')} VNĐ</h1>
+                                                    <h1 className={'block text-gray-400 ml-3 text-sm line-through' +
+                                                        ' mt-2'}>{(
+                                                        laptop.price
+                                                    ).toLocaleString('vi-VN')} VNĐ</h1>
+                                                </div>
+                                            </div>
+                                        </Link>
+                                    </div>
+                                ))}
+                            </div>
+
+                        )}
                     </div>
 
                     {/* svg cart */}
@@ -173,19 +237,89 @@ const Navbar = () => {
                                 </div>
                             </PopoverPanel>
                         </Popover>
+                        <Popover className="relative">
+                            <PopoverButton
+                                className="flex items-center gap-x-1 text-lg font-semibold leading-6 text-white w-36">
+                                Dịch vụ
+                                <ChevronDownIcon
+                                    aria-hidden="true"
+                                    className="h-5 w-5 flex-none text-white"
+                                />
+                            </PopoverButton>
 
-                        <Link
-                            to="/comparison"
-                            className="text-lg font-semibold leading-6 text-white no-underline w-20"
-                        >
-                            So sánh
-                        </Link>
+                            <PopoverPanel
+                                transition
+                                className="absolute -left-8 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5 transition data-[closed]:translate-y-1 data-[closed]:opacity-0 data-[enter]:duration-200 data-[leave]:duration-150 data-[enter]:ease-out data-[leave]:ease-in"
+                            >
+                                <div className="p-4">
+
+                                    <Link to={'/comparison'}
+
+                                          className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50"
+                                    >
+                                        <div
+                                            className="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
+                                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#000000"
+                                                 className={'h-6 w-6'}>
+                                                <g id="SVGRepo_iconCarrier">
+                                                    <path
+                                                        d="M2 4h9v1H3v15h8v1H2zm10 19h1V2h-1zM8.283 10.283l-.566-.566L4.934 12.5l2.783 2.783.566-.566L6.566 13H11v-1H6.566zM14 12h4.08l-1.54-1.54.92-.92 2.96 2.96-2.96 2.96-.92-.92L18.08 13H14v8h9V4h-9z"></path>
+                                                    <path fill="none" d="M0 0h24v24H0z"></path>
+                                                </g>
+                                            </svg>
+                                        </div>
+                                        <div className="flex-auto">
+                                            <a
+
+                                                className="block font-semibold text-gray-900"
+                                            >
+                                                SO SÁNH
+                                                <span className="absolute inset-0"/>
+                                            </a>
+                                            <p className="mt-1 text-gray-600">Giúp bạn chọn ra gói trả góp phù hợp</p>
+                                        </div>
+                                    </Link>
+
+                                    <Link to={'/suggestion'}
+
+                                          className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50"
+                                    >
+                                        <div
+                                            className="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
+                                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#000000"
+                                                 className={'h-6 w-6'}>
+                                                <g id="SVGRepo_iconCarrier">
+                                                    <path
+                                                        d="M2 4h9v1H3v15h8v1H2zm10 19h1V2h-1zM8.283 10.283l-.566-.566L4.934 12.5l2.783 2.783.566-.566L6.566 13H11v-1H6.566zM14 12h4.08l-1.54-1.54.92-.92 2.96 2.96-2.96 2.96-.92-.92L18.08 13H14v8h9V4h-9z"></path>
+                                                    <path fill="none" d="M0 0h24v24H0z"></path>
+                                                </g>
+                                            </svg>
+                                        </div>
+                                        <div className="flex-auto">
+                                            <a
+
+                                                className="block font-semibold text-gray-900"
+                                            >
+                                                GỢI Ý
+                                                <span className="absolute inset-0"/>
+                                            </a>
+                                            <p className="mt-1 text-gray-600">Giúp bạn tìm ra Laptop mong muốn</p>
+                                        </div>
+                                    </Link>
+                                </div>
+
+                            </PopoverPanel>
+                        </Popover>
+
                     </PopoverGroup>
 
                     {/* Search Bar */}
-                    <div className="relative border border-gray-200 rounded-lg w-full max-w-md flex-grow">
+                    <div className="relative border border-gray-200 rounded-lg w-full max-w-md flex-grow"
+                         ref={searchBoxRef}>
                         <input
                             type="text"
+                            name='query'
+                            onChange={handleSearch}
                             className="rounded-md p-2 px-4 w-full"
                             placeholder="Bạn cần tìm gì"
                         />
@@ -205,7 +339,36 @@ const Navbar = () => {
                                 />
                             </svg>
                         </button>
+                        {/*list search*/}
+                        {isSearchListVisible && (
+                            <div className={'bg-white absolute top-full left-0 w-full  border' +
+                                ' border-gray-200' +
+                                ' rounded-lg shadow-lg mt-1 z-10 w-[500px] overflow-auto max-h-[500px]'}>
+                                {laptopsSearch.map((laptop) => (
+                                    <div key={laptop.laptopId} className={'m-4 flex items-center'}>
+                                        <Link to={`/productdetail/${laptop.laptopId}`} onClick={handleClickLink}
+                                              className={'flex'}>
+                                            <img src={laptop.image} className={'object-cover h-20 w-20'}/>
+
+                                            <div className={'flex flex-col justify-center ml-3'}>
+                                                <h1 className={'block'}>{laptop.model}</h1>
+                                                <div className={'flex'}>
+                                                    <h1 className={'block text-red-700 font-semibold'}>{(
+                                                        laptop.price
+                                                    ).toLocaleString('vi-VN')} VNĐ</h1>
+                                                    <h1 className={'block text-gray-400 ml-3 text-sm line-through' +
+                                                        ' mt-2'}>{(
+                                                        laptop.price
+                                                    ).toLocaleString('vi-VN')} VNĐ</h1>
+                                                </div>
+                                            </div>
+                                        </Link>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
                     </div>
+
                 </div>
 
                 <div className="hidden lg:flex lg:flex-1 lg:justify-end">
@@ -297,6 +460,37 @@ const Navbar = () => {
                                         ))}
                                     </DisclosurePanel>
                                 </Disclosure>
+                                <Disclosure as="div" className="-mx-3">
+                                    <DisclosureButton
+                                        className="no-underline group flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
+                                        Dịch vụ
+                                        <ChevronDownIcon
+                                            aria-hidden="true"
+                                            className="h-5 w-5 flex-none group-data-[open]:rotate-180"
+                                        />
+                                    </DisclosureButton>
+                                    <DisclosurePanel className="mt-2 space-y-2">
+
+                                        <DisclosureButton
+                                            as="a"
+                                            className="no-underline block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                                        >
+                                            <Link to={'/comparison'}>
+                                                So sánh
+                                            </Link>
+                                        </DisclosureButton>
+
+                                        <DisclosureButton
+                                            as="a"
+                                            className="no-underline block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                                        >
+                                            <Link to={'/suggestion'}>
+                                                Gợi ý
+                                            </Link>
+                                        </DisclosureButton>
+
+                                    </DisclosurePanel>
+                                </Disclosure>
                                 <Link
                                     to="/comparison"
                                     className="no-underline -mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
@@ -315,7 +509,8 @@ const Navbar = () => {
                 </DialogPanel>
             </Dialog>
         </header>
-    );
+    )
+        ;
 };
 
 export default Navbar;

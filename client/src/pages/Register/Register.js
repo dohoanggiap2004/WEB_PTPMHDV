@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Layout from "../../layout/Layout";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "../../config/axiosConfig";
+import {instanceAxios8000} from "../../config/axiosConfig";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -41,12 +41,12 @@ const Register = () => {
     setError(""); // Reset error message
   
     try {
-      // const response = await axios.post("/register", formData);
-      // if (response.status === 200) { // Kiểm tra nếu status trả về là 200
-      //   navigate("/login");
-      // } else {
-      //   setError("Có lỗi xảy ra, vui lòng đăng ký lại");
-      // }
+      const response = await instanceAxios8000.post("/auth/register", formData);
+      if (response.status === 201) { // Kiểm tra nếu status trả về là 200
+        navigate("/login");
+      } else {
+        setError("Có lỗi xảy ra, vui lòng đăng ký lại");
+      }
     } catch (err) {
       console.error(err);
       setError("Có lỗi xảy ra, vui lòng kiểm tra lại thông tin của bạn.");

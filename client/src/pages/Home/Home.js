@@ -6,208 +6,232 @@ import {Link} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {addToCart} from "../../services/cartService";
 import Cookies from "js-cookie";
-import { loginUserSuccess } from "../../store/reducers/authReducer";
+import {loginUserSuccess} from "../../store/reducers/authReducer";
 import {useDispatch, useSelector} from "react-redux";
-import { getLaptops } from "../../store/actions/laptopAction";
-import {getUsers} from "../../store/actions/userAction";
+import Pagination from "../../components/Pagination/Pagination";
+import {instanceAxios8000} from "../../config/axiosConfig";
 
 const Home = () => {
 
     const dispatch = useDispatch();
-    const {users} = useSelector((state) => state.user);
+
+    const [laptops, setLaptops] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+    const [pageSize] = useState(20); // Số mục mỗi trang
+
     useEffect(() => {
-        dispatch(getUsers());
-    }, [dispatch]);
-    useEffect(() => {
-        console.log('check user', users)
-    }, [users])
-    // const { laptops } = useSelector((state) => state.laptop);
-    //
-    // useEffect( () => {
+        fetchLaptops(currentPage, pageSize);
+    }, [currentPage]);
+
+    const fetchLaptops = async (page, size) => {
+        try {
+            const response = await instanceAxios8000.get(`/api/laptops/request-page`, {
+                params: {
+                    page: page,
+                    size: size,
+                },
+            });
+            setLaptops(response.data.content);
+            setTotalPages(response.data.totalPages);
+        } catch (error) {
+            console.error("Error fetching laptops:", error);
+        }
+    };
+
+    const handlePageChange = (page) => {
+        setCurrentPage(page);
+    };
+
+    // useEffect(() => {
     //     dispatch(getLaptops())
     // }, [dispatch])
-    //
-    // useEffect(() => {
-    //     console.log('checklaptop', laptops)
-    // }, [laptops])
 
     //dispatch login success after authenticating
     useEffect(() => {
-        const accessToken = Cookies.get("accessToken");
-        if (accessToken) {
+        const isLoginUser = localStorage.getItem("isLoginUser");
+        if (isLoginUser) {
             dispatch(loginUserSuccess())
         }
-    }, [dispatch])
+    }, [])
 
-    const laptops = [
-        {
-            laptop_id: 1,
-            model: "Dell XPS 13",
-            price: 1500,
-            stock_quantity: 10,
-            description: "Ultrabook with excellent performance",
-            brand_id: 1,
-            discount_id: 1,
-            processor: "Intel Core i7",
-            ram: "16GB",
-            storage: "512GB SSD",
-            gpu: "Intel Iris Plus",
-            screen_size: 13.3,
-            battery: "52Wh",
-            weight: 1.2,
-            os: "Windows 10",
-            imageSrc: "/laptop.png",
-        },
-        {
-            laptop_id: 2,
-            model: "MacBook Pro 16",
-            price: 2500,
-            stock_quantity: 5,
-            description: "High performance for professional users",
-            brand_id: 2,
-            discount_id: 2,
-            processor: "Apple M1 Pro",
-            ram: "32GB",
-            storage: "1TB SSD",
-            gpu: "Apple M1 GPU",
-            screen_size: 16.0,
-            battery: "100Wh",
-            weight: 2.0,
-            os: "macOS",
-            imageSrc: "/laptop.png",
-        },
-        {
-            laptop_id: 3,
-            model: "Asus ROG Zephyrus G14",
-            price: 1800,
-            stock_quantity: 8,
-            description: "Gaming laptop with compact design",
-            brand_id: 3,
-            discount_id: 1,
-            processor: "AMD Ryzen 9",
-            ram: "16GB",
-            storage: "1TB SSD",
-            gpu: "NVIDIA RTX 3060",
-            screen_size: 14.0,
-            battery: "76Wh",
-            weight: 1.7,
-            os: "Windows 11",
-            imageSrc: "/laptop.png",
-        },
-        {
-            laptop_id: 4,
-            model: "HP Spectre x360",
-            price: 1700,
-            stock_quantity: 6,
-            description: "Convertible laptop with premium design",
-            brand_id: 4,
-            discount_id: 3,
-            processor: "Intel Core i5",
-            ram: "16GB",
-            storage: "512GB SSD",
-            gpu: "Intel Iris Xe",
-            screen_size: 13.5,
-            battery: "60Wh",
-            weight: 1.3,
-            os: "Windows 10",
-            imageSrc: "/laptop.png",
-        },
-        {
-            laptop_id: 5,
-            model: "HP Spectre x360",
-            price: 1700,
-            stock_quantity: 6,
-            description: "Convertible laptop with premium design",
-            brand_id: 4,
-            discount_id: 3,
-            processor: "Intel Core i5",
-            ram: "16GB",
-            storage: "512GB SSD",
-            gpu: "Intel Iris Xe",
-            screen_size: 13.5,
-            battery: "60Wh",
-            weight: 1.3,
-            os: "Windows 10",
-            imageSrc: "/laptop.png",
-        },
-        {
-            laptop_id: 6,
-            model: "HP Spectre x360",
-            price: 1700,
-            stock_quantity: 6,
-            description: "Convertible laptop with premium design",
-            brand_id: 4,
-            discount_id: 3,
-            processor: "Intel Core i5",
-            ram: "16GB",
-            storage: "512GB SSD",
-            gpu: "Intel Iris Xe",
-            screen_size: 13.5,
-            battery: "60Wh",
-            weight: 1.3,
-            os: "Windows 10",
-            imageSrc: "/laptop.png",
-        },
-    ];
+    // const handleFilter = (value) => {
+    //
+    // }
 
     if (!Array.isArray(laptops)) {
-      console.error('Expected laptops to be an array, but got:', laptops);
-      return <div>No laptops available</div>;
+        console.error('Expected laptops to be an array, but got:', laptops);
+        return <div>No laptops available</div>;
     }
 
     return (
         <>
             <Layout>
-                <Carousel/>
+                <div className="grid grid-cols-5 gap-4 mx-2 lg:mx-0">
+
+                    {/* Cột 1 */}
+                    <div className="bg-white rounded-2xl shadow-md mt-24 hidden md:block">
+                        <div>
+                            <button className="px-4 rounded-md py-1 my-2  w-full hover:bg-gray-300">
+                                <div className="flex items-center">
+                                    <p className="mr-auto">HP</p>
+                                    <svg viewBox="0 0 1024 1024" fill="#000000" className="icon h-6 w-6" version="1.1"
+                                    >
+                                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                           stroke-linejoin="round"></g>
+                                        <g id="SVGRepo_iconCarrier">
+                                            <path
+                                                d="M642.174 504.594c7.99 7.241 7.897 17.58-0.334 24.782L332.62 799.945c-8.867 7.759-9.766 21.236-2.007 30.103 7.758 8.867 21.236 9.766 30.103 2.007l309.221-270.569c27.429-24 27.792-64.127 0.89-88.507L360.992 192.192c-8.73-7.912-22.221-7.248-30.133 1.482-7.912 8.73-7.248 22.222 1.482 30.134l309.833 280.786z"
+                                                fill=""></path>
+                                        </g>
+                                    </svg>
+                                </div>
+                            </button>
+                        </div>
+
+                        <div>
+                            <button className="px-4 rounded-md py-1 my-2  w-full hover:bg-gray-300">
+                                <div className="flex items-center">
+                                    <p className="mr-auto">DELL</p>
+                                    <svg viewBox="0 0 1024 1024" fill="#000000" className="icon h-6 w-6" version="1.1"
+                                    >
+                                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                           stroke-linejoin="round"></g>
+                                        <g id="SVGRepo_iconCarrier">
+                                            <path
+                                                d="M642.174 504.594c7.99 7.241 7.897 17.58-0.334 24.782L332.62 799.945c-8.867 7.759-9.766 21.236-2.007 30.103 7.758 8.867 21.236 9.766 30.103 2.007l309.221-270.569c27.429-24 27.792-64.127 0.89-88.507L360.992 192.192c-8.73-7.912-22.221-7.248-30.133 1.482-7.912 8.73-7.248 22.222 1.482 30.134l309.833 280.786z"
+                                                fill=""></path>
+                                        </g>
+                                    </svg>
+                                </div>
+                            </button>
+                        </div>
+
+                        <div>
+                            <button className="px-4 rounded-md py-1 my-2  w-full hover:bg-gray-300">
+                                <div className="flex items-center">
+                                    <p className="mr-auto">ASUS</p>
+                                    <svg viewBox="0 0 1024 1024" fill="#000000" className="icon h-6 w-6" version="1.1"
+                                    >
+                                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                           stroke-linejoin="round"></g>
+                                        <g id="SVGRepo_iconCarrier">
+                                            <path
+                                                d="M642.174 504.594c7.99 7.241 7.897 17.58-0.334 24.782L332.62 799.945c-8.867 7.759-9.766 21.236-2.007 30.103 7.758 8.867 21.236 9.766 30.103 2.007l309.221-270.569c27.429-24 27.792-64.127 0.89-88.507L360.992 192.192c-8.73-7.912-22.221-7.248-30.133 1.482-7.912 8.73-7.248 22.222 1.482 30.134l309.833 280.786z"
+                                                fill=""></path>
+                                        </g>
+                                    </svg>
+                                </div>
+                            </button>
+                        </div>
+
+                        <div>
+                            <button className="px-4 rounded-md py-1 my-2  w-full hover:bg-gray-300">
+                                <div className="flex items-center">
+                                    <p className="mr-auto">LENOVO</p>
+                                    <svg viewBox="0 0 1024 1024" fill="#000000" className="icon h-6 w-6" version="1.1"
+                                    >
+                                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                           stroke-linejoin="round"></g>
+                                        <g id="SVGRepo_iconCarrier">
+                                            <path
+                                                d="M642.174 504.594c7.99 7.241 7.897 17.58-0.334 24.782L332.62 799.945c-8.867 7.759-9.766 21.236-2.007 30.103 7.758 8.867 21.236 9.766 30.103 2.007l309.221-270.569c27.429-24 27.792-64.127 0.89-88.507L360.992 192.192c-8.73-7.912-22.221-7.248-30.133 1.482-7.912 8.73-7.248 22.222 1.482 30.134l309.833 280.786z"
+                                                fill=""></path>
+                                        </g>
+                                    </svg>
+                                </div>
+                            </button>
+                        </div>
+
+                        <div>
+                            <button className="px-4 rounded-md py-1 my-2  w-full hover:bg-gray-300">
+                                <div className="flex items-center">
+                                    <p className="mr-auto">MSI</p>
+                                    <svg viewBox="0 0 1024 1024" fill="#000000" className="icon h-6 w-6" version="1.1"
+                                    >
+                                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                           stroke-linejoin="round"></g>
+                                        <g id="SVGRepo_iconCarrier">
+                                            <path
+                                                d="M642.174 504.594c7.99 7.241 7.897 17.58-0.334 24.782L332.62 799.945c-8.867 7.759-9.766 21.236-2.007 30.103 7.758 8.867 21.236 9.766 30.103 2.007l309.221-270.569c27.429-24 27.792-64.127 0.89-88.507L360.992 192.192c-8.73-7.912-22.221-7.248-30.133 1.482-7.912 8.73-7.248 22.222 1.482 30.134l309.833 280.786z"
+                                                fill=""></path>
+                                        </g>
+                                    </svg>
+                                </div>
+                            </button>
+                        </div>
+
+                        <div>
+                            <button className="px-4 rounded-md py-1 my-2  w-full hover:bg-gray-300">
+                                <div className="flex items-center">
+                                    <p className="mr-auto">ASUS</p>
+                                    <svg viewBox="0 0 1024 1024" fill="#000000" className="icon h-6 w-6" version="1.1"
+                                    >
+                                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                           stroke-linejoin="round"></g>
+                                        <g id="SVGRepo_iconCarrier">
+                                            <path
+                                                d="M642.174 504.594c7.99 7.241 7.897 17.58-0.334 24.782L332.62 799.945c-8.867 7.759-9.766 21.236-2.007 30.103 7.758 8.867 21.236 9.766 30.103 2.007l309.221-270.569c27.429-24 27.792-64.127 0.89-88.507L360.992 192.192c-8.73-7.912-22.221-7.248-30.133 1.482-7.912 8.73-7.248 22.222 1.482 30.134l309.833 280.786z"
+                                                fill=""></path>
+                                        </g>
+                                    </svg>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div className="col-span-5 md:col-span-4 lg:col-span-3 h-full">
+                        <Carousel/>
+                    </div>
+
+                    <div className="rounded-2xl shadow-md mt-24 col-span-1 lg:grid lg:grid-rows-3 gap-4 hidden">
+                        <div>
+                            <img
+                                src={'https://cdn2.cellphones.com.vn/insecure/rs:fill:690:300/q:10/plain/https://dashboard.cellphones.com.vn/storage/home-m55-10190-12-11.png'}
+                                className={'object-cover rounded-2xl shadow-md '}
+                            />
+                        </div>
+
+                        <div>
+                            <img
+                                src={'https://cdn2.cellphones.com.vn/insecure/rs:fill:690:300/q:10/plain/https://dashboard.cellphones.com.vn/storage/udsv-right-laptop.jpg'}
+                                className={'object-cover rounded-2xl shadow-md '}
+                            />
+                        </div>
+
+                        <div>
+                            <img
+                                src={'https://cdn2.cellphones.com.vn/insecure/rs:fill:690:300/q:10/plain/https://dashboard.cellphones.com.vn/storage/right-banner-14-10.jpg'}
+                                className={'object-cover rounded-2xl shadow-md '}
+                            />
+                        </div>
+                    </div>
+                </div>
+
                 <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md mt-4 mb-4">
                     <div className="mx-auto max-w-2xl px-4 py-8 sm:px-6 lg:max-w-7xl lg:px-8">
-                        <div className="grid grid-cols-3 md:grid-cols-6 lg:grid-cols-12 justify-start">
-                            <button
-                                className="px-4 rounded-md text-md border border-gray-950 text-center self-center py-1 my-2 mx-2">
-                                <p className="mx-auto">Lọc</p>
-                            </button>
-                            <button
-                                className="px-4 bg-gray-200 rounded-md border border-gray-400 hover:bg-cyan-200 text-blue-500 text-md text-center self-center py-1 my-2 mx-2">
-                                <p className="mx-auto">DELL</p>
-                            </button>
-                            <button
-                                className="px-4 bg-gray-200 rounded-md border border-gray-400 hover:bg-cyan-200 text-blue-500 text-md text-center self-center py-1 my-2 mx-2">
-                                <p className="mx-auto">ASUS</p>
-                            </button>
-                            <button
-                                className="px-4 bg-gray-200 rounded-md border border-gray-400 hover:bg-cyan-200 text-blue-500 text-md text-center self-center py-1 my-2 mx-2">
-                                <p className="mx-auto  ">LENOVO</p>
-                            </button>
-                            <button
-                                className="px-4 bg-gray-200 rounded-md border border-gray-400 hover:bg-cyan-200 text-blue-500 text-md text-center self-center py-1 my-2 mx-2">
-                                <p className="mx-auto">HP</p>
-                            </button>
-                            <button
-                                className="px-4 bg-gray-200 rounded-md border border-gray-400 hover:bg-cyan-200 text-blue-500 text-md text-center self-center py-1 my-2 mx-2">
-                                <p className="mx-auto">MSI</p>
-                            </button>
-                            <button
-                                className="px-4 bg-gray-200 rounded-md border border-gray-400 hover:bg-cyan-200 text-blue-500 text-md text-center self-center py-1 my-2 mx-2">
-                                <p className="mx-auto">Github</p>
-                            </button>
-                            <button
-                                className="px-4 bg-gray-200 rounded-md border border-gray-400 hover:bg-cyan-200 text-blue-500 text-md text-center self-center py-1 my-2 mx-2">
-                                <p className="mx-auto">Github</p>
-                            </button>
+                        <div className="text-4xl font-semibold text-gray-900 dark:text-white">
+                            <p>LAPTOP</p>
                         </div>
 
                         <div
                             className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 md:grid-cols-3 lg:grid-cols-5 xl:gap-x-8">
                             {laptops.map((laptop) => (
                                 <div
-                                    key={laptop.laptop_id}
+                                    key={laptop.laptopId}
                                     className="group relative border-2 dark:bg-gray-800 rounded-lg shadow-md p-2"
                                 >
-                                    <Link to={`/productdetail/${laptop.laptop_id}`}>
+                                    <Link to={`/productdetail/${laptop.laptopId}`}>
                                         <div
                                             className="aspect-h-1 aspect-w-1 w-auto overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-40">
                                             <img
-                                                src={laptop.imageSrc}
+                                                src={laptop.image}
                                                 className="h-full w-full object-cover object-center lg:h-full lg:w-full"
                                             />
                                         </div>
@@ -223,10 +247,10 @@ const Home = () => {
                                                     </a>
                                                 </h3>
                                                 <p className="mt-1 text-sm text-gray-500 line-through">
-                                                    {laptop.price}
+                                                    {laptop.price.toLocaleString('vi-VN')} VND
                                                 </p>
                                                 <p className="text-lg mb-3 font-medium text-red-600">
-                                                    {laptop.price}
+                                                    {laptop.price.toLocaleString('vi-VN')} VND
                                                 </p>
                                             </div>
                                         </div>
@@ -242,6 +266,7 @@ const Home = () => {
                             ))}
                         </div>
                     </div>
+                    <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange}/>
                 </div>
             </Layout>
         </>

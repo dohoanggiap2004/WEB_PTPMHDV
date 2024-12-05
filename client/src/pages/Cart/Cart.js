@@ -88,12 +88,12 @@ const Cart = () => {
                 <div className="md:flex items-stretch py-8 md:py-10 lg:py-8 border-t border-gray-200 h-36">
                   <div className="md:w-4/12 2xl:w-1/4 w-full">
                     <img
-                      src={laptop.imageSrc}
+                      src={laptop.image}
                       alt="Black Leather Purse"
                       className="h-full object-center object-cover md:block hidden"
                     />
                     <img
-                      src={laptop.imageSrc}
+                      src={laptop.image}
                       alt="Black Leather Purse"
                       className="md:hidden w-full h-full object-center object-cover"
                     />
@@ -114,7 +114,7 @@ const Cart = () => {
                     </div>
 
                     <p className="text-xs leading-3 text-gray-600 pt-1">
-                      {`Màn hình: ${laptop.screen_size} inches`}
+                      {`Màn hình: ${laptop.screenSize} inches`}
                     </p>
                     <p className="text-xs leading-3 text-gray-600 py-2">
                       Color: Black
@@ -129,7 +129,7 @@ const Cart = () => {
                         </p>
                         <p
                           className="text-xs leading-3 underline text-red-500 pl-5 cursor-pointer"
-                          onClick={() => removeItem(laptop.laptop_id)}
+                          onClick={() => removeItem(laptop.laptopId)}
                         >
                           Remove
                         </p>

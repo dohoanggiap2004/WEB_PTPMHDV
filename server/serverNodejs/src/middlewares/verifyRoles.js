@@ -1,16 +1,15 @@
 const verifyRoles = (...allowedRoles) => {
     return (req, res, next) => {
-        if (!req?.user) return res.sendStatus(401);
-        const rolesArray = [...allowedRoles];
-        // verify array roles
-        // const result = req.user.role
-        //     .map((role) => rolesArray.includes(role))
-        //     .find((val) => val === true);
+        console.log(1)
+        console.log('2', req.headers)
+        const userRole = req.headers['x-user-info'];
+        console.log('check user role', userRole);
+        if (!userRole) return res.sendStatus(401);
 
-        //verify only role
-        const result = rolesArray.includes(req.user.role);
+        if (!allowedRoles.includes(userRole)) {
+            return res.sendStatus(403); // Forbidden nếu vai trò không hợp lệ
+        }
 
-        if (!result) return res.sendStatus(403); //forbidden
         console.log('verify role successfully')
         next();
     };

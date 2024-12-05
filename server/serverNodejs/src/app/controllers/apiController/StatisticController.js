@@ -7,6 +7,7 @@ class StatisticController{
             if(!userQuantity){
                 res.status(404).send('User Not Found')
             }
+            console.log('>>check user quantity', userQuantity)
             res.status(200).json({
                 data: userQuantity,
             })
@@ -23,6 +24,7 @@ class StatisticController{
             if(!data){
                 res.status(404).send('Revenue Not Found')
             }
+            console.log('check revenue', data)
             res.status(200).json({
                 data: data,
             })
@@ -35,7 +37,7 @@ class StatisticController{
     async countProductSales(req, res){
         try {
             const [data] = await countProductSalesService()
-            console.log('check data', data)
+            console.log('check sản phẩm đã bán', data)
             if(!data){
                 res.status(404).send('ProductSales Not Found')
             }
@@ -54,6 +56,7 @@ class StatisticController{
             if(!data){
                 res.status(404).send('Products Not Found')
             }
+            console.log('số lượng sản phẩm còn hàng', data)
             res.status(200).json({
                 data: data,
             })
@@ -69,6 +72,7 @@ class StatisticController{
             if(!data){
                 res.status(404).send('Order Not Found')
             }
+            console.log('check số lượng đơn hàng', data)
             res.status(200).json({
                 data: data,
             })

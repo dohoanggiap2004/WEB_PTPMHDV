@@ -83,7 +83,6 @@ class VoucherController {
             if(!req?.body){
                 return res.status(400).send({message: "VoucherId is required"});
             }
-
             const voucherId = req.body.voucherId;
             const result = await deleteVoucherService(voucherId);
 

@@ -20,7 +20,9 @@ SET time_zone = "+00:00";
 --
 -- Database: `commercial`
 --
-
+DROP DATABASE IF EXISTS commercial; 
+CREATE DATABASE commercial;          
+USE commercial;  
 -- --------------------------------------------------------
 
 --
@@ -406,31 +408,31 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`orderId`, `orderDate`, `status`, `userId`, `voucherId`, `orderAddress`, `orderNote`, `paymentMethod`, `phoneNumber`, `shippingMethod`, `totalPayment`) VALUES
-(1, '2024-12-27 21:15:42.000000', 'Đang xử lý', 34, NULL, '123 Đường Lê Lợi, Quận 1, TP.HCM', 'Liên hệ trước khi giao', 'Thanh toán khi nhận hàng', '0901234567', 'Giao hàng nhanh', 17000000),
-(2, '2024-11-13 21:15:49.000000', 'Đã giao', 35, NULL, '456 Đường Trần Phú, Quận 5, TP.HCM', 'Giao đúng giờ, gói cẩn thận', 'Thẻ tín dụng', '0912345678', 'Giao hàng tiêu chuẩn', 19000000),
-(3, '2024-11-13 21:15:56.000000', 'Đang giao', 36, NULL, '789 Đường Nguyễn Trãi, Quận 10, TP.HCM', 'Liên hệ trước khi giao hàng', 'Chuyển khoản', '0923456789', 'Giao hàng nhanh', 64770000),
-(4, '2024-11-13 21:16:02.000000', 'Đã Giao', 37, NULL, '101 Đường Hùng Vương, Quận 7, TP.HCM', 'Thành công', 'Thanh toán khi nhận hàng', '0934567890', 'Giao hàng tiêu chuẩn', 20000000),
-(5, '2024-11-13 21:16:09.000000', 'Đã giao', 38, NULL, '202 Đường Điện Biên Phủ, Quận 3, TP.HCM', 'Giao đúng hẹn, khách hài lòng', 'Thẻ tín dụng', '0945678901', 'Giao hàng nhanh', 32990000),
-(19, '2024-04-08 16:00:00.000000', 'Đang xử lý', 19, NULL, '99 Đường Bạch Đằng, Quận Tân Bình, TP.HCM', 'Gọi trước khi giao', 'Chuyển khoản', '0912123456', 'Giao hàng nhanh', 15490000),
-(20, '2024-05-17 21:45:00.000000', 'Đã thanh toán', 20, NULL, '88 Đường Cách Mạng Tháng Tám, Quận 3, TP.HCM', 'Giao hàng vào buổi chiều', 'Thẻ tín dụng', '0923344556', 'Giao hàng tiêu chuẩn', 25000000),
-(21, '2024-06-19 18:30:00.000000', 'Đã giao', 21, NULL, '77 Đường Hai Bà Trưng, Quận 1, TP.HCM', 'Giao đúng giờ', 'Thanh toán khi nhận hàng', '0934556677', 'Giao hàng nhanh', 48000000),
-(22, '2024-09-11 22:00:00.000000', 'Đã hủy', 22, NULL, '55 Đường Nam Kỳ Khởi Nghĩa, Quận 1, TP.HCM', 'Khách hàng hủy đơn hàng', 'Chuyển khoản', '0944667788', 'Giao hàng tiêu chuẩn', 0),
-(23, '2024-08-17 17:00:00.000000', 'Đang giao', 23, NULL, '44 Đường Lê Văn Sỹ, Quận 3, TP.HCM', 'Gói kỹ sản phẩm', 'Thanh toán khi nhận hàng', '0955778899', 'Giao hàng nhanh', 58500000),
-(24, '2024-08-15 20:45:00.000000', 'Đã thanh toán', 24, NULL, '33 Đường Nguyễn Đình Chiểu, Quận 3, TP.HCM', 'Gọi trước khi giao', 'Thẻ tín dụng', '0966889900', 'Giao hàng tiêu chuẩn', 17000000),
-(25, '2024-08-22 23:00:00.000000', 'Đã giao', 25, NULL, '22 Đường Nguyễn Trãi, Quận 5, TP.HCM', 'Giao hàng đúng giờ', 'Chuyển khoản', '0977990011', 'Giao hàng nhanh', 109999000),
-(26, '2024-10-16 19:30:00.000000', 'Đang xử lý', 26, NULL, '11 Đường Nguyễn Thị Minh Khai, Quận 1, TP.HCM', 'Khách hàng yêu cầu giao vào buổi sáng', 'Thanh toán khi nhận hàng', '0988001122', 'Giao hàng tiêu chuẩn', 52000000),
-(27, '2024-01-18 18:00:00.000000', 'Đã thanh toán', 27, NULL, '101 Đường Võ Thị Sáu, Quận 3, TP.HCM', 'Khách hàng muốn gói quà', 'Thẻ tín dụng', '0999112233', 'Giao hàng nhanh', 18000000),
-(28, '2024-09-20 14:23:31.000000', 'Đã giao', 28, NULL, '404 Đường Phạm Ngũ Lão, Quận 1, TP.HCM', 'Giao đúng địa chỉ', 'Chuyển khoản', '0901234545', 'Giao hàng nhanh', 18000000),
-(29, '2024-07-30 14:24:56.000000', 'Đã thanh toán', 29, NULL, '55 Đường Điện Biên Phủ, Quận 3, TP.HCM', 'Khách hàng yêu cầu giao sau 2 giờ chiều', 'Thẻ tín dụng', '0902123456', 'Giao hàng nhanh', 18000000),
-(30, '2024-07-10 14:25:04.000000', 'Đang xử lý', 30, NULL, '33 Đường Trần Hưng Đạo, Quận 5, TP.HCM', 'Liên hệ trước khi giao', 'Thanh toán khi nhận hàng', '0911223344', 'Giao hàng tiêu chuẩn', 40000000),
-(31, '2024-06-01 14:25:11.000000', 'Đã giao', 31, NULL, '22 Đường Pasteur, Quận 1, TP.HCM', 'Giao vào buổi sáng', 'Chuyển khoản', '0922334455', 'Giao hàng nhanh', 48000000),
-(32, '2024-02-10 14:25:16.000000', 'Đã hủy', 32, NULL, '11 Đường Võ Văn Tần, Quận 3, TP.HCM', 'Khách hàng hủy đơn hàng do thay đổi ý định', 'Chuyển khoản', '0933445566', 'Giao hàng tiêu chuẩn', 0),
-(33, '2024-10-21 14:25:22.000000', 'Đang giao', 33, NULL, '44 Đường Nguyễn Văn Cừ, Quận 5, TP.HCM', 'Giao sau 1 giờ chiều', 'Thanh toán khi nhận hàng', '0944556677', 'Giao hàng nhanh', 299997000),
-(39, '2024-11-13 15:57:27.000000', 'Đang xử lý', 44, NULL, '101 Đường Nguyễn Trãi, Quận 1, TP.HCM', 'Giao hàng vào buổi sáng', 'Thanh toán khi nhận hàng', '0901234567', 'Giao hàng nhanh', 5000000),
-(40, '2024-11-13 15:57:38.000000', 'Đã giao', 45, NULL, '123 Đường Lê Lợi, Quận 3, TP.HCM', 'Giao hàng đúng hẹn', 'Thẻ tín dụng', '0912345678', 'Giao hàng tiêu chuẩn', 7500000),
-(41, '2024-11-13 15:57:47.000000', 'Đã hủy', 46, NULL, '456 Đường Trần Phú, Quận 5, TP.HCM', 'Khách hàng thay đổi ý định', 'Chuyển khoản', '0923456789', 'Giao hàng nhanh', 0),
-(42, '2024-11-13 15:57:54.000000', 'Đang giao', 47, NULL, '789 Đường Nguyễn Trãi, Quận 10, TP.HCM', 'Khách hàng yêu cầu giao buổi chiều', 'Thanh toán khi nhận hàng', '0934567890', 'Giao hàng nhanh', 6500000),
-(43, '2024-11-13 15:58:01.000000', 'Đã thanh toán', 48, NULL, '202 Đường Điện Biên Phủ, Quận 2, TP.HCM', 'Giao đúng địa chỉ', 'Thẻ tín dụng', '0945678901', 'Giao hàng tiêu chuẩn', 5000000);
+(1, '2024-12-27 21:15:42.000000', 'Đang xử lý', 1, NULL, '123 Đường Lê Lợi, Quận 1, TP.HCM', 'Liên hệ trước khi giao', 'Thanh toán khi nhận hàng', '0901234567', 'Giao hàng nhanh', 17000000),
+(2, '2024-11-13 21:15:49.000000', 'Đã giao', 1, NULL, '456 Đường Trần Phú, Quận 5, TP.HCM', 'Giao đúng giờ, gói cẩn thận', 'Thẻ tín dụng', '0912345678', 'Giao hàng tiêu chuẩn', 19000000),
+(3, '2024-11-13 21:15:56.000000', 'Đang giao', 2, NULL, '789 Đường Nguyễn Trãi, Quận 10, TP.HCM', 'Liên hệ trước khi giao hàng', 'Chuyển khoản', '0923456789', 'Giao hàng nhanh', 64770000),
+(4, '2024-11-13 21:16:02.000000', 'Đã Giao', 3, NULL, '101 Đường Hùng Vương, Quận 7, TP.HCM', 'Thành công', 'Thanh toán khi nhận hàng', '0934567890', 'Giao hàng tiêu chuẩn', 20000000),
+(5, '2024-11-13 21:16:09.000000', 'Đã giao', 4, NULL, '202 Đường Điện Biên Phủ, Quận 3, TP.HCM', 'Giao đúng hẹn, khách hài lòng', 'Thẻ tín dụng', '0945678901', 'Giao hàng nhanh', 32990000),
+(19, '2024-04-08 16:00:00.000000', 'Đang xử lý', 5, NULL, '99 Đường Bạch Đằng, Quận Tân Bình, TP.HCM', 'Gọi trước khi giao', 'Chuyển khoản', '0912123456', 'Giao hàng nhanh', 15490000),
+(20, '2024-05-17 21:45:00.000000', 'Đã thanh toán', 6, NULL, '88 Đường Cách Mạng Tháng Tám, Quận 3, TP.HCM', 'Giao hàng vào buổi chiều', 'Thẻ tín dụng', '0923344556', 'Giao hàng tiêu chuẩn', 25000000),
+(21, '2024-06-19 18:30:00.000000', 'Đã giao', 7, NULL, '77 Đường Hai Bà Trưng, Quận 1, TP.HCM', 'Giao đúng giờ', 'Thanh toán khi nhận hàng', '0934556677', 'Giao hàng nhanh', 48000000),
+(22, '2024-09-11 22:00:00.000000', 'Đã hủy', 8, NULL, '55 Đường Nam Kỳ Khởi Nghĩa, Quận 1, TP.HCM', 'Khách hàng hủy đơn hàng', 'Chuyển khoản', '0944667788', 'Giao hàng tiêu chuẩn', 0),
+(23, '2024-08-17 17:00:00.000000', 'Đang giao', 9, NULL, '44 Đường Lê Văn Sỹ, Quận 3, TP.HCM', 'Gói kỹ sản phẩm', 'Thanh toán khi nhận hàng', '0955778899', 'Giao hàng nhanh', 58500000),
+(24, '2024-08-15 20:45:00.000000', 'Đã thanh toán', 10, NULL, '33 Đường Nguyễn Đình Chiểu, Quận 3, TP.HCM', 'Gọi trước khi giao', 'Thẻ tín dụng', '0966889900', 'Giao hàng tiêu chuẩn', 17000000),
+(25, '2024-08-22 23:00:00.000000', 'Đã giao', 11, NULL, '22 Đường Nguyễn Trãi, Quận 5, TP.HCM', 'Giao hàng đúng giờ', 'Chuyển khoản', '0977990011', 'Giao hàng nhanh', 109999000),
+(26, '2024-10-16 19:30:00.000000', 'Đang xử lý', 12, NULL, '11 Đường Nguyễn Thị Minh Khai, Quận 1, TP.HCM', 'Khách hàng yêu cầu giao vào buổi sáng', 'Thanh toán khi nhận hàng', '0988001122', 'Giao hàng tiêu chuẩn', 52000000),
+(27, '2024-01-18 18:00:00.000000', 'Đã thanh toán', 13, NULL, '101 Đường Võ Thị Sáu, Quận 3, TP.HCM', 'Khách hàng muốn gói quà', 'Thẻ tín dụng', '0999112233', 'Giao hàng nhanh', 18000000),
+(28, '2024-09-20 14:23:31.000000', 'Đã giao', 14, NULL, '404 Đường Phạm Ngũ Lão, Quận 1, TP.HCM', 'Giao đúng địa chỉ', 'Chuyển khoản', '0901234545', 'Giao hàng nhanh', 18000000),
+(29, '2024-07-30 14:24:56.000000', 'Đã thanh toán', 15, NULL, '55 Đường Điện Biên Phủ, Quận 3, TP.HCM', 'Khách hàng yêu cầu giao sau 2 giờ chiều', 'Thẻ tín dụng', '0902123456', 'Giao hàng nhanh', 18000000),
+(30, '2024-07-10 14:25:04.000000', 'Đang xử lý', 16, NULL, '33 Đường Trần Hưng Đạo, Quận 5, TP.HCM', 'Liên hệ trước khi giao', 'Thanh toán khi nhận hàng', '0911223344', 'Giao hàng tiêu chuẩn', 40000000),
+(31, '2024-06-01 14:25:11.000000', 'Đã giao', 17, NULL, '22 Đường Pasteur, Quận 1, TP.HCM', 'Giao vào buổi sáng', 'Chuyển khoản', '0922334455', 'Giao hàng nhanh', 48000000),
+(32, '2024-02-10 14:25:16.000000', 'Đã hủy', 18, NULL, '11 Đường Võ Văn Tần, Quận 3, TP.HCM', 'Khách hàng hủy đơn hàng do thay đổi ý định', 'Chuyển khoản', '0933445566', 'Giao hàng tiêu chuẩn', 0),
+(33, '2024-10-21 14:25:22.000000', 'Đang giao', 1, NULL, '44 Đường Nguyễn Văn Cừ, Quận 5, TP.HCM', 'Giao sau 1 giờ chiều', 'Thanh toán khi nhận hàng', '0944556677', 'Giao hàng nhanh', 299997000),
+(39, '2024-11-13 15:57:27.000000', 'Đang xử lý', 4, NULL, '101 Đường Nguyễn Trãi, Quận 1, TP.HCM', 'Giao hàng vào buổi sáng', 'Thanh toán khi nhận hàng', '0901234567', 'Giao hàng nhanh', 5000000),
+(40, '2024-11-13 15:57:38.000000', 'Đã giao', 5, NULL, '123 Đường Lê Lợi, Quận 3, TP.HCM', 'Giao hàng đúng hẹn', 'Thẻ tín dụng', '0912345678', 'Giao hàng tiêu chuẩn', 7500000),
+(41, '2024-11-13 15:57:47.000000', 'Đã hủy', 7, NULL, '456 Đường Trần Phú, Quận 5, TP.HCM', 'Khách hàng thay đổi ý định', 'Chuyển khoản', '0923456789', 'Giao hàng nhanh', 0),
+(42, '2024-11-13 15:57:54.000000', 'Đang giao', 8, NULL, '789 Đường Nguyễn Trãi, Quận 10, TP.HCM', 'Khách hàng yêu cầu giao buổi chiều', 'Thanh toán khi nhận hàng', '0934567890', 'Giao hàng nhanh', 6500000),
+(43, '2024-11-13 15:58:01.000000', 'Đã thanh toán', 9, NULL, '202 Đường Điện Biên Phủ, Quận 2, TP.HCM', 'Giao đúng địa chỉ', 'Thẻ tín dụng', '0945678901', 'Giao hàng tiêu chuẩn', 5000000);
 
 -- --------------------------------------------------------
 
@@ -438,30 +440,13 @@ INSERT INTO `orders` (`orderId`, `orderDate`, `status`, `userId`, `voucherId`, `
 -- Table structure for table `refresh_token`
 --
 
-CREATE TABLE `refresh_token` (
-  `id` bigint(20) NOT NULL,
-  `expiryDate` datetime(6) NOT NULL,
-  `refreshToken` varchar(255) NOT NULL
+CREATE TABLE `refreshtokens` (
+	`userId` varchar(255),
+  `token` varchar(255) NOT NULL primary key
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
---
--- Table structure for table `role`
---
-
-CREATE TABLE `role` (
-  `roleId` bigint(20) NOT NULL,
-  `roleName` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `role`
---
-
-INSERT INTO `role` (`roleId`, `roleName`) VALUES
-(1, 'ROLE_ADMIN'),
-(2, 'ROLE_USER');
 
 -- --------------------------------------------------------
 
@@ -483,103 +468,37 @@ CREATE TABLE `users` (
   `addressDetail` varchar(255) DEFAULT NULL,
   `district` varchar(255) DEFAULT NULL,
   `province` varchar(255) DEFAULT NULL,
-  `ward` varchar(255) DEFAULT NULL
+  `ward` varchar(255) DEFAULT NULL,
+  `role` varchar(255)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`userId`, `address`, `createdAt`, `dateOfBirth`, `email`, `fullname`, `password`, `phone`, `username`, `updatedAt`, `addressDetail`, `district`, `province`, `ward`) VALUES
-(1, NULL, '2024-11-07 23:09:27.000000', NULL, 'nguyenvana@example.com', 'Nguyễn Văn A', '$2a$10$PG7TgfyRDUnuhpSbyu5ikOfFR.jR6zHGfpVpYfXWD..IiMmhnmJR.', NULL, 'nguyenvana', '2024-11-07 23:09:27.000000', NULL, NULL, NULL, NULL),
-(2, NULL, '2024-11-07 23:09:38.000000', NULL, 'tranthib@example.com', 'Trần Thị B', '$2a$10$9L1kpA4eOHF1WuhcgRjN0O7qW77b9Gh0UApw.yRHLPbUTwl/Ps2wq', NULL, 'tranthib', '2024-11-07 23:09:38.000000', NULL, NULL, NULL, NULL),
-(3, NULL, '2024-11-07 23:09:46.000000', NULL, 'phamvanh@example.com', 'Phạm Văn H', '$2a$10$DiuqrCU6PE7Dr91nzlFrhOV0FQB/t9JVBztWDp19ccpHtp2BWcZHu', NULL, 'phamvanh', '2024-11-07 23:09:46.000000', NULL, NULL, NULL, NULL),
-(4, NULL, '2024-11-07 23:09:54.000000', NULL, 'lethic@example.com', 'Lê Thị C', '$2a$10$MvdTIrpYlzyq9csluWo69O6/nooke4csskIA8ZzJgjChKGeuZd.r.', NULL, 'lethic', '2024-11-07 23:09:54.000000', NULL, NULL, NULL, NULL),
-(5, NULL, '2024-11-07 23:10:04.000000', NULL, 'doquangd@example.com', 'Đỗ Quang D', '$2a$10$NQsCyHEMKPpFjHpol2daVeu75psfH6wlatGgdbXsXEDKH6TUIcOiW', NULL, 'doquangd', '2024-11-07 23:10:04.000000', NULL, NULL, NULL, NULL),
-(19, NULL, '2024-11-13 14:13:39.000000', NULL, 'nguyenthihuong@example.com', 'Nguyễn Thị Hương', '$2a$10$Q3J9xYsNJMqWgQvDrlOkUet2WyCC1lCmmGznprOo4Tv9/jntZHzpS', NULL, 'nguyenthihuong', '2024-11-13 14:13:39.000000', NULL, NULL, NULL, NULL),
-(20, NULL, '2024-11-13 14:13:53.000000', NULL, 'tranvanbao@example.com', 'Trần Văn Bảo', '$2a$10$YpJMyDK63Bw8REup4MDXVu6AKsXdk2uS6xGsocJbm4yVnECaVAD8q', NULL, 'tranvanbao', '2024-11-13 14:13:53.000000', NULL, NULL, NULL, NULL),
-(21, NULL, '2024-11-13 14:14:03.000000', NULL, 'phamthianhdao@example.com', 'Phạm Thị Anh Đào', '$2a$10$oACH69iCc87TC.Ef43/yf.Pa8dezMzYkcnybpTkRTnZXVnT6ErwpG', NULL, 'phamthianhdao', '2024-11-13 14:14:03.000000', NULL, NULL, NULL, NULL),
-(22, NULL, '2024-11-13 14:14:12.000000', NULL, 'letuananh@example.com', 'Lê Tuấn Anh', '$2a$10$tEdbiQLoFcFH1k6G4iuAC.wiuIbb0QJKig..rLKIuf5CxD499Gyl2', NULL, 'letuananh', '2024-11-13 14:14:12.000000', NULL, NULL, NULL, NULL),
-(23, NULL, '2024-11-13 14:14:22.000000', NULL, 'dominhchau@example.com', 'Đỗ Minh Châu', '$2a$10$qHwnslgKAoYtJoyYIkfJlegrOGKelS.pc.ZLwit9IAY/eQjQuBi0q', NULL, 'dominhchau', '2024-11-13 14:14:22.000000', NULL, NULL, NULL, NULL),
-(24, NULL, '2024-11-13 14:14:31.000000', NULL, 'nguyenvankhoa@example.com', 'Nguyễn Văn Khoa', '$2a$10$YCZvMO.C/A82/LuqggYrE.KKKshPHsDCBAHsNNEtciAwMBJJqUdT.', NULL, 'nguyenvankhoa', '2024-11-13 14:14:31.000000', NULL, NULL, NULL, NULL),
-(25, NULL, '2024-11-13 14:14:38.000000', NULL, 'tranthiminhngoc@example.com', 'Trần Thị Minh Ngọc', '$2a$10$2U7lAbHp3nA/leWY8y3o1uz/PTsYSiKB273w4Qas7hhDCRpgPtjJq', NULL, 'tranthiminhngoc', '2024-11-13 14:14:38.000000', NULL, NULL, NULL, NULL),
-(26, NULL, '2024-11-13 14:14:47.000000', NULL, 'phamdinhhieu@example.com', 'Phạm Đình Hiếu', '$2a$10$xA1PGjzP66LgYTKhX9rnT.t0t60hyDe8sl/GNZdXtLompmtdA5YiG', NULL, 'phamdinhhieu', '2024-11-13 14:14:47.000000', NULL, NULL, NULL, NULL),
-(27, NULL, '2024-11-13 14:14:53.000000', NULL, 'lenhathu@example.com', 'Lê Nhã Thu', '$2a$10$v6G3v8L3ZJ6URFxDyD2E3ui/jbcVmwQM0groXCrK8kJcxi0YOaFBi', NULL, 'lenhathu', '2024-11-13 14:14:53.000000', NULL, NULL, NULL, NULL),
-(28, NULL, '2024-11-13 14:14:59.000000', NULL, 'dongocson@example.com', 'Đỗ Ngọc Sơn', '$2a$10$laj8W8JpFsWnnxTPtmzpTugN6i6j0WVQ5Pv2QK.tPC8jjXtEt9m/W', NULL, 'dongocson', '2024-11-13 14:14:59.000000', NULL, NULL, NULL, NULL),
-(29, NULL, '2024-11-13 14:15:06.000000', NULL, 'nguyenhoanganh@example.com', 'Nguyễn Hoàng Anh', '$2a$10$Gs4bWSUEtmLJ7VvdN188T.Ap6Ebvb4.Cz.IuBQzBwuwQeHFsn/GWm', NULL, 'nguyenhoanganh', '2024-11-13 14:15:06.000000', NULL, NULL, NULL, NULL),
-(30, NULL, '2024-11-13 14:15:14.000000', NULL, 'tranthithao@example.com', 'Trần Thị Thảo', '$2a$10$/gMjsE8ICuI7OYEplwI9wO3KIZz3wZnxEEta.ffDAP59A4MJsSBrW', NULL, 'tranthithao', '2024-11-13 14:15:14.000000', NULL, NULL, NULL, NULL),
-(31, NULL, '2024-11-13 14:15:20.000000', NULL, 'phamngoctuan@example.com', 'Phạm Ngọc Tuấn', '$2a$10$Nwzo0lPPq3rqIYPnrnuZE.Du5r0Ta/AF.1yCJ1j.qxUFcqx4JeqnW', NULL, 'phamngoctuan', '2024-11-13 14:15:20.000000', NULL, NULL, NULL, NULL),
-(32, NULL, '2024-11-13 14:15:26.000000', NULL, 'lequynhnhu@example.com', 'Lê Quỳnh Như', '$2a$10$LWlVPpRcMy0.0b8IOMYoPO5AjcV2FGjdXDCl9uhq09.p/1OVg3GH2', NULL, 'lequynhnhu', '2024-11-13 14:15:26.000000', NULL, NULL, NULL, NULL),
-(33, NULL, '2024-11-13 14:15:32.000000', NULL, 'doquocdat@example.com', 'Đỗ Quốc Đạt', '$2a$10$jGVVDqNuuQWQo.h3Zc4SXuFXdZhas5dot6lxsS6WLv8HOGYz80MVW', NULL, 'doquocdat', '2024-11-13 14:15:32.000000', NULL, NULL, NULL, NULL),
-(34, NULL, '2024-11-13 14:15:42.000000', NULL, 'nguyenthilan@example.com', 'Nguyễn Thị Lan', '$2a$10$jQBm363/HHvtZ/g7A4EifepVT.nyA749v0N5hrAnPbENqi5CTzM.K', NULL, 'nguyenthilan', '2024-11-13 14:15:42.000000', NULL, NULL, NULL, NULL),
-(35, NULL, '2024-11-13 14:15:49.000000', NULL, 'tranduong@example.com', 'Trần Dương', '$2a$10$mPY8rA2B5eWv4qFV30fL8.sjrpXXJLr.dnKTyh/cpyc0nLy9dCRdq', NULL, 'tranduong', '2024-11-13 14:15:49.000000', NULL, NULL, NULL, NULL),
-(36, NULL, '2024-11-13 14:15:56.000000', NULL, 'phamthiyen@example.com', 'Phạm Thị Yến', '$2a$10$SegPz2H7rB4OQe.w6ixCKOEC4PNOgiTyMYMaF9Rpc5tdnaUHLKjtW', NULL, 'phamthiyen', '2024-11-13 14:15:56.000000', NULL, NULL, NULL, NULL),
-(37, NULL, '2024-11-13 14:16:02.000000', NULL, 'lenhatlong@example.com', 'Lê Nhật Long', '$2a$10$i1hQsYWPxLqAOLTXaa3wr.IE2wdWE1sW14r9LKEiJH24gPHA2Cfcq', NULL, 'lenhatlong', '2024-11-13 14:16:02.000000', NULL, NULL, NULL, NULL),
-(38, NULL, '2024-11-13 14:16:09.000000', NULL, 'dovanminh@example.com', 'Đỗ Văn Minh', '$2a$10$0efIpJyXfOSc5yIZrHXZCukTcVuzH3s20uhxUZifNiGvW2nsJ0M3e', NULL, 'dovanminh', '2024-11-13 14:16:09.000000', NULL, NULL, NULL, NULL),
-(39, NULL, '2024-11-13 14:16:15.000000', NULL, 'nguyenphuonglinh@example.com', 'Nguyễn Phương Linh', '$2a$10$a61PXPpQrEbOcsdr.yOnaO9k8nJ4wzuQgIUT70bwYG92YwgP3a496', NULL, 'nguyenphuonglinh', '2024-11-13 14:16:15.000000', NULL, NULL, NULL, NULL),
-(40, NULL, '2024-11-13 14:16:21.000000', NULL, 'tranminhquan@example.com', 'Trần Minh Quân', '$2a$10$fy0SNwvlZRW3g3PfUmVrfeWiTD0uvsEN6I.rBa/xVpFxpE4TMpz5m', NULL, 'tranminhquan', '2024-11-13 14:16:21.000000', NULL, NULL, NULL, NULL),
-(41, NULL, '2024-11-13 14:16:27.000000', NULL, 'phamkimngan@example.com', 'Phạm Kim Ngân', '$2a$10$x4w644iM0lkA/WCb33Z7jOgr/qIuv4vAV5MvUiPedSl98ZSxD8Di6', NULL, 'phamkimngan', '2024-11-13 14:16:27.000000', NULL, NULL, NULL, NULL),
-(42, NULL, '2024-11-13 14:16:33.000000', NULL, 'lethian@example.com', 'Lê Thị An', '$2a$10$yZoOR60UEcgaZ2VVxkdeveSxbqYLqqBwbr5pyk4gC98PPaFvR8Dma', NULL, 'lethian', '2024-11-13 14:16:33.000000', NULL, NULL, NULL, NULL),
-(43, NULL, '2024-11-13 14:16:40.000000', NULL, 'doquangvinh@example.com', 'Đỗ Quang Vinh', '$2a$10$VsuqmHtY1sdcfCHnipxf8etOYd7HuRgF4KQR3eRBOfrjbg9lVKaXG', NULL, 'doquangvinh', '2024-11-13 14:16:40.000000', NULL, NULL, NULL, NULL),
-(44, NULL, '2024-11-13 15:30:44.000000', NULL, 'nguyenthilinh@example.com', 'Nguyễn Thị Linh', '$2a$10$rl1DwfkTQQrhG1.JrnsODuZIewTcHOIYKhx3D.DGMncchkqb0Kbnq', NULL, 'nguyenthilinh', '2024-11-13 15:30:44.000000', NULL, NULL, NULL, NULL),
-(45, NULL, '2024-11-13 15:30:52.000000', NULL, 'phamdinhthao@example.com', 'Phạm Đình Thảo', '$2a$10$h/wTNs1EdovNZKVR6M74HO36JCVZW2j0fE08.fX85bhOteD8ppJeC', NULL, 'phamdinhthao', '2024-11-13 15:30:52.000000', NULL, NULL, NULL, NULL),
-(46, NULL, '2024-11-13 15:30:57.000000', NULL, 'hoangthithu@example.com', 'Hoàng Thị Thu', '$2a$10$NiQfUoZBtxz0nYe3Tp/l5.FpZHzsX2SO8er8b0eDmgC8prfZoCPvW', NULL, 'hoangthithu', '2024-11-13 15:30:57.000000', NULL, NULL, NULL, NULL),
-(47, NULL, '2024-11-13 15:31:04.000000', NULL, 'tranthithuy@example.com', 'Trần Thị Thùy', '$2a$10$.qSpE0fYT3pYkUt6eYTxTOfPm3p80dDZcNQFB3RZCXYuneckCWqtG', NULL, 'tranthithuy', '2024-11-13 15:31:04.000000', NULL, NULL, NULL, NULL),
-(48, NULL, '2024-11-13 15:31:11.000000', NULL, 'lethihien@example.com', 'Lê Thị Hiền', '$2a$10$ZwwhuKKt/8FXHRdiQx5bZOJesGwaN5LUwmBPhoLsx1dnuqi12uyZi', NULL, 'lethihien', '2024-11-13 15:31:11.000000', NULL, NULL, NULL, NULL);
+INSERT INTO `users` (`userId`, `address`, `createdAt`, `dateOfBirth`, `email`, `fullname`, `password`, `phone`, `username`, `updatedAt`, `addressDetail`, `district`, `province`, `ward`, `role`) VALUES
+(1, '123 Đường ABC, Quận 1, TP.HCM', '2024-11-07 23:09:27.000000', NULL, 'nguyenvana@example.com', 'Nguyễn Văn A', '$2a$10$PG7TgfyRDUnuhpSbyu5ikOfFR.jR6zHGfpVpYfXWD..IiMmhnmJR.', '0909123456', 'nguyenvana', '2024-11-07 23:09:27.000000', 'Số 123, Đường ABC', 'Quận 1', 'TP.HCM', 'Phường 1', 'user'),
+(2, '456 Đường DEF, Quận 2, TP.HCM', '2024-11-07 23:09:38.000000', NULL, 'tranthib@example.com', 'Trần Thị B', '$2a$10$WmcgUUVtiMJmjgUtsvmjq.J/2bt7u8rhpHgeCzRmUnJf65CznvSWe', '0912345678', 'tranthib', '2024-11-07 23:09:38.000000', 'Số 456, Đường DEF', 'Quận 2', 'TP.HCM', 'Phường 2', 'user'),
+(3, '789 Đường GHI, Quận 3, TP.HCM', '2024-11-07 23:10:12.000000', NULL, 'lequocd@example.com', 'Lê Quốc D', '$2a$10$S6MJGG38PYYQkdsw13oNqKO7Rl6aPQzJSnx5U4.EYhI4R0Ppxe36W', '0923456789', 'lequocd', '2024-11-07 23:10:12.000000', 'Số 789, Đường GHI', 'Quận 3', 'TP.HCM', 'Phường 3', 'user'),
+(4, '1011 Đường JKL, Quận 4, TP.HCM', '2024-11-07 23:10:45.000000', NULL, 'hoangphuoa@example.com', 'Hoàng Phú A', '$2a$10$YxcK4fTPWvFmmZuXjP0vmuH6Bfv4lLwR1t7jzTSV9nQ67v1V.lRS6', '0934567890', 'hoangphuoa', '2024-11-07 23:10:45.000000', 'Số 1011, Đường JKL', 'Quận 4', 'TP.HCM', 'Phường 4', 'user'),
+(5, '1213 Đường MNO, Quận 5, TP.HCM', '2024-11-07 23:11:03.000000', NULL, 'phamminh@example.com', 'Phạm Minh C', '$2a$10$QiYfgclg2qkjf0qLX5wVnKK.k5nnDR2jsRiworTQfgqXM0Al0oHa6', '0945678901', 'phamminh', '2024-11-07 23:11:03.000000', 'Số 1213, Đường MNO', 'Quận 5', 'TP.HCM', 'Phường 5', 'user'),
+(6, '1415 Đường PQR, Quận 6, TP.HCM', '2024-11-07 23:11:35.000000', NULL, 'ngocdung@example.com', 'Ngọc Dung', '$2a$10$F9BTrglWnT5dq6nUdLO4B2mI6pXhf1LfSbMN3nwiFOtXIQEj1Xe4', '0956789012', 'ngocdung', '2024-11-07 23:11:35.000000', 'Số 1415, Đường PQR', 'Quận 6', 'TP.HCM', 'Phường 6', 'user'),
+(7, '1617 Đường STU, Quận 7, TP.HCM', '2024-11-07 23:11:58.000000', NULL, 'trangthao@example.com', 'Trần Thảo', '$2a$10$Imt79OQyWpGHXX8fXDPbGOxeRUQXk03jrt7tYZnx7G0F0w1Xh1Zf2', '0967890123', 'trangthao', '2024-11-07 23:11:58.000000', 'Số 1617, Đường STU', 'Quận 7', 'TP.HCM', 'Phường 7', 'user'),
+(8, '1819 Đường VWX, Quận 8, TP.HCM', '2024-11-07 23:12:24.000000', NULL, 'hoanglan@example.com', 'Hoàng Lan', '$2a$10$Gb9oeLNnWs52Fz9q35en0c.W8GghH5ajMT4hKj9wdGfpw.BQoe0xS', '0978901234', 'hoanglan', '2024-11-07 23:12:24.000000', 'Số 1819, Đường VWX', 'Quận 8', 'TP.HCM', 'Phường 8', 'user'),
+(9, '2021 Đường YZA, Quận 9, TP.HCM', '2024-11-07 23:12:46.000000', NULL, 'vuthanha@example.com', 'Vũ Thanh A', '$2a$10$HUBNGXk5k5zVVtnXcdhjfg0ORoK5yftP5u7U2TzOSjzzHkR56b1xa', '0989012345', 'vuthanha', '2024-11-07 23:12:46.000000', 'Số 2021, Đường YZA', 'Quận 9', 'TP.HCM', 'Phường 9', 'user'),
+(10, '2223 Đường BCD, Quận 10, TP.HCM', '2024-11-07 23:13:03.000000', NULL, 'lethuong@example.com', 'Lê Thương', '$2a$10$FpEn5jxW8IXlD3l8g5Z5k5kJkkVwrGjOLlg8g5jrRSvZD38nZa6k6', '0990123456', 'lethuong', '2024-11-07 23:13:03.000000', 'Số 2223, Đường BCD', 'Quận 10', 'TP.HCM', 'Phường 10', 'user'),
+(11, '2425 Đường EFG, Quận 11, TP.HCM', '2024-11-07 23:13:35.000000', NULL, 'lethi@example.com', 'Lê Thị D', '$2a$10$A2JgFDPusVx8KxFw2jQ4tABOGkOht3BrubAomjL9l.58mY47e9byu', '0912345678', 'lethi', '2024-11-07 23:13:35.000000', 'Số 2425, Đường EFG', 'Quận 11', 'TP.HCM', 'Phường 11', 'user'),
+(12, '2627 Đường HIJ, Quận 12, TP.HCM', '2024-11-07 23:13:56.000000', NULL, 'nguyenhoang@example.com', 'Nguyễn Hoàng', '$2a$10$BFHp1xtJhA8eF7HEJt/JKD9n4Vcd1jy1e8xUbe6wJbD7.FJftvLzW', '0903456789', 'nguyenhoang', '2024-11-07 23:13:56.000000', 'Số 2627, Đường HIJ', 'Quận 12', 'TP.HCM', 'Phường 12', 'user'),
+(13, '2829 Đường KLM, Quận 13, TP.HCM', '2024-11-07 23:14:16.000000', NULL, 'trangduong@example.com', 'Trần Dương', '$2a$10$LkZaFLtGhzDpfpJntKoMf5jm8e7evcyt5flx1A6d5SPlA0zRUFX1G', '0923456789', 'trangduong', '2024-11-07 23:14:16.000000', 'Số 2829, Đường KLM', 'Quận 13', 'TP.HCM', 'Phường 13', 'user'),
+(14, '3031 Đường NOP, Quận 14, TP.HCM', '2024-11-07 23:14:35.000000', NULL, 'lethuy@example.com', 'Lê Thúy', '$2a$10$Mbjf3onufkm72I3AYQ5Bjm9U2h0z88T0SHlJX6S2v7pKcvQraXaZG', '0934567890', 'lethuy', '2024-11-07 23:14:35.000000', 'Số 3031, Đường NOP', 'Quận 14', 'TP.HCM', 'Phường 14', 'user'),
+(15, '3233 Đường PQR, Quận 15, TP.HCM', '2024-11-07 23:14:56.000000', NULL, 'phanlong@example.com', 'Phan Long', '$2a$10$JxoEjpXyDZpP8JxXZp4tNm8T9iGs6YVoGC2z8pFndfl7Ch9ML7guu', '0945678901', 'phanlong', '2024-11-07 23:14:56.000000', 'Số 3233, Đường PQR', 'Quận 15', 'TP.HCM', 'Phường 15', 'user'),
+(16, '3435 Đường STV, Quận 16, TP.HCM', '2024-11-07 23:15:16.000000', NULL, 'nguyenhoang@example.com', 'Nguyễn Hoàng', '$2a$10$S3FVpU8v9FXf7ROdRT5o3DGGVx.7wdbwH9YJAtU4AiEkub2WiTebm', '0978901234', 'nguyenhoang', '2024-11-07 23:15:16.000000', 'Số 3435, Đường STV', 'Quận 16', 'TP.HCM', 'Phường 16', 'user'),
+(17, '123 Đường ABC, Quận 1, TP.HCM', NOW(), '1980-01-01', 'admin@example.com', 'Admin User', '$2a$10$FWOQhMt6eJOcfV5z9OAqAOaICJxbtAVcmzvQ8OKuihpv3QzIY1/qW', '0901234567', 'admin', NOW(), 'Số 123, Đường ABC', 'Quận 1', 'TP.HCM', 'Phường 1', 'admin'),
+(18, '456 Đường DEF, Quận 2, TP.HCM', NOW(), '1990-05-15', 'user@example.com', 'User A', '$2a$10$FWOQhMt6eJOcfV5z9OAqAOaICJxbtAVcmzvQ8OKuihpv3QzIY1/qW', '0912345678', 'user', NOW(), 'Số 456, Đường DEF', 'Quận 2', 'TP.HCM', 'Phường 2', 'user');
+
 
 -- --------------------------------------------------------
 
---
--- Table structure for table `user_role`
---
-
-CREATE TABLE `user_role` (
-  `userId` bigint(20) NOT NULL,
-  `roleId` bigint(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `user_role`
---
-
-INSERT INTO `user_role` (`userId`, `roleId`) VALUES
-(1, 2),
-(2, 2),
-(3, 2),
-(4, 2),
-(5, 2),
-(19, 2),
-(20, 2),
-(21, 2),
-(22, 2),
-(23, 2),
-(24, 2),
-(25, 2),
-(26, 2),
-(27, 2),
-(28, 2),
-(29, 2),
-(30, 2),
-(31, 2),
-(32, 2),
-(33, 2),
-(34, 2),
-(35, 2),
-(36, 2),
-(37, 2),
-(38, 2),
-(39, 2),
-(40, 2),
-(41, 2),
-(42, 2),
-(43, 2),
-(44, 2),
-(45, 2),
-(46, 2),
-(47, 2),
-(48, 2);
-
--- --------------------------------------------------------
 
 --
 -- Table structure for table `vouchers`
@@ -652,20 +571,7 @@ ALTER TABLE `laptops_orders`
 --
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`orderId`),
-  ADD UNIQUE KEY `UK2gcgbfud7n5ixb7qqb6nuaqxw` (`userId`),
   ADD UNIQUE KEY `UKp3w35w4nx6f4qt5m9me6hn84e` (`voucherId`);
-
---
--- Indexes for table `refresh_token`
---
-ALTER TABLE `refresh_token`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `role`
---
-ALTER TABLE `role`
-  ADD PRIMARY KEY (`roleId`);
 
 --
 -- Indexes for table `users`
@@ -676,9 +582,7 @@ ALTER TABLE `users`
 --
 -- Indexes for table `user_role`
 --
-ALTER TABLE `user_role`
-  ADD PRIMARY KEY (`userId`,`roleId`),
-  ADD KEY `FKfjlagks6xvf2uas035crflu75` (`roleId`);
+
 
 --
 -- Indexes for table `vouchers`
@@ -727,18 +631,6 @@ ALTER TABLE `orders`
   MODIFY `orderId` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
--- AUTO_INCREMENT for table `refresh_token`
---
-ALTER TABLE `refresh_token`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `role`
---
-ALTER TABLE `role`
-  MODIFY `roleId` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
@@ -776,13 +668,6 @@ ALTER TABLE `orders`
   ADD CONSTRAINT `FK6co8q7ko456baksb6tdjq2dfv` FOREIGN KEY (`userId`) REFERENCES `users` (`userId`),
   ADD CONSTRAINT `FKgpwojd1dbx2rns87d67pydkv6` FOREIGN KEY (`voucherId`) REFERENCES `vouchers` (`voucherId`);
 
---
--- Constraints for table `user_role`
---
-ALTER TABLE `user_role`
-  ADD CONSTRAINT `FK4ch3b3m0g8nsix3bl1334x7uj` FOREIGN KEY (`userId`) REFERENCES `users` (`userId`),
-  ADD CONSTRAINT `FKfjlagks6xvf2uas035crflu75` FOREIGN KEY (`roleId`) REFERENCES `role` (`roleId`);
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

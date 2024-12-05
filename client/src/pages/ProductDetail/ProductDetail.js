@@ -1,35 +1,25 @@
 import Layout from "../../layout/Layout";
 import "./style.css";
-import { useState } from "react";
+import {useEffect, useState, useRef } from "react";
 import Collapse from "../../components/Collapse/Collapse";
 import { Button } from "@headlessui/react";
 import { Link, useParams,  } from "react-router-dom";
 import { addToCart } from "../../services/cartService";
+import {useDispatch, useSelector} from "react-redux";
+import {getLaptopById} from "../../store/actions/laptopAction";
 const ProductDetail = () => {
-  const id = useParams();
+  const { id } = useParams();
 
   const [isOpen1, setIsOpen1] = useState(true);
   const [isOpen2, setIsOpen2] = useState(false);
   const [isOpen3, setIsOpen3] = useState(false);
-  //call api get laptop by id
-  // const [laptop, setLaptop] = useState('')
-  // useEffect(() => {
-  //     const getLaptop= async () =>{
-  //       try {
-  //         const response = await axios.get(`api/laptop/${id}`)
-  //         console.log(response.data)
-  //         setLaptop(response.data)
-  //       } catch (error) {
-  //         console.log(error)
-  //       }
-  //     }
-  //     getLaptop()
-  // }, [id])
-  // if (!laptop) {
-  //   console.error('Expected laptops to be an array, but got:', laptop);
-  //   return <div>No laptops available</div>;
-  // }
- 
+  const dispatch = useDispatch();
+  const { laptop } = useSelector(state => state.laptop);
+
+  useEffect(() => {
+    dispatch(getLaptopById(id))
+  }, [id])
+
   const handleOpen1 = () => {
     setIsOpen2(false);
     setIsOpen1(!isOpen1); // Toggle only isOpen1
@@ -44,27 +34,13 @@ const ProductDetail = () => {
     setIsOpen3(true);
   };
 
-  const laptop = {
-    laptop_id: 1,
-    model: "Dell XPS 13",
-    price: 1500,
-    stock_quantity: 10,
-    description: "Ultrabook with excellent performance",
-    brand_id: 1,
-    discount_id: 1,
-    processor: "Intel Core i7",
-    ram: "16GB",
-    storage: "512GB SSD",
-    gpu: "Intel Iris Plus",
-    screen_size: 13.3,
-    battery: "52Wh",
-    weight: 1.2,
-    os: "Windows 10",
-    imageSrc: "/laptop.png",
-  };
-  const [mainImage, setMainImage] = useState(
-    "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHwxfHxoZWFkcGhvbmV8ZW58MHwwfHx8MTcyMTMwMzY5MHww&ixlib=rb-4.0.3&q=80&w=1080"
-  );
+  const [mainImage, setMainImage] = useState(null);
+
+  useEffect(() => {
+    if (laptop?.image) {
+      setMainImage(laptop.image);
+    }
+  }, [laptop]);
 
   const changeImage = (src) => {
     setMainImage(src);
@@ -88,86 +64,65 @@ const ProductDetail = () => {
                   className="w-full h-auto rounded-lg shadow-md mb-4"
                   id="mainImage"
                 />
-                <div className="flex gap-4 py-4 justify-center overflow-x-auto">
-                  <img
-                    src="https://images.unsplash.com/photo-1505751171710-1f6d0ace5a85?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHwxMnx8aGVhZHBobmV8ZW58MHwwfHx8MTcyMTMwMzY5MHww&ixlib=rb-4.0.3&q=80&w=1080"
-                    alt="Thumbnail 1"
-                    className="size-16 sm:size-20 object-cover rounded-md cursor-pointer opacity-60 hover:opacity-100 transition duration-300"
-                    onClick={() =>
-                      changeImage(
-                        "https://images.unsplash.com/photo-1505751171710-1f6d0ace5a85?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHwxMnx8aGVhZHBobmV8ZW58MHwwfHx8MTcyMTMwMzY5MHww&ixlib=rb-4.0.3&q=80&w=1080"
-                      )
-                    }
-                  />
-                  <img
-                    src="https://images.unsplash.com/photo-1484704849700-f032a568e944?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHw0fHxoZWFkcGhvbmV8ZW58MHwwfHx8MTcyMTMwMzY5MHww&ixlib=rb-4.0.3&q=80&w=1080"
-                    alt="Thumbnail 2"
-                    className="size-16 sm:size-20 object-cover rounded-md cursor-pointer opacity-60 hover:opacity-100 transition duration-300"
-                    onClick={() =>
-                      changeImage(
-                        "https://images.unsplash.com/photo-1484704849700-f032a568e944?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHw0fHxoZWFkcGhvbmV8ZW58MHwwfHx8MTcyMTMwMzY5MHww&ixlib=rb-4.0.3&q=80&w=1080"
-                      )
-                    }
-                  />
-                  <img
-                    src="https://images.unsplash.com/photo-1496957961599-e35b69ef5d7c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHw4fHxoZWFkcGhvbmV8ZW58MHwwfHx8MTcyMTMwMzY5MHww&ixlib=rb-4.0.3&q=80&w=1080"
-                    alt="Thumbnail 3"
-                    className="size-16 sm:size-20 object-cover rounded-md cursor-pointer opacity-60 hover:opacity-100 transition duration-300"
-                    onClick={() =>
-                      changeImage(
-                        "https://images.unsplash.com/photo-1496957961599-e35b69ef5d7c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHw4fHxoZWFkcGhvbmV8ZW58MHwwfHx8MTcyMTMwMzY5MHww&ixlib=rb-4.0.3&q=80&w=1080"
-                      )
-                    }
-                  />
-                  <img
-                    src="https://images.unsplash.com/photo-1528148343865-51218c4a13e6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHwzfHxoZWFkcGhvbmV8ZW58MHwwfHx8MTcyMTMwMzY5MHww&ixlib=rb-4.0.3&q=80&w=1080"
-                    alt="Thumbnail 4"
-                    className="size-16 sm:size-20 object-cover rounded-md cursor-pointer opacity-60 hover:opacity-100 transition duration-300"
-                    onClick={() =>
-                      changeImage(
-                        "https://images.unsplash.com/photo-1528148343865-51218c4a13e6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHwzfHxoZWFkcGhvbmV8ZW58MHwwfHx8MTcyMTMwMzY5MHww&ixlib=rb-4.0.3&q=80&w=1080"
-                      )
-                    }
-                  />
-                </div>
+                {/*<div className="flex gap-4 py-4 justify-center overflow-x-auto">*/}
+                {/*  <img*/}
+                {/*    src="https://images.unsplash.com/photo-1505751171710-1f6d0ace5a85?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHwxMnx8aGVhZHBobmV8ZW58MHwwfHx8MTcyMTMwMzY5MHww&ixlib=rb-4.0.3&q=80&w=1080"*/}
+                {/*    alt="Thumbnail 1"*/}
+                {/*    className="size-16 sm:size-20 object-cover rounded-md cursor-pointer opacity-60 hover:opacity-100 transition duration-300"*/}
+                {/*    onClick={() =>*/}
+                {/*      changeImage(*/}
+                {/*        "https://images.unsplash.com/photo-1505751171710-1f6d0ace5a85?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHwxMnx8aGVhZHBobmV8ZW58MHwwfHx8MTcyMTMwMzY5MHww&ixlib=rb-4.0.3&q=80&w=1080"*/}
+                {/*      )*/}
+                {/*    }*/}
+                {/*  />*/}
+                {/*  <img*/}
+                {/*    src="https://images.unsplash.com/photo-1484704849700-f032a568e944?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHw0fHxoZWFkcGhvbmV8ZW58MHwwfHx8MTcyMTMwMzY5MHww&ixlib=rb-4.0.3&q=80&w=1080"*/}
+                {/*    alt="Thumbnail 2"*/}
+                {/*    className="size-16 sm:size-20 object-cover rounded-md cursor-pointer opacity-60 hover:opacity-100 transition duration-300"*/}
+                {/*    onClick={() =>*/}
+                {/*      changeImage(*/}
+                {/*        "https://images.unsplash.com/photo-1484704849700-f032a568e944?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHw0fHxoZWFkcGhvbmV8ZW58MHwwfHx8MTcyMTMwMzY5MHww&ixlib=rb-4.0.3&q=80&w=1080"*/}
+                {/*      )*/}
+                {/*    }*/}
+                {/*  />*/}
+                {/*  <img*/}
+                {/*    src="https://images.unsplash.com/photo-1496957961599-e35b69ef5d7c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHw4fHxoZWFkcGhvbmV8ZW58MHwwfHx8MTcyMTMwMzY5MHww&ixlib=rb-4.0.3&q=80&w=1080"*/}
+                {/*    alt="Thumbnail 3"*/}
+                {/*    className="size-16 sm:size-20 object-cover rounded-md cursor-pointer opacity-60 hover:opacity-100 transition duration-300"*/}
+                {/*    onClick={() =>*/}
+                {/*      changeImage(*/}
+                {/*        "https://images.unsplash.com/photo-1496957961599-e35b69ef5d7c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHw4fHxoZWFkcGhvbmV8ZW58MHwwfHx8MTcyMTMwMzY5MHww&ixlib=rb-4.0.3&q=80&w=1080"*/}
+                {/*      )*/}
+                {/*    }*/}
+                {/*  />*/}
+                {/*  <img*/}
+                {/*    src="https://images.unsplash.com/photo-1528148343865-51218c4a13e6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHwzfHxoZWFkcGhvbmV8ZW58MHwwfHx8MTcyMTMwMzY5MHww&ixlib=rb-4.0.3&q=80&w=1080"*/}
+                {/*    alt="Thumbnail 4"*/}
+                {/*    className="size-16 sm:size-20 object-cover rounded-md cursor-pointer opacity-60 hover:opacity-100 transition duration-300"*/}
+                {/*    onClick={() =>*/}
+                {/*      changeImage(*/}
+                {/*        "https://images.unsplash.com/photo-1528148343865-51218c4a13e6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHwzfHxoZWFkcGhvbmV8ZW58MHwwfHx8MTcyMTMwMzY5MHww&ixlib=rb-4.0.3&q=80&w=1080"*/}
+                {/*      )*/}
+                {/*    }*/}
+                {/*  />*/}
+                {/*</div>*/}
               </div>
 
               {/* Product Details */}
               <div className="w-full md:w-1/2 px-4">
                 <h2 className="text-3xl font-bold mb-2">{laptop.model}</h2>
-                <p className="text-gray-600 mb-4">SKU: WH1000XM4</p>
+                <p className="text-gray-600 mb-4">{`Mã Laptop: ${laptop.laptopId}`}</p>
                 <div className="mb-4">
                   <span className="text-2xl font-bold text-red-600 mr-2">
-                    {(laptop.price * 80) / 100}
+                    {((laptop.price * 80) / 100).toLocaleString('vi-VN')} VND
                   </span>
                   <span className="text-gray-500 line-through">
-                    {laptop.price}
+                    {(laptop.price || 0 ).toLocaleString('vi-VN')} VND
                   </span>
                 </div>
-                {/*  Stars * */}
-                {/* <div className="flex items-center mb-4">
-              
-              {[...Array(5)].map((_, index) => (
-                <svg
-                  key={index}
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  className="size-6 text-yellow-500"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              ))}
-              <span className="ml-2 text-gray-600">4.5 (120 reviews)</span>
-            </div> */}
+
                 <p className="text-gray-700 mb-6">
-                  Experience premium sound quality and industry-leading noise
-                  cancellation with these wireless headphones. Perfect for music
-                  lovers and frequent travelers.
+                  {laptop.description}
                 </p>
 
                 <div className="mb-6">
@@ -228,7 +183,7 @@ const ProductDetail = () => {
                     </svg>
                     <Link
                       to={{
-                        pathname: `/estimation/${laptop.laptop_id}`,
+                        pathname: `/estimation/${laptop.laptopId}`,
                       }}
                       state={laptop} // Truyền object thông qua state
                     >
@@ -259,7 +214,7 @@ const ProductDetail = () => {
             </div>
 
             <div className="relative mb-4 mt-8">
-              <img className="w-full" src={laptop.imageSrc} />
+              <img className="w-full" src={laptop.image} />
             </div>
             {isOpen1 && (
               <>
@@ -267,7 +222,7 @@ const ProductDetail = () => {
                 <Collapse title={"RAM"} spec={laptop.ram} />
                 <Collapse title={"Ổ cứng"} spec={laptop.storage} />
                 <Collapse title={"Card đồ họa"} spec={laptop.gpu} />
-                <Collapse title={"Màn hình"} spec={laptop.screen_size} />
+                <Collapse title={"Màn hình"} spec={laptop.screenSize} />
                 <Collapse title={"Dung lượng pin"} spec={laptop.battery} />
                 <Collapse title={"Cân nặng"} spec={laptop.weight} />
                 <Collapse title={"Hệ điều hành"} spec={laptop.os} />

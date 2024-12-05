@@ -3,10 +3,9 @@ import './style.css'
 const Carousel = ({autoSlide = true, autoSlideInterval = 3000 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const images = [
-    'https://tailwindui.com/plus/img/ecommerce-images/product-page-01-related-product-01.jpg',
-    // '
-    // '<https://via.placeholder.com/800x400.png?text=Slide+2>',
-    'https://tailwindui.com/plus/img/ecommerce-images/product-page-01-related-product-01.jpg',
+    'https://cdn2.cellphones.com.vn/insecure/rs:fill:690:300/q:90/plain/https://dashboard.cellphones.com.vn/storage/ipad-mini-7-sliding-home-20-11.jpg',
+     'https://cdn2.cellphones.com.vn/insecure/rs:fill:690:300/q:90/plain/https://dashboard.cellphones.com.vn/storage/asus-home-ai-12-11.jpg',
+    'https://cdn2.cellphones.com.vn/insecure/rs:fill:690:300/q:90/plain/https://dashboard.cellphones.com.vn/storage/sliding-home-iphone-16-pro-km-moi.jpg',
   ];
   useEffect(() => {
     if (autoSlide) {
@@ -28,7 +27,7 @@ const Carousel = ({autoSlide = true, autoSlideInterval = 3000 }) => {
   return (
 
     <div className="carousel-container relative w-full max-w-1xl mx-auto mt-24">
-      <div className="overflow-hidden relative h-96 rounded-2xl">
+      <div className="overflow-hidden relative h-[230px] md:h-[430px] rounded-2xl">
         {images.map((image, index) => (
           <div
             key={index}
@@ -36,7 +35,7 @@ const Carousel = ({autoSlide = true, autoSlideInterval = 3000 }) => {
               index === currentIndex ? 'translate-x-0' : 'translate-x-full'
             }`}
           >
-            <img src={image} alt={`Slide ${index}`} className="w-full h-full object-cover" />
+            <img src={image} alt={`Slide ${index}`} className="w-full h-full object-fill" />
           </div>
         ))}
       </div>

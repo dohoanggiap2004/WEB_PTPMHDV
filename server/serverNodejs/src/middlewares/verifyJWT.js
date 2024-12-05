@@ -8,7 +8,7 @@ const verifyJWT = (req, res, next) => {
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
         if (err) return res.sendStatus(401); // Unauthorized
         req.user = user;
-        console.log('verify jwwt successfully')
+        console.log('verify jwt successfully')
         next();
     });
 };

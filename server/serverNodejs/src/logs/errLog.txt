@@ -131,3 +131,78 @@
 2024-11-03/09:55:54		e1920e0b-d7d5-4610-97e8-ed782e24a5e4		TokenError: Bad Request
 2024-11-06/06:17:10		219dd7db-0540-4f52-86e1-3b1263ec75ba		SyntaxError: Expected property name or '}' in JSON at position 7
 2024-11-06/06:17:22		18b46e24-3713-4457-aa7f-2aeb5e8edfec		SyntaxError: Expected property name or '}' in JSON at position 7
+2024-11-27/08:49:32		b6bc12ee-418d-4f2a-baa4-3a1100de1f66		BadRequestError: request aborted
+2024-11-27/09:30:45		b2884a0b-3d68-4edc-a71a-98de8f9e5b08		BadRequestError: request aborted
+2024-11-27/09:54:39		867b0a8e-6b69-4808-b189-edbfbfe0aed2		BadRequestError: request aborted
+2024-11-27/09:55:39		c8c18ddc-411b-48f0-8b5d-3ba4e5d1fdb8		BadRequestError: request aborted
+2024-11-27/09:56:09		3b4b2385-3f86-462e-82e8-6d299e7cd426		BadRequestError: request aborted
+2024-11-27/09:56:09		c2332896-9d35-418d-996d-ba1da2bf8a63		BadRequestError: request aborted
+2024-11-27/10:04:43		2490a8db-ff42-4292-aba9-f201db35d88b		BadRequestError: request aborted
+2024-11-27/10:04:55		ee2aa37c-700b-435f-8330-4b50d02679db		BadRequestError: request aborted
+2024-11-27/10:32:15		09e51540-ad10-41fc-a0aa-092aae6b6630		BadRequestError: request aborted
+2024-11-28/07:26:18		006e35ca-9716-4f81-a3e4-d4d71470a0e6		BadRequestError: request aborted
+2024-11-28/07:31:50		a74053ef-4084-4608-8aea-1e80c38fb16a		BadRequestError: request aborted
+2024-11-28/07:32:20		9f30190b-37df-4283-beaf-a1d1602dff43		BadRequestError: request aborted
+2024-11-28/07:33:20		609200e2-6f23-4bba-ac94-944fa498a0c8		BadRequestError: request aborted
+2024-11-28/07:36:50		fa0796ca-265f-41fe-8bb1-a82c4bee7e7f		BadRequestError: request aborted
+2024-11-28/07:39:38		1baf57d3-3edb-4650-b5fd-268358a9cd83		BadRequestError: request aborted
+2024-11-28/07:42:23		e13de8c7-d67f-4e16-ab45-2306e0bbdf5d		BadRequestError: request aborted
+2024-11-28/07:42:23		b6c2db31-fa2f-4f42-afad-4a1491cb2bc4		BadRequestError: request aborted
+2024-11-28/07:44:03		0b89bdfd-9afb-4824-bc75-cf39dc773e73		BadRequestError: request aborted
+2024-11-28/07:44:03		eab782f4-1e4a-479b-ad0a-80b52efd4454		BadRequestError: request aborted
+2024-11-28/07:45:06		501e2920-aaf2-40c0-b56a-5f483b5137dd		BadRequestError: request aborted
+2024-11-28/07:46:07		7a03ec3a-e65d-4444-b859-5874e834d7c3		BadRequestError: request aborted
+2024-11-28/07:48:11		fe103301-9c1b-4bc7-9ce4-78d87fa4dd73		BadRequestError: request aborted
+2024-11-28/07:48:40		1e7ad3b7-20b6-4f81-8aa3-60875aa4551f		BadRequestError: request aborted
+2024-11-28/08:08:27		4b98fec6-8d2f-4942-b0df-6d0c4d395d3b		BadRequestError: request aborted
+2024-11-28/08:10:02		e2974e89-4e85-4c83-bbe7-777a13bb1c7a		BadRequestError: request aborted
+2024-11-28/08:10:02		4b830a89-40e5-4909-8e17-c8d300837ea7		BadRequestError: request aborted
+2024-11-28/08:12:58		f5de5cf4-925a-4ace-a6ca-d3b3eae6a4c9		BadRequestError: request aborted
+2024-11-28/08:15:43		71b53164-ffbc-4ebc-b685-4fa03c3e1afa		BadRequestError: request aborted
+2024-11-28/08:16:54		1e562d71-73ed-4894-99e1-2c7aa1bc1bcf		BadRequestError: request aborted
+2024-11-28/08:26:32		f9288adb-8bd2-4d88-b76a-67a64e16c02c		BadRequestError: request aborted
+2024-11-28/02:30:46		844d77b2-2328-4b72-b9cc-bb5862a591ad		BadRequestError: request aborted
+2024-11-28/02:30:46		7775c27a-4799-4668-acd0-904023a954b4		BadRequestError: request aborted
+2024-11-28/02:30:46		a8150260-4927-4d6e-97e2-5b79b10503e8		BadRequestError: request aborted
+2024-11-28/02:30:46		a41a4917-c50c-4b82-8279-8e313631d6fb		BadRequestError: request aborted
+2024-11-28/02:30:46		6c7e6f6a-4628-4d88-baad-2104e68f3c7a		BadRequestError: request aborted
+2024-11-28/02:30:46		629737f5-076b-4b5b-88ef-3a5a2434ee97		BadRequestError: request aborted
+2024-11-28/02:30:46		9a4d4b90-2224-4724-8d4c-25285c489998		BadRequestError: request aborted
+2024-11-28/02:30:46		75dbbe25-f599-480d-8d5b-5e7ed24cdb73		BadRequestError: request aborted
+2024-11-28/02:30:46		8a955b8c-ce91-4c12-865e-e04624f59f8c		BadRequestError: request aborted
+2024-11-28/02:30:46		a554c714-d70c-47f8-991e-c83bc34b9837		BadRequestError: request aborted
+2024-11-28/02:30:46		d123ef92-7560-49d6-8f1a-782466a681ed		BadRequestError: request aborted
+2024-11-28/02:30:46		4dc1e307-35fa-4623-b0da-2ba71ebb5f93		BadRequestError: request aborted
+2024-11-28/02:30:46		70c39694-c62a-444d-9c41-3a5e4e99de6d		BadRequestError: request aborted
+2024-11-28/02:30:46		7faea2cb-90aa-4b3d-abc4-01c40355aa1e		BadRequestError: request aborted
+2024-11-28/02:30:46		efa0e37b-e161-4a0a-94f2-5cfa2b336383		BadRequestError: request aborted
+2024-11-28/02:30:46		94b8f9ff-69ca-4068-9f73-e004756cc171		BadRequestError: request aborted
+2024-11-28/02:32:17		3ed93948-4914-4a13-b8e8-e7216a8bf9e9		BadRequestError: request aborted
+2024-11-28/02:33:35		7eb1e9ef-d9c3-44d7-ade2-f6b224df2add		BadRequestError: request aborted
+2024-11-28/02:33:35		10ce3ae9-3106-452c-afad-70f903f13093		BadRequestError: request aborted
+2024-11-28/02:35:12		c0272bac-0b32-4865-8479-c4290d4477de		BadRequestError: request aborted
+2024-11-28/03:43:22		39a1c1c1-012e-4959-8ae2-fd4c54f18c93		TypeError: req.headers is not a function
+2024-11-28/03:43:31		44883c44-9d66-411e-83b4-55ed1aad9cf2		TypeError: req.headers is not a function
+2024-11-28/03:44:27		da0f6f56-e3e7-459f-a6da-838962ff9740		TypeError: req.headers is not a function
+2024-11-28/03:44:50		d3f22d89-010b-4371-8b38-45d477af2b20		TypeError: req.headers is not a function
+2024-11-28/03:45:16		0d1dd8b9-9f54-49fe-81ce-1a78ee4c1561		TypeError: req.headers is not a function
+2024-11-28/03:46:19		4223d748-f081-4179-b1a1-8d2c50b4758c		TypeError: req.headers is not a function
+2024-11-28/03:46:25		9d502921-e202-4509-be2b-07e011685fe2		TypeError: req.headers is not a function
+2024-11-28/03:46:45		120b9873-ab09-4f5d-a088-022cd19b45f3		TypeError: req.headers is not a function
+2024-11-28/03:50:33		9e041667-a503-4ee8-a192-986ad3158a15		TypeError: req.headers is not a function
+2024-11-28/03:53:47		be936085-a4fb-467e-9911-62c522d64591		TypeError: req.headers is not a function
+2024-11-28/03:56:56		ff5ed161-409b-4c67-a78d-71da88fa1033		TypeError: req.headers is not a function
+2024-11-28/03:57:20		bb670273-6181-4daa-a76f-03adbfdbc068		TypeError: req.headers is not a function
+2024-11-28/03:58:10		0763828d-9e74-4a1a-8c71-8ea1c6d3f7f0		TypeError: req.headers is not a function
+2024-11-28/04:00:10		5f615f29-4500-4826-a6ef-12fefd06b860		TypeError: req.headers is not a function
+2024-11-28/04:00:33		376061ac-a9a1-441f-9a53-7251e4d1f649		TypeError: req.headers is not a function
+2024-11-28/04:00:46		44a125f4-9959-45bf-9b89-7bdf217b637b		TypeError: req.headers is not a function
+2024-11-28/04:08:21		e7019ac5-ead7-47fe-aea1-7d5d949e5072		TypeError: req.headers is not a function
+2024-11-28/04:08:23		50fdfbf8-05ee-4d0e-ac9f-1ec70bd3ea12		TypeError: req.headers is not a function
+2024-11-28/07:22:04		46ef619d-644e-4d8c-96f4-30ecccdf1185		TypeError: userRole.map is not a function
+2024-11-28/07:22:42		97a71c59-ab85-4a35-a26f-24e273cca105		TypeError: userRole.map is not a function
+2024-11-28/07:23:21		b52ad8b4-b34f-4492-b003-4db2fe6c2d1f		TypeError: userRole.map is not a function
+2024-11-28/07:27:23		ee7a595e-c27a-411f-89e3-3be1b7203714		TypeError: userRole.map is not a function
+2024-11-28/07:30:51		7c46f008-edcd-4f95-9980-d8da562952a9		TypeError: userRole.map is not a function
+2024-11-28/07:31:32		2defb30e-b53e-4889-a579-dbc86ff79b8d		TypeError: userRole.map is not a function
+2024-12-05/01:53:28		859bcf41-ecb7-4845-ad41-e29210fa961c		Error: Not allowed to CORS

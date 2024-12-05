@@ -10,12 +10,12 @@ router.post('/auth/register', async (req, res) => {
 
     try {
         console.log('Connect successfully');
-
+        console.log('check username', username)
         // Kiểm tra xem người dùng đã tồn tại chưa
         const [results] = await sequelize.query('SELECT * FROM users WHERE username = ?', {
             replacements: [username],
         });
-
+        console.log(results);
         if (results.length > 0) {
             return res.status(400).send('Username already exists');
         }

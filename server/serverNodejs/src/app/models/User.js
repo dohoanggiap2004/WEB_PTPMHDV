@@ -2,47 +2,62 @@
 const { DataTypes } = require('sequelize');
 const { sequelize } = require('../../config/sequelizeConnect');
 
-const User = sequelize.define('Users', {
-    userId: {
-    type: DataTypes.INTEGER,
+const User = sequelize.define('User', {
+  userId: {
+    type: DataTypes.BIGINT, // Thay INTEGER bằng BIGINT để khớp với bảng
     autoIncrement: true,
-    primaryKey: true
+    primaryKey: true,
   },
   username: {
     type: DataTypes.STRING(255),
-    allowNull: false
+    allowNull: false,
   },
   email: {
     type: DataTypes.STRING(255),
   },
   password: {
     type: DataTypes.STRING(255),
-    allowNull: false
+    allowNull: false,
   },
   fullname: {
-    type: DataTypes.STRING(255)
+    type: DataTypes.STRING(255),
   },
-  // gender: {
-  //   type: DataTypes.STRING(30)
-  // },
   phone: {
-    type: DataTypes.STRING(15)
+    type: DataTypes.STRING(255), // Khớp với kiểu dữ liệu trong bảng
   },
-  date_of_birth: {
-    type: DataTypes.DATEONLY
+  dateOfBirth: {
+    type: DataTypes.STRING(255), // Chỉnh lại kiểu dữ liệu theo bảng (varchar)
   },
-  // typeAcc: {
-  //   type: DataTypes.STRING(50)
-  // },
-  // role: {
-  //   type: DataTypes.STRING(50)
-  // },
-  created_at:{
-    type: DataTypes.DATEONLY
-  }
+  address: {
+    type: DataTypes.STRING(255), // Thêm trường address
+  },
+  addressDetail: {
+    type: DataTypes.STRING(255), // Thêm trường addressDetail
+  },
+  district: {
+    type: DataTypes.STRING(255), // Thêm trường district
+  },
+  province: {
+    type: DataTypes.STRING(255), // Thêm trường province
+  },
+  ward: {
+    type: DataTypes.STRING(255), // Thêm trường ward
+  },
+  role: {
+    type: DataTypes.STRING(255), // Chỉnh độ dài theo bảng
+  },
+  createdAt: {
+    type: DataTypes.DATE(6), // Khớp với kiểu datetime(6)
+  },
+  updatedAt: {
+    type: DataTypes.DATE(6), // Thêm trường updatedAt
+  },
 }, {
-  tableName: 'Users',
-  timestamps: false
+  tableName: 'users', // Đảm bảo trùng tên bảng trong MySQL
+  timestamps: false,  // Không tự động tạo createdAt và updatedAt nếu chúng đã được định nghĩa
 });
+
+module.exports = User;
+
 
 module.exports = User;

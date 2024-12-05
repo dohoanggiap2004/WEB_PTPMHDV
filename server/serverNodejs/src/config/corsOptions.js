@@ -10,6 +10,7 @@ const corsOptions = {
     },
     credentials: true, // Cho phép cookies
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE", // Các phương thức cho phép
+    allowedHeaders: ['Content-Type', 'Authorization', 'x-user-role'],
     optionSuccessStatus: 200,
 }
 

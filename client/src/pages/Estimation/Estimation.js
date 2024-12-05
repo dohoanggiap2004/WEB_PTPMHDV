@@ -3,50 +3,21 @@ import "./style.css";
 import Layout from "../../layout/Layout";
 import { useLocation } from "react-router-dom";
 import CardEstimation from "../../components/CardEstimation/CardEstimation";
+import {useDispatch, useSelector} from "react-redux";
+import {getInstallments} from "../../store/actions/installmentAction";
 const Estimation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [formData, setFormData] = useState({
     interestRate: "",
     term: "",
   });
-  // const [financingOptions, setFinancingOptions] = useState([])
+  const dispatch = useDispatch();
+  const { installments } = useSelector(state => state.installment);
   const location = useLocation();
   const laptop = location.state;
-  // const laptop = {
-  //   laptop_id: 1,
-  //   model: "Dell XPS 13",
-  //   price: 1500,
-  //   stock_quantity: 10,
-  //   description: "Ultrabook with excellent performance",
-  //   brand_id: 1,
-  //   discount_id: 1,
-  //   processor: "Intel Core i7",
-  //   ram: "16GB",
-  //   storage: "512GB SSD",
-  //   gpu: "Intel Iris Plus",
-  //   screen_size: 13.3,
-  //   battery: "52Wh",
-  //   weight: 1.2,
-  //   os: "Windows 10",
-  //   imageSrc: "/laptop.png",
-  // };
   const handleClick = () => {
     console.log(formData);
     setIsOpen(true);
-    // const getFinancingOptions = async () =>{
-    //   try {
-    //     const response = await axios.get('api/financing-options', {
-    //           params:{
-    //             ...formData
-    //           }
-    //     })
-    //     console.log(response.data)
-    //     setFinancingOptions(response.data)
-    //   } catch (error) {
-    //     console.log(error)
-    //   }
-    // }
-    // getFinancingOptions()
   };
 
   const handleChange = (e) => {
@@ -57,26 +28,13 @@ const Estimation = () => {
     });
   };
 
-  // useEffect(() => {
-  //     const getFinancingOptions = async () =>{
-  //       try {
-  //         const response = await axios.get('api/financing-options', {
-  //               params:{
-  //                 ...formData
-  //               }
-  //         })
-  //         console.log(response.data)
-  //         setFinancingOptions(response.data)
-  //       } catch (error) {
-  //         console.log(error)
-  //       }
-  //     }
-  //     getFinancingOptions()
-  // }, [])
   // if (!Array.isArray(financingOptions)) {
   //   console.error('Expected financingOptions to be an array, but got:', financingOptions);
   //   return <div>No laptops available</div>;
   // }
+  useEffect(() => {
+    dispatch(getInstallments())
+  }, [])
 
   const financingOptions = [
     {
@@ -119,7 +77,7 @@ const Estimation = () => {
                   <img
                     class="absolute left-0 top-0 w-full h-full object-cover object-center transition duration-50"
                     loading="lazy"
-                    src={laptop.imageSrc}
+                    src={laptop.image}
                   />
                 </div>
 
@@ -130,15 +88,14 @@ const Estimation = () => {
                     </h2>
 
                     <div className="flex-shrink-0 flex items-center space-x-5">
-                      <p className="text-red-600">100000</p>
+                      <p className="text-red-600 font-semibold">{(laptop.price).toLocaleString('vi-VN')} VNĐ</p>
                     </div>
                   </div>
 
                   <div className="flex items-start whitespace-normal">
                     <div className="max-w-md">
                       <p className="mb-2">
-                        Lorem ipsum dolor sit amet, consecte adipiscing elit sed
-                        do eiusmod tempor incididunt ut labore et dolore.
+                        {laptop.description}
                       </p>
                     </div>
                   </div>
@@ -154,10 +111,7 @@ const Estimation = () => {
               Các gói trả góp nổi bật
             </p>
             <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-8 md:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
-              <CardEstimation />
-              <CardEstimation />
-              <CardEstimation />
-              <CardEstimation />
+              <CardEstimation installments={installments}/>
             </div>
           </div>
 
