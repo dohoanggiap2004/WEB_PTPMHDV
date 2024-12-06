@@ -75,7 +75,7 @@ const Comparison = () => {
                                 </div>
                                 {/* CPU */}
                                 <p className="bg-gray-100 text-gray-600 h-12 text-center px-2 flex items-center -mt-px justify-center border-t border-gray-300">
-                                    {selectedProduct[0].processor}
+                                    {selectedProduct[0].cpu}
                                 </p>
                                 {/* ram */}
                                 <p className="text-gray-600 text-center h-12 flex items-center justify-center bg-gray-200">
@@ -87,7 +87,7 @@ const Comparison = () => {
                                 </p>
                                 {/* card đồ họa */}
                                 <p className="h-12 text-gray-600 px-6 text-center leading-relaxed flex items-center justify-center bg-gray-200">
-                                    {selectedProduct[0].gpu}
+                                    {selectedProduct[0].vga}
                                 </p>
                                 {/* màn hình */}
                                 <p className="bg-gray-100 text-gray-600 text-center h-12 flex items-center justify-center">
@@ -126,7 +126,7 @@ const Comparison = () => {
                                 </div>
                                 {/* CPU */}
                                 <p className="bg-gray-100 text-gray-600 h-12 text-center px-2 flex items-center -mt-px justify-center border-t border-gray-300">
-                                    {selectedProduct[1].processor}
+                                    {selectedProduct[1].cpu}
                                 </p>
                                 {/* ram */}
                                 <p className="text-gray-600 text-center h-12 flex items-center justify-center bg-gray-200">
@@ -138,7 +138,7 @@ const Comparison = () => {
                                 </p>
                                 {/* card đồ họa */}
                                 <p className="h-12 text-gray-600 px-6 text-center leading-relaxed flex items-center justify-center bg-gray-200">
-                                    {selectedProduct[1].gpu}
+                                    {selectedProduct[1].vga}
                                 </p>
                                 {/* màn hình */}
                                 <p className="bg-gray-100 text-gray-600 text-center h-12 flex items-center justify-center">
@@ -176,7 +176,7 @@ const Comparison = () => {
                                     )}
                                 </div>
                                 <p className="bg-gray-100 text-gray-600 h-12 text-center px-2 flex items-center -mt-px justify-center border-t border-gray-300">
-                                    {selectedProduct[2].processor}
+                                    {selectedProduct[2].cpu}
                                 </p>
                                 {/* ram */}
                                 <p className="text-gray-600 text-center h-12 flex items-center justify-center bg-gray-200">
@@ -188,7 +188,7 @@ const Comparison = () => {
                                 </p>
                                 {/* card đồ họa */}
                                 <p className="h-12 text-gray-600 px-6 text-center leading-relaxed flex items-center justify-center bg-gray-200">
-                                    {selectedProduct[2].gpu}
+                                    {selectedProduct[2].vga}
                                 </p>
                                 {/* màn hình */}
                                 <p className="bg-gray-100 text-gray-600 text-center h-12 flex items-center justify-center">

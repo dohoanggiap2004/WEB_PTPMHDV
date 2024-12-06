@@ -218,10 +218,10 @@ const ProductDetail = () => {
             </div>
             {isOpen1 && (
               <>
-                <Collapse title={"Bộ xử lí"} spec={laptop.processor} />
+                <Collapse title={"Bộ xử lí"} spec={laptop.cpu} />
                 <Collapse title={"RAM"} spec={laptop.ram} />
                 <Collapse title={"Ổ cứng"} spec={laptop.storage} />
-                <Collapse title={"Card đồ họa"} spec={laptop.gpu} />
+                <Collapse title={"Card đồ họa"} spec={laptop.vga} />
                 <Collapse title={"Màn hình"} spec={laptop.screenSize} />
                 <Collapse title={"Dung lượng pin"} spec={laptop.battery} />
                 <Collapse title={"Cân nặng"} spec={laptop.weight} />

@@ -1,6 +1,6 @@
 import "./style.css";
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import LineChart from "../../../components/Chart/LineChart";
 import {useDispatch, useSelector} from "react-redux";
 import {
@@ -15,6 +15,7 @@ import PieChart from "../../../components/Chart/PieChart";
 import Cookies from "js-cookie";
 import {logoutAdmin} from "../../../store/actions/authAction";
 import {useNavigate} from "react-router-dom";
+import axios from "axios";
 
 const Admin = () => {
     const dispatch = useDispatch();
@@ -176,9 +177,9 @@ const Admin = () => {
                                             className="px-6 py-4 whitespace-nowrap dark:text-white">
                                             {laptop.model}
                                         </th>
-                                        <td className="px-6 py-4">{laptop.brandName}</td>
+                                        <td className="px-6 py-4">{laptop.manufacturer}</td>
                                         <td className="px-6 py-4">{laptop.price.toLocaleString('vi-VN')}</td>
-                                        <td className="px-6 py-4">{laptop.stockQuantity}</td>
+                                        <td className="px-6 py-4">{laptop.stockAvailable}</td>
                                         <td className="px-6 py-4">{laptop.os}</td>
                                         <td className="px-6 py-4 text-red-700 italic">{laptop.totalQuantity}</td>
                                     </tr>

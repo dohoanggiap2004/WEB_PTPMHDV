@@ -12,14 +12,14 @@ const AddLaptop = () => {
     price: "",
     ram: "",
     storage: "",
-    processor: "",
-    gpu: "",
+    cpu: "",
+    vga: "",
     battery: "",
     screenSize: "",
     weight: "",
-    stockQuantity: "",
+    stockAvailable: "",
     imageUrl: "",
-    brandName: '',
+    manufacturer: '',
     os: "",
   });
 
@@ -111,21 +111,21 @@ const AddLaptop = () => {
                   </div>
                   <div className="flex items-start flex-col justify-start">
                     <label
-                        htmlFor="brandName"
+                        htmlFor="manufacturer"
                         className="text-sm text-gray-700 dark:text-gray-200 mr-2"
                     >
                       Thương Hiệu
                     </label>
                     <select
                         className="w-full text-lg px-3 dark:text-gray-200 dark:bg-gray-900 py-1.5 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                        name="brandName"
-                        value={formData.brandName}
+                        name="manufacturer"
+                        value={formData.manufacturer}
                         onChange={handleChange}
                         required
                     >
                       <option value="">Chọn thương hiệu</option>
                       {brands.map((prov) => (
-                          <option value={prov.brandName}>{prov.brandName}</option>
+                          <option value={prov.manufacturer}>{prov.manufacturer}</option>
                       ))}
                     </select>
                   </div>
@@ -203,17 +203,17 @@ const AddLaptop = () => {
                   </div>
                   <div className="flex items-start flex-col justify-start">
                     <label
-                      htmlFor="processor"
+                      htmlFor="cpu"
                       className="text-sm text-gray-700 dark:text-gray-200 mr-2"
                     >
                       Bộ xử lí
                     </label>
                     <input
                       type="text"
-                      id="processor"
+                      id="cpu"
                       required
-                      name="processor"
-                      value={formData.processor}
+                      name="cpu"
+                      value={formData.cpu}
                       onChange={handleChange}
                       className="w-full text-sm px-3 dark:text-gray-200 dark:bg-gray-900 py-2 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500"
                     />
@@ -222,17 +222,17 @@ const AddLaptop = () => {
                 <div className="grid grid-cols-2 gap-4 mt-1">
                   <div className="flex items-start flex-col justify-start">
                     <label
-                      htmlFor="gpu"
+                      htmlFor="vga"
                       className="text-sm text-gray-700 dark:text-gray-200 mr-2"
                     >
                       Card đồ họa
                     </label>
                     <input
                       type="text"
-                      id="gpu"
+                      id="vga"
                       required
-                      name="gpu"
-                      value={formData.gpu}
+                      name="vga"
+                      value={formData.vga}
                       onChange={handleChange}
                       className="w-full text-sm px-3 dark:text-gray-200 dark:bg-gray-900 py-2 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500"
                     />
@@ -294,17 +294,17 @@ const AddLaptop = () => {
                 <div className="grid grid-cols-2 gap-4 mt-1">
                   <div className="flex items-start flex-col justify-start">
                     <label
-                      htmlFor="stockQuantity"
+                      htmlFor="stockAvailable"
                       className="text-sm text-gray-700 dark:text-gray-200 mr-2"
                     >
                       Số lượng còn lại
                     </label>
                     <input
                       type="text"
-                      id="stockQuantity"
+                      id="stockAvailable"
                       required
-                      name="stockQuantity"
-                      value={formData.stockQuantity}
+                      name="stockAvailable"
+                      value={formData.stockAvailable}
                       onChange={handleChange}
                       className="w-full text-sm px-3 dark:text-gray-200 dark:bg-gray-900 py-2 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500"
                     />

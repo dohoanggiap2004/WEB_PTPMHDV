@@ -1,13 +1,15 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
 import ConfirmModal from "../../../components/Admin/Modal/ConfirmModal";
 import EditOrderModal from "../../../components/Admin/Modal/EditOrderModal";
-import {deleteOrder} from "../../../store/actions/orderAction";
+import {deleteOrder, getOrders} from "../../../store/actions/orderAction";
+import {useDispatch, useSelector} from "react-redux";
 
 export default function Orders() {
     const [orderId, setOrderId] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isDelete, setIsDelete] = useState(false);
+    const dispatch = useDispatch();
     const toggleModal = () => {
         setIsModalOpen((prev) => !prev);
     }
@@ -15,52 +17,57 @@ export default function Orders() {
         setIsDelete(value);
     };
 
-    const handleSelectedOrderId = (Id) => {
-        setOrderId(Id);
-    }
+    // delete order by Id
+    useEffect(() => {
+        if (isDelete) {
+            const payload = {
+                orderId: orderId
+            }
+            dispatch(deleteOrder(payload))
+            setIsDelete(false)
+        }
+    }, [isDelete])
 
-    //delete order by Id
-    // useEffect(() => {
-    //     if(isDelete){
-    //         // console.log('check orderId', orderId)
-    //         const payload = {
-    //             orderId: orderId
-    //         }
-    //         dispatch(deleteOrder(payload))
-    //         setIsDelete(false)
-    //     }
-    // }, [isDelete])
+    const {orders} = useSelector(state => state.order)
 
-    const orders = [
-        {
-            orderId: "DH001",
-            orderDate: "2024-10-10",
-            status: "Đang xử lý",
-            deliveryDate: "2024-10-15",
-            totalAmount: "5,000,000 VND",
-        },
-        {
-            orderId: "DH002",
-            orderDate: "2024-10-12",
-            status: "Đã giao hàng",
-            deliveryDate: "2024-10-18",
-            totalAmount: "3,200,000 VND",
-        },
-        {
-            orderId: "DH003",
-            orderDate: "2024-10-13",
-            status: "Hủy đơn",
-            deliveryDate: "Không có",
-            totalAmount: "0 VND",
-        },
-        {
-            orderId: "DH004",
-            orderDate: "2024-10-14",
-            status: "Đang giao hàng",
-            deliveryDate: "2024-10-20",
-            totalAmount: "7,500,000 VND",
-        },
-    ];
+    useEffect(() => {
+        console.log('check orderId', orderId)
+    }, [orderId])
+
+    useEffect(() => {
+        dispatch(getOrders())
+    }, [])
+
+    // const orders = [
+    //     {
+    //         orderId: "DH001",
+    //         orderDate: "2024-10-10",
+    //         status: "Đang xử lý",
+    //         deliveryDate: "2024-10-15",
+    //         totalAmount: "5,000,000 VND",
+    //     },
+    //     {
+    //         orderId: "DH002",
+    //         orderDate: "2024-10-12",
+    //         status: "Đã giao hàng",
+    //         deliveryDate: "2024-10-18",
+    //         totalAmount: "3,200,000 VND",
+    //     },
+    //     {
+    //         orderId: "DH003",
+    //         orderDate: "2024-10-13",
+    //         status: "Hủy đơn",
+    //         deliveryDate: "Không có",
+    //         totalAmount: "0 VND",
+    //     },
+    //     {
+    //         orderId: "DH004",
+    //         orderDate: "2024-10-14",
+    //         status: "Đang giao hàng",
+    //         deliveryDate: "2024-10-20",
+    //         totalAmount: "7,500,000 VND",
+    //     },
+    // ];
 
     if (!Array.isArray(orders)) {
         console.error('Expected orders to be an array, but got:', orders);
@@ -120,20 +127,26 @@ export default function Orders() {
                                     </th>
                                     <td className="px-6 py-4">{order.status}</td>
                                     <td className="px-6 py-4">{order.orderDate}</td>
-                                    <td className="px-6 py-4">{order.deliveryDate}</td>
-                                    <td className="px-6 py-4">{order.totalAmount}</td>
+                                    <td className="px-6 py-4">{order.completeDate}</td>
+                                    <td className="px-6 py-4">{order.totalPayment.toLocaleString('vi-VN')}</td>
                                     <td className="px-6 py-4 flex">
                                         <div className='flex items-center gap-4'>
                                             <EditOrderModal order={order}/>
                                             <a
-                                                onClick={toggleModal}
+                                                onClick={() => {
+                                                    console.log('1')
+                                                    toggleModal()
+                                                    setOrderId(order.orderId);
+                                                }}
                                                 className="font-medium text-red-600 dark:text-blue-500 hover:bg-red-300 border border-red-600 rounded-md p-1 "
                                             >
                                                 Xóa
                                             </a>
                                             <ConfirmModal
                                                 isOpen={isModalOpen}
-                                                toggleModal={() => { toggleModal(); handleSelectedOrderId(order.orderId); }}
+                                                toggleModal={() => {
+                                                    toggleModal();
+                                                }}
                                                 handleSelected={handleSelected}
                                                 confirmText="Bạn có chắc chắn muốn xóa?"
                                             />

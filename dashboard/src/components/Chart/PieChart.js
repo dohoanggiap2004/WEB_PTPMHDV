@@ -10,19 +10,21 @@ const PieChart = () => {
     const { brandSold } = useSelector(state => state.dashboard);
 
     const chartData = {
-        labels: brandSold.map(item => item.brandName), // Lấy tên thương hiệu
+        labels: brandSold.map(item => item[0]), // Lấy tên thương hiệu
         datasets: [
             {
                 label: 'Total Sold',
-                data: brandSold.map(item => item.totalSold), // Lấy số lượng bán
+                data: brandSold.map(item => item[1]), // Lấy số lượng bán
                 backgroundColor: [
                     '#4318FF',
                     '#6AD2FF',
                     '#01B574',
                     '#FFB547',
                     '#EFF4FB',
+                    '#AEA2C5',
+                    '#BCB19F',
                 ],
-                hoverOffset: 4,
+                hoverOffset: 5,
             },
         ],
     };

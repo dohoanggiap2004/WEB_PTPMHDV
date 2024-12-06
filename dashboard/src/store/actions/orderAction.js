@@ -5,7 +5,7 @@ export const getOrders = createAsyncThunk('orders/fetchOrders', async (_, thunkA
     try {
         const response = await instanceAxios8000.get('/api/orders');
         console.log(response);
-        return response.data.data;
+        return response.data;
     } catch (error) {
         thunkAPI.rejectWithValue(error.response.data);
     }
@@ -31,7 +31,8 @@ export const createOrder = createAsyncThunk('orders/createOrder', async (payload
 
 export const updateOrder = createAsyncThunk('orders/updateOrder', async (payload, thunkAPI) => {
     try {
-        const response = await instanceAxios8000.put('/api/orders', payload);
+        const { orderId, ...updateField } = payload;
+        const response = await instanceAxios8000.put(`/api/orders/${orderId}`, updateField);
         return payload;
     } catch (error) {
         thunkAPI.rejectWithValue(error.response.data);
@@ -40,7 +41,7 @@ export const updateOrder = createAsyncThunk('orders/updateOrder', async (payload
 
 export const deleteOrder = createAsyncThunk('orders/deleteOrder', async (payload, thunkAPI) => {
     try {
-        const response = await instanceAxios8000.delete('/api/orders', {data: payload});
+        const response = await instanceAxios8000.delete(`/api/orders/${payload.orderId}`);
         return payload;
     } catch (error) {
         thunkAPI.rejectWithValue(error.response.data);

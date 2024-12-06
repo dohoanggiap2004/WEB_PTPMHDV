@@ -22,18 +22,18 @@ export default function Products() {
     }
 
     useEffect(() => {
+        console.log('check laptop Id', laptopId);
+    }, [laptopId])
+
+    useEffect(() => {
         dispatch(getLaptops());
         dispatch(getBrands())
     }, [])
 
-    useEffect(() => {
-        console.log(laptops)
-    }, [laptops]);
-
     // delete laptop by Id
     useEffect(() => {
         if (isDelete) {
-            // console.log('check laptopId', laptopId)
+            console.log('check laptopId', laptopId)
             const payload = {
                 laptopId: laptopId
             }
@@ -104,12 +104,12 @@ export default function Products() {
                                         >
                                             {laptop.model}
                                         </th>
-                                        <td className="px-6 py-4">{laptop.brandName}</td>
+                                        <td className="px-6 py-4">{laptop.manufacturer}</td>
                                         <td className="px-6 py-4">
                                             <img className={'object-cover w-16 h-16'} src={laptop.image}/>
                                         </td>
                                         <td className="px-6 py-4">{laptop.price.toLocaleString('vi-VN')}</td>
-                                        <td className="px-6 py-4">{laptop.stockQuantity}</td>
+                                        <td className="px-6 py-4">{laptop.stockAvailable}</td>
                                         <td className="px-6 py-4">{laptop.os}</td>
                                         <td className="px-6 py-4">
                                             <div className='flex items-center gap-4'>

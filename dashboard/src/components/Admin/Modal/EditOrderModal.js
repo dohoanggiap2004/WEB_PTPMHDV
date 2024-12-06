@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import {useDispatch} from "react-redux";
+import {updateOrder} from "../../../store/actions/orderAction";
 
 const EditOrderModal = ({ handleSelected, order }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -6,8 +8,8 @@ const EditOrderModal = ({ handleSelected, order }) => {
     orderId: order.orderId,
     orderDate: order.orderDate,
     status: order.status,
-    deliveryDate: order.deliveryDate,
-    totalAmount: order.totalAmount,
+    completeDate: order.completeDate,
+    totalPayment: order.totalPayment,
   });
   const [error, setError] = useState("");
   const handleChange = (e) => {
@@ -17,31 +19,10 @@ const EditOrderModal = ({ handleSelected, order }) => {
       [name]: value,
     });
   };
-  const validatePhoneNumber = (phone) => {
-    const phoneRegex = /^[0-9]{10}$/; // Số điện thoại chứa 10 chữ số
-    return phoneRegex.test(phone);
-  };
-  const handleSubmit = (e) => {
-    // e.preventDefault();
-    // // Add form submission logic here
-    // if (!validatePhoneNumber(formData.phone)) {
-    //   setError("Số điện thoại không hợp lệ. Vui lòng nhập từ 10 chữ số.");
-    //   return;
-    // }
-    // if (formData.password !== formData.confirmPassword) {
-    //   setError("Mật khẩu không khớp");
-    // } else {
-    //   setError("");
-    //   // Xử lý logic gửi form ở đây
-    //   const response = axios.post("/register", formData);
-    //   if (response.ok) {
-    //     navigate("/login");
-    //   } else {
-    //     setError("Có lỗi xảy ra, vui lòng đăng kí lại");
-    //   }
-    //   console.log("Form submitted", formData);
-    // }
-    // console.log(formData);
+  const dispatch = useDispatch();
+  const handleSubmit = () => {
+    console.log(formData);
+    dispatch(updateOrder(formData))
   };
   const toggleModal = () => {
     setIsOpen(!isOpen);
@@ -85,7 +66,6 @@ const EditOrderModal = ({ handleSelected, order }) => {
                 </button>
               </div>
               <form
-                onSubmit={handleSubmit}
                 className="w-full flex flex-col gap-4"
               >
                 <div className="flex items-start flex-col justify-start">
@@ -126,34 +106,34 @@ const EditOrderModal = ({ handleSelected, order }) => {
 
                 <div className="flex items-start flex-col justify-start">
                   <label
-                    htmlFor="deliveryDate"
+                    htmlFor="completeDate"
                     className="text-lg text-gray-700 dark:text-gray-200 mr-2"
                   >
                     Ngày giao hàng
                   </label>
                   <input
                     type="date"
-                    id="deliveryDate"
+                    id="completeDate"
                     required
-                    name="deliveryDate"
-                    value={formData.deliveryDate}
+                    name="completeDate"
+                    value={formData.completeDate}
                     onChange={handleChange}
                     className="w-full text-lg px-3 dark:text-gray-200 dark:bg-gray-900 py-2 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500"
                   />
                 </div>
                 <div className="flex items-start flex-col justify-start">
                   <label
-                    htmlFor="totalAmount"
+                    htmlFor="totalPayment"
                     className="text-lg text-gray-700 dark:text-gray-200 mr-2"
                   >
                     Tổng tiền
                   </label>
                   <input
                     type="text"
-                    id="totalAmount"
+                    id="totalPayment"
                     required
-                    name="totalAmount"
-                    value={formData.totalAmount}
+                    name="totalPayment"
+                    value={formData.totalPayment.toLocaleString('vi-VN')}
                     onChange={handleChange}
                     className="w-full text-lg px-3 dark:text-gray-200 dark:bg-gray-900 py-2 rounded-md border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500"
                   />
@@ -164,7 +144,6 @@ const EditOrderModal = ({ handleSelected, order }) => {
                 <button
                   type="button"
                   onClick={() => {
-                    
                     toggleModal();
                   }}
                   className="py-2.5 px-5 text-lg bg-indigo-50 text-indigo-500 rounded-full cursor-pointer font-semibold text-center shadow-xs transition-all duration-500 hover:bg-indigo-100"
@@ -174,9 +153,8 @@ const EditOrderModal = ({ handleSelected, order }) => {
                 <button
                   type="button"
                   onClick={() => {
-                 
+                    handleSubmit();
                     toggleModal();
-                    window.location.reload()
                   }}
                   className="py-2.5 px-8 text-lg bg-rose-600 text-white rounded-full cursor-pointer font-semibold text-center shadow-xs transition-all duration-500 hover:bg-indigo-700"
                 >

@@ -39,13 +39,13 @@ const routes = [
         pathRewrite: {"^/api/statistics": "/api/statistics"},
         methods: ["GET", "POST", "PUT", "DELETE"],
     },
-    {
-        context: "/refresh-token",
-        target: "http://localhost:8002",
-        changeOrigin: true,
-        pathRewrite: { "^/refresh-token": "/refresh-token" },
-        methods: ["GET", "POST", "PUT", "DELETE"],
-    },
+    // {
+    //     context: "/refresh-token",
+    //     target: "http://localhost:8002",
+    //     changeOrigin: true,
+    //     pathRewrite: { "^/refresh-token": "/refresh-token" },
+    //     methods: ["GET", "POST", "PUT", "DELETE"],
+    // },
     {
         context: "/logout",
         target: "http://localhost:8002",
@@ -88,6 +88,13 @@ const routes = [
         pathRewrite: {"^/api/orders": "/api/orders"},
         methods: ["GET", "POST", "PUT", "DELETE"],
     },
+    {
+        context: "/api/laptops",
+        target: "http://localhost:8080",
+        changeOrigin: true,
+        pathRewrite: {"^/api/laptops": "/api/laptops"},
+        methods: ["GET", "POST", "PUT", "DELETE"],
+    },
 ];
 
 app.use("/api/laptops", (req, res, next) => {
@@ -97,6 +104,8 @@ app.use("/api/laptops", (req, res, next) => {
             changeOrigin: true,
             pathRewrite: { "^/api/laptops": "/api/laptops" },
         })(req, res, next);
+    }else {
+        next()
     }
 });
 
@@ -108,7 +117,6 @@ app.use("/api/statistics/products",
 
 }));
 
-
 app.use('/auth', createProxyMiddleware({
     target: "http://localhost:8002",
     pathRewrite: { "^/auth": "/auth" },
@@ -116,7 +124,7 @@ app.use('/auth', createProxyMiddleware({
     methods: ["GET", "POST", "PUT", "DELETE"],
 }))
 
-app.use('/refresh-token',createProxyMiddleware({
+app.use('/refresh-token', createProxyMiddleware({
     target: "http://localhost:8002",
     changeOrigin: true,
     pathRewrite: { "^/refresh-token": "/refresh-token" },

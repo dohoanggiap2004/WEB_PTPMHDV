@@ -67,7 +67,7 @@ export const getOrderQuantity = createAsyncThunk('dashboard/getOrderQuantity',
 export const getBrandSold = createAsyncThunk('dashboard/getBrandSold',
     async (_, thunkAPI) => {
         try {
-            const response = await instanceAxios8000.get('api/laptops/analytics');
+            const response = await instanceAxios8000.get('api/brands/laptop-stats');
             console.log(response.data);
             return response.data;
         } catch (e) {
