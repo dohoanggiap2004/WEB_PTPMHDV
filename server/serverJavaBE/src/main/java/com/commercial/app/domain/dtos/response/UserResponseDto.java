@@ -1,0 +1,27 @@
+package com.commercial.app.domain.dtos.response;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.Date;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class UserResponseDto {
+    private String userId;
+    private String username;
+    private String address;
+    private String email;
+    private String phone;
+    private Date createdAt;
+    private Date updatedAt;
+    private String fullname;
+    private String dateOfBirth;
+    private String addressDetail;
+    private String ward;
+    private String district;
+    private String province;
+    private String role;
+}
+
