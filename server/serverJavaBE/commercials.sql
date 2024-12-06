@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3307
--- Generation Time: Dec 05, 2024 at 07:15 PM
+-- Generation Time: Dec 06, 2024 at 02:50 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -63,13 +63,13 @@ INSERT INTO `brands` (`brandId`, `brandName`) VALUES
 CREATE TABLE `installment_plans` (
   `installmentId` varchar(255) NOT NULL,
   `company` varchar(255) DEFAULT NULL,
-  `downPayment` varchar(255) DEFAULT NULL,
+  `downPayment` int(11) DEFAULT NULL,
   `flatInterestRate` varchar(255) DEFAULT NULL,
-  `installmentPrice` varchar(255) DEFAULT NULL,
-  `monthlyInstallment` varchar(255) DEFAULT NULL,
+  `installmentPrice` int(11) DEFAULT NULL,
+  `monthlyInstallment` int(11) DEFAULT NULL,
   `requiredDocuments` varchar(255) DEFAULT NULL,
   `term` varchar(255) DEFAULT NULL,
-  `totalPayment` varchar(255) DEFAULT NULL
+  `totalPayment` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -77,11 +77,11 @@ CREATE TABLE `installment_plans` (
 --
 
 INSERT INTO `installment_plans` (`installmentId`, `company`, `downPayment`, `flatInterestRate`, `installmentPrice`, `monthlyInstallment`, `requiredDocuments`, `term`, `totalPayment`) VALUES
-('1', 'Saigon Finance', '500000', '0.05', '2000000', '150000', 'CMND, Hợp đồng lao động, Giấy xác nhận lương', '12', '1800000'),
-('2', 'Vietnam Credit', '300000', '0.07', '1500000', '70000', 'CMND, Giấy chứng minh thu nhập, Sao kê ngân hàng', '24', '1800000'),
-('3', 'Hà Nội Credit', '400000', '0.05', '2000000', '80000', 'CMND, Giấy xác nhận cư trú, Giấy chứng minh thu nhập', '24', '2400000'),
-('4', 'TPBank', '3000000', '4%', '15000000', '400000', 'CMND, Sổ hộ khẩu, Giấy xác nhận thu nhập', '36 months', '14400000'),
-('5', 'Hao', '30200000', '90%', '152000000', '400000', 'CMND, Sổ hộ khẩu, Giấy xác nhận thu nhập', '1 months', '111400000');
+('1', 'Saigon Finance', 500000, '0.05', 2000000, 150000, 'CMND, Hợp đồng lao động, Giấy xác nhận lương', '12', 1800000),
+('2', 'Vietnam Credit', 300000, '0.07', 1500000, 70000, 'CMND, Giấy chứng minh thu nhập, Sao kê ngân hàng', '24', 1800000),
+('3', 'Hà Nội Credit', 400000, '0.05', 2000000, 80000, 'CMND, Giấy xác nhận cư trú, Giấy chứng minh thu nhập', '24', 2400000),
+('4', 'TPBank', 3000000, '4%', 15000000, 400000, 'CMND, Sổ hộ khẩu, Giấy xác nhận thu nhập', '36 months', 14400000),
+('5', 'Hao', 30200000, '90%', 152000000, 400000, 'CMND, Sổ hộ khẩu, Giấy xác nhận thu nhập', '1 months', 111400000);
 
 -- --------------------------------------------------------
 
@@ -197,33 +197,32 @@ CREATE TABLE `users` (
   `role` varchar(255) DEFAULT NULL,
   `updatedAt` datetime(6) DEFAULT NULL,
   `username` varchar(255) NOT NULL,
-  `ward` varchar(255) DEFAULT NULL,
-  `address` varchar(255) NOT NULL
+  `ward` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`userId`, `addressDetail`, `createdAt`, `dateOfBirth`, `district`, `email`, `fullname`, `password`, `phone`, `province`, `role`, `updatedAt`, `username`, `ward`, `address`) VALUES
-('1', 'Số 123, Đường ABC', '2024-11-07 23:09:27.000000', NULL, 'Quận 1', 'nguyenvana@example.com', 'Nguyễn Văn A', '$2a$10$PG7TgfyRDUnuhpSbyu5ikOfFR.jR6zHGfpVpYfXWD..IiMmhnmJR.', '0909123456', 'TP.HCM', 'user', '2024-11-07 23:09:27.000000', 'nguyenvana', 'Phường 1', '123 Đường ABC, Quận 1, TP.HCM'),
-('10', 'Số 2223, Đường BCD', '2024-11-07 23:13:03.000000', NULL, 'Quận 10', 'lethuong@example.com', 'Lê Thương', '$2a$10$FpEn5jxW8IXlD3l8g5Z5k5kJkkVwrGjOLlg8g5jrRSvZD38nZa6k6', '0990123456', 'TP.HCM', 'user', '2024-11-07 23:13:03.000000', 'lethuong', 'Phường 10', '2223 Đường BCD, Quận 10, TP.HCM'),
-('11', 'Số 2425, Đường EFG', '2024-11-07 23:13:35.000000', NULL, 'Quận 11', 'lethi@example.com', 'Lê Thị D', '$2a$10$A2JgFDPusVx8KxFw2jQ4tABOGkOht3BrubAomjL9l.58mY47e9byu', '0912345678', 'TP.HCM', 'user', '2024-11-07 23:13:35.000000', 'lethi', 'Phường 11', '2425 Đường EFG, Quận 11, TP.HCM'),
-('12', 'Số 2627, Đường HIJ', '2024-11-07 23:13:56.000000', NULL, 'Quận 12', 'nguyenhoang@example.com', 'Nguyễn Hoàng', '$2a$10$BFHp1xtJhA8eF7HEJt/JKD9n4Vcd1jy1e8xUbe6wJbD7.FJftvLzW', '0903456789', 'TP.HCM', 'user', '2024-11-07 23:13:56.000000', 'nguyenhoang', 'Phường 12', '2627 Đường HIJ, Quận 12, TP.HCM'),
-('13', 'Số 2829, Đường KLM', '2024-11-07 23:14:16.000000', NULL, 'Quận 13', 'trangduong@example.com', 'Trần Dương', '$2a$10$LkZaFLtGhzDpfpJntKoMf5jm8e7evcyt5flx1A6d5SPlA0zRUFX1G', '0923456789', 'TP.HCM', 'user', '2024-11-07 23:14:16.000000', 'trangduong', 'Phường 13', '2829 Đường KLM, Quận 13, TP.HCM'),
-('14', 'Số 3031, Đường NOP', '2024-11-07 23:14:35.000000', NULL, 'Quận 14', 'lethuy@example.com', 'Lê Thúy', '$2a$10$Mbjf3onufkm72I3AYQ5Bjm9U2h0z88T0SHlJX6S2v7pKcvQraXaZG', '0934567890', 'TP.HCM', 'user', '2024-11-07 23:14:35.000000', 'lethuy', 'Phường 14', '3031 Đường NOP, Quận 14, TP.HCM'),
-('15', 'Số 3233, Đường PQR', '2024-11-07 23:14:56.000000', NULL, 'Quận 15', 'phanlong@example.com', 'Phan Long', '$2a$10$JxoEjpXyDZpP8JxXZp4tNm8T9iGs6YVoGC2z8pFndfl7Ch9ML7guu', '0945678901', 'TP.HCM', 'user', '2024-11-07 23:14:56.000000', 'phanlong', 'Phường 15', '3233 Đường PQR, Quận 15, TP.HCM'),
-('16', 'Số 3435, Đường STV', '2024-11-07 23:15:16.000000', NULL, 'Quận 16', 'nguyenhoang@example.com', 'Nguyễn Hoàng', '$2a$10$S3FVpU8v9FXf7ROdRT5o3DGGVx.7wdbwH9YJAtU4AiEkub2WiTebm', '0978901234', 'TP.HCM', 'user', '2024-11-07 23:15:16.000000', 'nguyenhoang', 'Phường 16', '3435 Đường STV, Quận 16, TP.HCM'),
-('17', 'Số 123, Đường ABC', '2024-12-05 20:57:26.000000', '1980-01-01', 'Quận 1', 'admin@example.com', 'Admin User', '$2a$10$FWOQhMt6eJOcfV5z9OAqAOaICJxbtAVcmzvQ8OKuihpv3QzIY1/qW', '0901234567', 'TP.HCM', 'admin', '2024-12-05 20:57:26.000000', 'admin', 'Phường 1', '123 Đường ABC, Quận 1, TP.HCM'),
-('18', 'Số 456, Đường DEF', '2024-12-05 20:57:26.000000', '1990-05-15', 'Quận 2', 'user@example.com', 'User A', '$2a$10$FWOQhMt6eJOcfV5z9OAqAOaICJxbtAVcmzvQ8OKuihpv3QzIY1/qW', '0912345678', 'TP.HCM', 'user', '2024-12-05 20:57:26.000000', 'user', 'Phường 2', '456 Đường DEF, Quận 2, TP.HCM'),
-('2', 'Số 456, Đường DEF', '2024-11-07 23:09:38.000000', NULL, 'Quận 2', 'tranthib@example.com', 'Trần Thị B', '$2a$10$WmcgUUVtiMJmjgUtsvmjq.J/2bt7u8rhpHgeCzRmUnJf65CznvSWe', '0912345678', 'TP.HCM', 'user', '2024-11-07 23:09:38.000000', 'tranthib', 'Phường 2', '456 Đường DEF, Quận 2, TP.HCM'),
-('3', 'Số 789, Đường GHI', '2024-11-07 23:10:12.000000', NULL, 'Quận 3', 'lequocd@example.com', 'Lê Quốc D', '$2a$10$S6MJGG38PYYQkdsw13oNqKO7Rl6aPQzJSnx5U4.EYhI4R0Ppxe36W', '0923456789', 'TP.HCM', 'user', '2024-11-07 23:10:12.000000', 'lequocd', 'Phường 3', '789 Đường GHI, Quận 3, TP.HCM'),
-('4', 'Số 1011, Đường JKL', '2024-11-07 23:10:45.000000', NULL, 'Quận 4', 'hoangphuoa@example.com', 'Hoàng Phú A', '$2a$10$YxcK4fTPWvFmmZuXjP0vmuH6Bfv4lLwR1t7jzTSV9nQ67v1V.lRS6', '0934567890', 'TP.HCM', 'user', '2024-11-07 23:10:45.000000', 'hoangphuoa', 'Phường 4', '1011 Đường JKL, Quận 4, TP.HCM'),
-('5', 'Số 1213, Đường MNO', '2024-11-07 23:11:03.000000', NULL, 'Quận 5', 'phamminh@example.com', 'Phạm Minh C', '$2a$10$QiYfgclg2qkjf0qLX5wVnKK.k5nnDR2jsRiworTQfgqXM0Al0oHa6', '0945678901', 'TP.HCM', 'user', '2024-11-07 23:11:03.000000', 'phamminh', 'Phường 5', '1213 Đường MNO, Quận 5, TP.HCM'),
-('6', 'Số 1415, Đường PQR', '2024-11-07 23:11:35.000000', NULL, 'Quận 6', 'ngocdung@example.com', 'Ngọc Dung', '$2a$10$F9BTrglWnT5dq6nUdLO4B2mI6pXhf1LfSbMN3nwiFOtXIQEj1Xe4', '0956789012', 'TP.HCM', 'user', '2024-11-07 23:11:35.000000', 'ngocdung', 'Phường 6', '1415 Đường PQR, Quận 6, TP.HCM'),
-('7', 'Số 1617, Đường STU', '2024-11-07 23:11:58.000000', NULL, 'Quận 7', 'trangthao@example.com', 'Trần Thảo', '$2a$10$Imt79OQyWpGHXX8fXDPbGOxeRUQXk03jrt7tYZnx7G0F0w1Xh1Zf2', '0967890123', 'TP.HCM', 'user', '2024-11-07 23:11:58.000000', 'trangthao', 'Phường 7', '1617 Đường STU, Quận 7, TP.HCM'),
-('8', 'Số 1819, Đường VWX', '2024-11-07 23:12:24.000000', NULL, 'Quận 8', 'hoanglan@example.com', 'Hoàng Lan', '$2a$10$Gb9oeLNnWs52Fz9q35en0c.W8GghH5ajMT4hKj9wdGfpw.BQoe0xS', '0978901234', 'TP.HCM', 'user', '2024-11-07 23:12:24.000000', 'hoanglan', 'Phường 8', '1819 Đường VWX, Quận 8, TP.HCM'),
-('9', 'Số 2021, Đường YZA', '2024-11-07 23:12:46.000000', NULL, 'Quận 9', 'vuthanha@example.com', 'Vũ Thanh A', '$2a$10$HUBNGXk5k5zVVtnXcdhjfg0ORoK5yftP5u7U2TzOSjzzHkR56b1xa', '0989012345', 'TP.HCM', 'user', '2024-11-07 23:12:46.000000', 'vuthanha', 'Phường 9', '2021 Đường YZA, Quận 9, TP.HCM');
+INSERT INTO `users` (`userId`, `addressDetail`, `createdAt`, `dateOfBirth`, `district`, `email`, `fullname`, `password`, `phone`, `province`, `role`, `updatedAt`, `username`, `ward`) VALUES
+('1', 'Số 123, Đường ABC', '2024-11-07 23:09:27.000000', NULL, 'Quận 1', 'nguyenvana@example.com', 'Nguyễn Văn A', '$2a$10$PG7TgfyRDUnuhpSbyu5ikOfFR.jR6zHGfpVpYfXWD..IiMmhnmJR.', '0909123456', 'TP.HCM', 'user', '2024-11-07 23:09:27.000000', 'nguyenvana', 'Phường 1'),
+('10', 'Số 2223, Đường BCD', '2024-11-07 23:13:03.000000', NULL, 'Quận 10', 'lethuong@example.com', 'Lê Thương', '$2a$10$FpEn5jxW8IXlD3l8g5Z5k5kJkkVwrGjOLlg8g5jrRSvZD38nZa6k6', '0990123456', 'TP.HCM', 'user', '2024-11-07 23:13:03.000000', 'lethuong', 'Phường 10'),
+('11', 'Số 2425, Đường EFG', '2024-11-07 23:13:35.000000', NULL, 'Quận 11', 'lethi@example.com', 'Lê Thị D', '$2a$10$A2JgFDPusVx8KxFw2jQ4tABOGkOht3BrubAomjL9l.58mY47e9byu', '0912345678', 'TP.HCM', 'user', '2024-11-07 23:13:35.000000', 'lethi', 'Phường 11'),
+('12', 'Số 2627, Đường HIJ', '2024-11-07 23:13:56.000000', NULL, 'Quận 12', 'nguyenhoang@example.com', 'Nguyễn Hoàng', '$2a$10$BFHp1xtJhA8eF7HEJt/JKD9n4Vcd1jy1e8xUbe6wJbD7.FJftvLzW', '0903456789', 'TP.HCM', 'user', '2024-11-07 23:13:56.000000', 'nguyenhoang', 'Phường 12'),
+('13', 'Số 2829, Đường KLM', '2024-11-07 23:14:16.000000', NULL, 'Quận 13', 'trangduong@example.com', 'Trần Dương', '$2a$10$LkZaFLtGhzDpfpJntKoMf5jm8e7evcyt5flx1A6d5SPlA0zRUFX1G', '0923456789', 'TP.HCM', 'user', '2024-11-07 23:14:16.000000', 'trangduong', 'Phường 13'),
+('14', 'Số 3031, Đường NOP', '2024-11-07 23:14:35.000000', NULL, 'Quận 14', 'lethuy@example.com', 'Lê Thúy', '$2a$10$Mbjf3onufkm72I3AYQ5Bjm9U2h0z88T0SHlJX6S2v7pKcvQraXaZG', '0934567890', 'TP.HCM', 'user', '2024-11-07 23:14:35.000000', 'lethuy', 'Phường 14'),
+('15', 'Số 3233, Đường PQR', '2024-11-07 23:14:56.000000', NULL, 'Quận 15', 'phanlong@example.com', 'Phan Long', '$2a$10$JxoEjpXyDZpP8JxXZp4tNm8T9iGs6YVoGC2z8pFndfl7Ch9ML7guu', '0945678901', 'TP.HCM', 'user', '2024-11-07 23:14:56.000000', 'phanlong', 'Phường 15'),
+('16', 'Số 3435, Đường STV', '2024-11-07 23:15:16.000000', NULL, 'Quận 16', 'nguyenhoang@example.com', 'Nguyễn Hoàng', '$2a$10$S3FVpU8v9FXf7ROdRT5o3DGGVx.7wdbwH9YJAtU4AiEkub2WiTebm', '0978901234', 'TP.HCM', 'user', '2024-11-07 23:15:16.000000', 'nguyenhoang', 'Phường 16'),
+('17', 'Số 123, Đường ABC', '2024-12-05 20:57:26.000000', '1980-01-01', 'Quận 1', 'admin@example.com', 'Admin User', '$2a$10$FWOQhMt6eJOcfV5z9OAqAOaICJxbtAVcmzvQ8OKuihpv3QzIY1/qW', '0901234567', 'TP.HCM', 'admin', '2024-12-05 20:57:26.000000', 'admin', 'Phường 1'),
+('18', 'Số 456, Đường DEF', '2024-12-05 20:57:26.000000', '1990-05-15', 'Quận 2', 'user@example.com', 'User A', '$2a$10$FWOQhMt6eJOcfV5z9OAqAOaICJxbtAVcmzvQ8OKuihpv3QzIY1/qW', '0912345678', 'TP.HCM', 'user', '2024-12-05 20:57:26.000000', 'user', 'Phường 2'),
+('2', 'Số 456, Đường DEF', '2024-11-07 23:09:38.000000', NULL, 'Quận 2', 'tranthib@example.com', 'Trần Thị B', '$2a$10$WmcgUUVtiMJmjgUtsvmjq.J/2bt7u8rhpHgeCzRmUnJf65CznvSWe', '0912345678', 'TP.HCM', 'user', '2024-11-07 23:09:38.000000', 'tranthib', 'Phường 2'),
+('3', 'Số 789, Đường GHI', '2024-11-07 23:10:12.000000', NULL, 'Quận 3', 'lequocd@example.com', 'Lê Quốc D', '$2a$10$S6MJGG38PYYQkdsw13oNqKO7Rl6aPQzJSnx5U4.EYhI4R0Ppxe36W', '0923456789', 'TP.HCM', 'user', '2024-11-07 23:10:12.000000', 'lequocd', 'Phường 3'),
+('4', 'Số 1011, Đường JKL', '2024-11-07 23:10:45.000000', NULL, 'Quận 4', 'hoangphuoa@example.com', 'Hoàng Phú A', '$2a$10$YxcK4fTPWvFmmZuXjP0vmuH6Bfv4lLwR1t7jzTSV9nQ67v1V.lRS6', '0934567890', 'TP.HCM', 'user', '2024-11-07 23:10:45.000000', 'hoangphuoa', 'Phường 4'),
+('5', 'Số 1213, Đường MNO', '2024-11-07 23:11:03.000000', NULL, 'Quận 5', 'phamminh@example.com', 'Phạm Minh C', '$2a$10$QiYfgclg2qkjf0qLX5wVnKK.k5nnDR2jsRiworTQfgqXM0Al0oHa6', '0945678901', 'TP.HCM', 'user', '2024-11-07 23:11:03.000000', 'phamminh', 'Phường 5'),
+('6', 'Số 1415, Đường PQR', '2024-11-07 23:11:35.000000', NULL, 'Quận 6', 'ngocdung@example.com', 'Ngọc Dung', '$2a$10$F9BTrglWnT5dq6nUdLO4B2mI6pXhf1LfSbMN3nwiFOtXIQEj1Xe4', '0956789012', 'TP.HCM', 'user', '2024-11-07 23:11:35.000000', 'ngocdung', 'Phường 6'),
+('7', 'Số 1617, Đường STU', '2024-11-07 23:11:58.000000', NULL, 'Quận 7', 'trangthao@example.com', 'Trần Thảo', '$2a$10$Imt79OQyWpGHXX8fXDPbGOxeRUQXk03jrt7tYZnx7G0F0w1Xh1Zf2', '0967890123', 'TP.HCM', 'user', '2024-11-07 23:11:58.000000', 'trangthao', 'Phường 7'),
+('8', 'Số 1819, Đường VWX', '2024-11-07 23:12:24.000000', NULL, 'Quận 8', 'hoanglan@example.com', 'Hoàng Lan', '$2a$10$Gb9oeLNnWs52Fz9q35en0c.W8GghH5ajMT4hKj9wdGfpw.BQoe0xS', '0978901234', 'TP.HCM', 'user', '2024-11-07 23:12:24.000000', 'hoanglan', 'Phường 8'),
+('9', 'Số 2021, Đường YZA', '2024-11-07 23:12:46.000000', NULL, 'Quận 9', 'vuthanha@example.com', 'Vũ Thanh A', '$2a$10$HUBNGXk5k5zVVtnXcdhjfg0ORoK5yftP5u7U2TzOSjzzHkR56b1xa', '0989012345', 'TP.HCM', 'user', '2024-11-07 23:12:46.000000', 'vuthanha', 'Phường 9');
 
 -- --------------------------------------------------------
 
@@ -322,7 +321,7 @@ ALTER TABLE `vouchers`
 -- AUTO_INCREMENT for table `brands`
 --
 ALTER TABLE `brands`
-  MODIFY `brandId` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `brandId` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `orders`
