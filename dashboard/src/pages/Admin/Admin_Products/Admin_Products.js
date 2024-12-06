@@ -7,13 +7,44 @@ import {useDispatch, useSelector} from "react-redux";
 import {deleteLaptop, getLaptops, getLaptopByModel} from "../../../store/actions/laptopAction";
 import { getBrands } from "../../../store/actions/brandAction";
 import Pagination2 from "../../../components/Pagination/Pagination";
+import Pagination from "../../../components/Pagination/Pagination";
+import {instanceAxios8000} from "../../../config/axiosConfig";
 export default function Products() {
     const dispatch = useDispatch();
-    const { laptops } = useSelector(state => state.laptop);
+    // const { laptops } = useSelector(state => state.laptop);
     const { brands } = useSelector((state) => state.brand);
     const [laptopId, setLaptopId] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isDelete, setIsDelete] = useState(false);
+    const [value, setValue] = useState('')
+    const [laptops, setLaptops] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+    const [pageSize] = useState(20); // Số mục mỗi trang
+
+    const searchLaptops = async (value, page, size) => {
+        try {
+            const response = await instanceAxios8000.get(`/api/laptops/search`, {
+                params: {
+                    keyword: value,
+                    page: page,
+                    size: size,
+                },
+            });
+            setLaptops(response.data.content);
+            setTotalPages(response.data.totalPages);
+        } catch (error) {
+            console.error("Error fetching laptops:", error);
+        }
+    };
+
+    useEffect(() => {
+        searchLaptops(value, currentPage, pageSize);
+    }, [currentPage, value]);
+
+    const handlePageChange = (page) => {
+        setCurrentPage(page);
+    };
     const toggleModal = () => {
         setIsModalOpen((prev) => !prev);
     }
@@ -43,7 +74,7 @@ export default function Products() {
     }, [isDelete])
 
     const handleSearch = (value) => {
-        value ? dispatch(getLaptopByModel(value)) : dispatch(getLaptops())
+        setValue(value)
     }
 
     return (
@@ -138,6 +169,9 @@ export default function Products() {
                                 </tbody>
                             }
                         </table>
+                        <div className={'mt-4'}>
+                            <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange}/>
+                        </div>
                     </div>
                 </div>
             </div>

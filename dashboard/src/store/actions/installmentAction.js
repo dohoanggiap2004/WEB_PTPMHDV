@@ -23,7 +23,7 @@ export const getInstallmentByCompany = createAsyncThunk('installments/fetchInsta
     try {
         const response = await instanceAxios8000.get(`/api/installments/search`,{
             params: {
-                company: payload,
+                keyword: payload,
             }
         });
         return response.data;

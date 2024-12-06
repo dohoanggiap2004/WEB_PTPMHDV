@@ -24,10 +24,11 @@ export const getLaptopByModel = createAsyncThunk('laptops/fetchLaptopByModel', a
     try {
         const response = await instanceAxios8000.get(`/api/laptops/search`,{
             params: {
-                model: payload,
+                keyword: payload,
+
             }
         });
-        return response.data;
+        return response.data.content;
     } catch (error) {
         thunkAPI.rejectWithValue(error.response.data);
     }
@@ -37,7 +38,8 @@ export const getLaptopByModel2 = createAsyncThunk('laptops/fetchLaptopByModel2',
     try {
         const response = await instanceAxios8000.get(`/api/laptops/search`,{
             params: {
-                model: payload,
+                keyword: payload,
+                page: 1,
             }
         });
         return response.data;

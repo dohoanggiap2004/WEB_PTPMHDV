@@ -15,9 +15,32 @@ import {Provider} from "react-redux";
 import {PersistGate} from "redux-persist/integration/react";
 import {persistor} from "./store/reducers/store";
 import Installment from "./pages/Admin/Admin_Installments/Admin_Installments";
-
+import {useEffect} from "react";
+import {instanceAxios8000} from "./config/axiosConfig";
 
 function App() {
+    useEffect(() => {
+        const hasRun = localStorage.getItem("hasRun");
+        if (!hasRun) {
+            console.log("Logic này chỉ chạy lần đầu tiên!");
+
+            // Thực hiện logic khởi tạo
+            crawlLaptops();
+
+            // Đánh dấu đã chạy
+            localStorage.setItem("hasRun", "true");
+        }
+    }, []);
+
+    const crawlLaptops = async () => {
+        try {
+            const response = await fetch('http://localhost:8080/data/500');
+            console.log("Response:", await response.json());
+        } catch (error) {
+            console.error("Error:", error.message);
+        }
+    };
+
     return (
         <>
             <Provider store={store}>
