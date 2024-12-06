@@ -34,10 +34,6 @@ public class User {
 
     @Nationalized
     @Column(nullable = false)
-    private String address;
-
-    @Nationalized
-    @Column(nullable = false)
     private String password;
 
     @Nationalized

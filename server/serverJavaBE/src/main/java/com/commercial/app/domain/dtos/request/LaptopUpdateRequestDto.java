@@ -18,4 +18,11 @@ public class LaptopUpdateRequestDto {
     private String manufacturer;
     private int stockAvailable;
     private String image;
+    private String battery;
+    private String cpu;
+    private String ram;
+    private String os;
+    private String weight;
+    private String storage;
+    private String screenSize;
 }

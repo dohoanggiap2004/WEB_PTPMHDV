@@ -11,27 +11,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class InstallmentRequestDto {
 
-    @NotNull
     private String company; // Company
-
-    @NotNull
-    private String installmentPrice; // Installment price
-
-    @NotNull
-    private String downPayment; // Down payment
-
-    @NotNull
+    private int installmentPrice; // Installment price
+    private int downPayment; // Down payment
     private String term; // Term in months
-
-    @NotNull
-    private String monthlyInstallment; // Monthly installment
-
-    @NotNull
+    private int monthlyInstallment; // Monthly installment
     private String flatInterestRate; // Flat interest rate
-
-    @NotNull
     private String requiredDocuments; // Required documents
-
-    @NotNull
-    private String totalPayment; // Total payment
+    private int totalPayment; // Total payment
 }

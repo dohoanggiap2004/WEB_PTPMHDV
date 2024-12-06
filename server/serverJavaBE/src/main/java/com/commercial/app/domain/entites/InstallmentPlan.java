@@ -23,16 +23,16 @@ public class InstallmentPlan {
     private String company; // Company
 
     @Column
-    private String installmentPrice; // Installment price
+    private int installmentPrice; // Installment price
 
     @Column
-    private String downPayment; // Down payment
+    private int downPayment; // Down payment
 
     @Column
     private String term; // Term in months
 
     @Column
-    private String monthlyInstallment; // Monthly installment
+    private int monthlyInstallment; // Monthly installment
 
     @Column
     private String flatInterestRate; // Flat interest rate
@@ -41,6 +41,6 @@ public class InstallmentPlan {
     private String requiredDocuments; // Required documents
 
     @Column
-    private String totalPayment; // Total payment
+    private int totalPayment; // Total payment
 }
 

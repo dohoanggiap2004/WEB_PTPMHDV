@@ -64,7 +64,6 @@ public class ImplUserService implements UserService {
 
             // Cập nhật các trường thông tin người dùng
             user.setUsername(userDTO.getUsername());
-            user.setAddress(userDTO.getAddress());
             user.setPassword(userDTO.getPassword());
             user.setEmail(userDTO.getEmail());
             user.setPhone(userDTO.getPhone());

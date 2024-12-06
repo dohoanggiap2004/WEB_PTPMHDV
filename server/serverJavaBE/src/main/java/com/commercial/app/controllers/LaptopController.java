@@ -36,14 +36,22 @@ public class LaptopController {
     }
 
     @PutMapping("{laptopId}")
-    public ResponseEntity<?> updateLaptop(@PathVariable String laptopId ,@RequestBody LaptopUpdateRequestDto laptopUpdateRequestDto, String brandName) {
-        return  ResponseEntity.ok(laptopService.updateLaptop(laptopId, laptopUpdateRequestDto, brandName));
+    public ResponseEntity<?> updateLaptop(@PathVariable String laptopId ,@RequestBody LaptopUpdateRequestDto laptopUpdateRequestDto) {
+        return  ResponseEntity.ok(laptopService.updateLaptop(laptopId, laptopUpdateRequestDto));
     }
 
     @DeleteMapping("{laptopId}")
     public ResponseEntity<?> deleteLaptop(@PathVariable String laptopId) {
         laptopService.deleteLaptop(laptopId);
         return ResponseEntity.ok("Deleted Laptop " + laptopId);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<Page<LaptopResponseDto>> getAllLaptops(@RequestParam String keyword,
+                                                                 @RequestParam int page,
+                                                                 @RequestParam(defaultValue = "24") int size){
+
+        return ResponseEntity.ok(laptopService.searchLaptops(keyword, page, size));
     }
 
     @DeleteMapping("/all")

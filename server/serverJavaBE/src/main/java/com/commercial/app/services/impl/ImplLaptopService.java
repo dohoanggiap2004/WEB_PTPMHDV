@@ -13,12 +13,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -53,10 +51,10 @@ public class ImplLaptopService implements LaptopService {
     }
 
     @Override
-    public LaptopUpdateRequestDto updateLaptop(String laptopId ,LaptopUpdateRequestDto laptopUpdateRequestDto, String brandName) {
+    public LaptopUpdateRequestDto updateLaptop(String laptopId ,LaptopUpdateRequestDto laptopUpdateRequestDto) {
         Laptop laptop = laptopRepository.findById(laptopId)
                 .orElseThrow(() -> new RuntimeException("Laptop not found"));
-        Laptop updated = laptopRepository.save(convertToDomain(laptop, laptopUpdateRequestDto, brandName));
+        Laptop updated = laptopRepository.save(convertToDomain(laptop, laptopUpdateRequestDto));
         return laptopMapper.mapToUpdateRequestDto(updated);
     }
 
@@ -68,6 +66,36 @@ public class ImplLaptopService implements LaptopService {
     @Override
     public void deleteAllLaptops() {
         laptopRepository.deleteAll();
+    }
+
+    @Override
+    public Page<LaptopResponseDto> searchLaptops(String keyword, int page, int size) {
+        Specification<Laptop> spec = approximateSearch(keyword);
+        Pageable pageable = PageRequest.of(page, size, Sort.by("manufacturer").ascending());
+        Page<Laptop> laptops = laptopRepository.findAll(spec, pageable);
+        return laptops.map(laptopMapper::mapToResponseDto);
+    }
+
+    public Specification<Laptop> approximateSearch(String keyword) {
+        return (root, query, criteriaBuilder) -> {
+            String searchPattern = "%" + keyword.toLowerCase() + "%";
+
+            return criteriaBuilder.or(
+                    criteriaBuilder.like(criteriaBuilder.lower(root.get("model")), searchPattern),
+                    criteriaBuilder.like(criteriaBuilder.lower(root.get("battery")), searchPattern),
+                    criteriaBuilder.like(criteriaBuilder.lower(root.get("description")), searchPattern),
+                    criteriaBuilder.like(criteriaBuilder.lower(root.get("cpu")), searchPattern),
+                    criteriaBuilder.like(criteriaBuilder.lower(root.get("ram")), searchPattern),
+                    criteriaBuilder.like(criteriaBuilder.lower(root.get("os")), searchPattern),
+                    criteriaBuilder.like(criteriaBuilder.lower(root.get("vga")), searchPattern),
+                    criteriaBuilder.like(criteriaBuilder.lower(root.get("webcam")), searchPattern),
+                    criteriaBuilder.like(criteriaBuilder.lower(root.get("storage")), searchPattern),
+                    criteriaBuilder.like(criteriaBuilder.lower(root.get("frameRate")), searchPattern),
+                    criteriaBuilder.like(criteriaBuilder.lower(root.get("resolution")), searchPattern),
+                    criteriaBuilder.like(criteriaBuilder.lower(root.get("screenSize")), searchPattern),
+                    criteriaBuilder.like(criteriaBuilder.lower(root.get("manufacturer")), searchPattern)
+            );
+        };
     }
 
     @Override
@@ -110,12 +138,20 @@ public class ImplLaptopService implements LaptopService {
     }
 
 
-    private Laptop convertToDomain(Laptop laptop ,LaptopUpdateRequestDto laptopUpdateRequestDto, String brandName) {
+    private Laptop convertToDomain(Laptop laptop ,LaptopUpdateRequestDto laptopUpdateRequestDto) {
         laptop.setModel(laptopUpdateRequestDto.getModel());
         laptop.setPrice(laptopUpdateRequestDto.getPrice());
-        laptop.setManufacturer(brandName);
+        laptop.setManufacturer(laptopUpdateRequestDto.getManufacturer());
         laptop.setStockAvailable(laptopUpdateRequestDto.getStockAvailable());
         laptop.setDescription(laptopUpdateRequestDto.getDescription());
+        laptop.setImage(laptopUpdateRequestDto.getImage());
+        laptop.setCpu(laptopUpdateRequestDto.getCpu());
+        laptop.setRam(laptopUpdateRequestDto.getRam());
+        laptop.setOs(laptopUpdateRequestDto.getOs());
+        laptop.setWeight(laptopUpdateRequestDto.getWeight());
+        laptop.setBattery(laptopUpdateRequestDto.getBattery());
+        laptop.setStorage(laptopUpdateRequestDto.getStorage());
+        laptop.setScreenSize(laptopUpdateRequestDto.getScreenSize());
         return laptop;
     }
 }
