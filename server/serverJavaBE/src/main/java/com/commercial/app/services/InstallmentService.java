@@ -22,4 +22,6 @@ public interface InstallmentService {
 
     // Xóa khoản trả góp theo ID
     void deleteInstallment(String installmentId);
+
+    List<InstallmentResponseDto> searchInstallments(String installmentName);
 }

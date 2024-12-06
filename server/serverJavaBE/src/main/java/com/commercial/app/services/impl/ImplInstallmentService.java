@@ -3,12 +3,15 @@ package com.commercial.app.services.impl;
 import com.commercial.app.domain.dtos.request.InstallmentRequestDto;
 import com.commercial.app.domain.dtos.response.InstallmentResponseDto;
 import com.commercial.app.domain.entites.InstallmentPlan;
+import com.commercial.app.domain.entites.Laptop;
 import com.commercial.app.domain.mapper.InstallmentMapper;
 import com.commercial.app.repositories.InstallmentPlanRepository;
 import com.commercial.app.services.InstallmentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -63,5 +66,26 @@ public class ImplInstallmentService implements InstallmentService {
     @Override
     public void deleteInstallment(String installmentId) {
         installmentPlanRepository.deleteById(installmentId);
+    }
+
+    @Override
+    public List<InstallmentResponseDto> searchInstallments(String installmentName) {
+        Specification<InstallmentPlan> specification = approximateSearch(installmentName);
+        return installmentPlanRepository.findAll(specification).stream()
+                .map(installmentMapper::toInstallmentResponseDto)
+                .collect(Collectors.toList());
+    }
+    public Specification<InstallmentPlan> approximateSearch(String keyword) {
+        return (root, query, criteriaBuilder) -> {
+            String searchPattern = "%" + keyword.toLowerCase() + "%";
+
+            return criteriaBuilder.or(
+                    criteriaBuilder.like(criteriaBuilder.lower(root.get("company")), searchPattern),
+                    criteriaBuilder.like(criteriaBuilder.lower(root.get("term")), searchPattern),
+                    criteriaBuilder.like(criteriaBuilder.lower(root.get("flatInterestRate")), searchPattern),
+                    criteriaBuilder.like(criteriaBuilder.lower(root.get("requiredDocuments")), searchPattern)
+
+            );
+        };
     }
 }

@@ -55,4 +55,10 @@ public class InstallmentController {
         installmentService.deleteInstallment(installmentId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<InstallmentResponseDto>> searchInstallments(@RequestParam String keyword) {
+        List<InstallmentResponseDto> installments = installmentService.searchInstallments(keyword);
+        return new ResponseEntity<>(installments, HttpStatus.OK);
+    }
 }
