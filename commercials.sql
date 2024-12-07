@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3307
--- Generation Time: Dec 06, 2024 at 02:50 PM
+-- Host: 127.0.0.1:3306
+-- Generation Time: Dec 07, 2024 at 07:42 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -136,20 +136,20 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`orderId`, `completeDate`, `orderAddress`, `orderDate`, `orderNote`, `paymentMethod`, `phoneNumber`, `shippingMethod`, `status`, `totalPayment`, `userId`, `voucherId`) VALUES
-(99, NULL, '123 Đường ABC, Quận 1, TP.HCM', '2024-12-05 20:57:26.000000', NULL, 'Thẻ tín dụng', '0901234567', 'Vận chuyển tiêu chuẩn', 'Chờ xử lý', 150000, '1', NULL),
-(100, NULL, '456 Đường DEF, Quận 2, TP.HCM', '2024-12-05 20:57:26.000000', NULL, 'PayPal', '0912345678', 'Vận chuyển nhanh', 'Chờ xử lý', 200000, '2', NULL),
-(101, NULL, '123 Đường ABC, Quận 1, TP.HCM', '2024-11-07 23:09:27.000000', NULL, 'Thẻ tín dụng', '0909123456', 'Vận chuyển tiêu chuẩn', 'Chờ xử lý', 250000, '3', NULL),
-(102, NULL, '2223 Đường BCD, Quận 10, TP.HCM', '2024-11-07 23:13:03.000000', NULL, 'Thẻ tín dụng', '0990123456', 'Vận chuyển tiêu chuẩn', 'Chờ xử lý', 300000, '4', NULL),
-(103, NULL, '2425 Đường EFG, Quận 11, TP.HCM', '2024-11-07 23:13:35.000000', NULL, 'Chuyển khoản ngân hàng', '0912345678', 'Vận chuyển nhanh', 'Chờ xử lý', 350000, '5', NULL),
-(104, NULL, '2627 Đường HIJ, Quận 12, TP.HCM', '2024-11-07 23:13:56.000000', NULL, 'Thẻ tín dụng', '0903456789', 'Vận chuyển tiêu chuẩn', 'Chờ xử lý', 400000, '6', NULL),
-(105, NULL, '2829 Đường KLM, Quận 13, TP.HCM', '2024-11-07 23:14:16.000000', NULL, 'PayPal', '0923456789', 'Vận chuyển nhanh', 'Chờ xử lý', 450000, '7', NULL),
-(106, NULL, '3031 Đường NOP, Quận 14, TP.HCM', '2024-11-07 23:14:35.000000', NULL, 'Chuyển khoản ngân hàng', '0934567890', 'Vận chuyển tiêu chuẩn', 'Chờ xử lý', 500000, '8', NULL),
-(107, NULL, '3233 Đường PQR, Quận 15, TP.HCM', '2024-11-07 23:14:56.000000', NULL, 'Thẻ tín dụng', '0945678901', 'Vận chuyển nhanh', 'Chờ xử lý', 550000, '9', NULL),
-(108, NULL, '3435 Đường STV, Quận 16, TP.HCM', '2024-11-07 23:15:16.000000', NULL, 'Thẻ tín dụng', '0978901234', 'Vận chuyển tiêu chuẩn', 'Chờ xử lý', 600000, '10', NULL),
-(109, NULL, '123 Đường ABC, Quận 1, TP.HCM', '2024-12-05 20:57:26.000000', NULL, 'Thẻ tín dụng', '0901234567', 'Vận chuyển nhanh', 'Chờ xử lý', 650000, '11', NULL),
-(110, NULL, '456 Đường DEF, Quận 2, TP.HCM', '2024-12-05 20:57:26.000000', NULL, 'PayPal', '0912345678', 'Vận chuyển tiêu chuẩn', 'Chờ xử lý', 700000, '12', NULL),
-(111, NULL, '456 Đường DEF, Quận 2, TP.HCM', '2024-11-07 23:09:38.000000', NULL, 'Thẻ tín dụng', '0912345678', 'Vận chuyển nhanh', 'Chờ xử lý', 750000, '13', NULL),
-(112, NULL, '789 Đường GHI, Quận 3, TP.HCM', '2024-11-07 23:10:12.000000', NULL, 'Chuyển khoản ngân hàng', '0923456789', 'Vận chuyển tiêu chuẩn', 'Chờ xử lý', 800000, '14', NULL),
+(99, NULL, '123 Đường ABC, Quận 1, TP.HCM', '2024-12-05 20:57:26.000000', NULL, 'Thẻ tín dụng', '0901234567', 'Vận chuyển tiêu chuẩn', 'Đã giao', 150000, '1', NULL),
+(100, NULL, '456 Đường DEF, Quận 2, TP.HCM', '2024-07-10 20:57:26.000000', NULL, 'PayPal', '0912345678', 'Vận chuyển nhanh', 'Đã giao', 200000, '2', NULL),
+(101, NULL, '123 Đường ABC, Quận 1, TP.HCM', '2024-08-06 23:09:27.000000', NULL, 'Thẻ tín dụng', '0909123456', 'Vận chuyển tiêu chuẩn', 'Đã giao', 250000, '3', NULL),
+(102, NULL, '2223 Đường BCD, Quận 10, TP.HCM', '2024-11-07 23:13:03.000000', NULL, 'Thẻ tín dụng', '0990123456', 'Vận chuyển tiêu chuẩn', 'Đã giao', 300000, '4', NULL),
+(103, NULL, '2425 Đường EFG, Quận 11, TP.HCM', '2024-05-15 23:13:35.000000', NULL, 'Chuyển khoản ngân hàng', '0912345678', 'Vận chuyển nhanh', 'Đã giao', 350000, '5', NULL),
+(104, NULL, '2627 Đường HIJ, Quận 12, TP.HCM', '2024-04-24 23:13:56.000000', NULL, 'Thẻ tín dụng', '0903456789', 'Vận chuyển tiêu chuẩn', 'Đã giao', 400000, '6', NULL),
+(105, NULL, '2829 Đường KLM, Quận 13, TP.HCM', '2024-04-26 23:14:16.000000', NULL, 'PayPal', '0923456789', 'Vận chuyển nhanh', 'Đã giao', 450000, '7', NULL),
+(106, NULL, '3031 Đường NOP, Quận 14, TP.HCM', '2024-11-07 23:14:35.000000', NULL, 'Chuyển khoản ngân hàng', '0934567890', 'Vận chuyển tiêu chuẩn', 'Đã giao', 500000, '8', NULL),
+(107, NULL, '3233 Đường PQR, Quận 15, TP.HCM', '2024-01-26 23:14:56.000000', NULL, 'Thẻ tín dụng', '0945678901', 'Vận chuyển nhanh', 'Đã giao', 550000, '9', NULL),
+(108, NULL, '3435 Đường STV, Quận 16, TP.HCM', '2024-12-20 23:15:16.000000', NULL, 'Thẻ tín dụng', '0978901234', 'Vận chuyển tiêu chuẩn', 'Đã giao', 600000, '10', NULL),
+(109, NULL, '123 Đường ABC, Quận 1, TP.HCM', '2024-12-05 20:57:26.000000', NULL, 'Thẻ tín dụng', '0901234567', 'Vận chuyển nhanh', 'Đã giao', 650000, '11', NULL),
+(110, NULL, '456 Đường DEF, Quận 2, TP.HCM', '2024-12-05 20:57:26.000000', NULL, 'PayPal', '0912345678', 'Vận chuyển tiêu chuẩn', 'Đã giao', 700000, '12', NULL),
+(111, NULL, '456 Đường DEF, Quận 2, TP.HCM', '2024-11-07 23:09:38.000000', NULL, 'Thẻ tín dụng', '0912345678', 'Vận chuyển nhanh', 'Đã hủy', 750000, '13', NULL),
+(112, NULL, '789 Đường GHI, Quận 3, TP.HCM', '2024-07-17 23:10:12.000000', NULL, 'Chuyển khoản ngân hàng', '0923456789', 'Vận chuyển tiêu chuẩn', 'Chờ xử lý', 800000, '14', NULL),
 (113, NULL, '1011 Đường JKL, Quận 4, TP.HCM', '2024-11-07 23:10:45.000000', NULL, 'PayPal', '0934567890', 'Vận chuyển nhanh', 'Chờ xử lý', 850000, '15', NULL);
 
 -- --------------------------------------------------------
@@ -176,6 +176,13 @@ CREATE TABLE `refreshtokens` (
   `userId` varchar(255) DEFAULT NULL,
   `token` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `refreshtokens`
+--
+
+INSERT INTO `refreshtokens` (`userId`, `token`) VALUES
+('17', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE3IiwidXNlcm5hbWUiOiJhZG1pbiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTczMzU1MzQ2MCwiZXhwIjoxNzM0MTU4MjYwfQ.KP-n6Uj14tBlrMrVVQ8hwauLbfCTfgF2WXZmOaxthig');
 
 -- --------------------------------------------------------
 
@@ -333,7 +340,7 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT for table `orders_laptops`
 --
 ALTER TABLE `orders_laptops`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `vouchers`
