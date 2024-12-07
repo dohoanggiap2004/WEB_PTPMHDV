@@ -31,7 +31,6 @@ npm start
 ```
 After starting the dashboard, access the admin login page at:
 ```bash
-Copy code
 /admin/login
 ```
 Use the following credentials to log in:
