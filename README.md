@@ -29,6 +29,14 @@ dashboard: Run the following command in the terminal to start the dashboard:
 ```bash
 npm start
 ```
+After starting the dashboard, access the admin login page at:
+```bash
+/admin/login
+```
+Use the following credentials to log in:
+Account: admin
+Password: abc
+
 gateway: Run the following command in the terminal to start the gateway server:
 ```bash
 npm start
