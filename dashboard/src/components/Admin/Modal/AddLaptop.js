@@ -125,7 +125,7 @@ const AddLaptop = () => {
                     >
                       <option value="">Chọn thương hiệu</option>
                       {brands.map((prov) => (
-                          <option value={prov.manufacturer}>{prov.manufacturer}</option>
+                          <option value={prov.brandName}>{prov.brandName}</option>
                       ))}
                     </select>
                   </div>

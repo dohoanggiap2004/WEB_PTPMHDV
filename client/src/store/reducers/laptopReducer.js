@@ -47,6 +47,7 @@ const laptopSlice = createSlice({
                 state.error = null;
             })
             .addCase(getLaptopByModel.fulfilled, (state, action) => {
+                console.log('check payload', action.payload)
                 state.loading = false;
                 state.laptops = action.payload;
             })

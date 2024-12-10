@@ -7,7 +7,7 @@ import rootReducer from './rootReducer';
 const persistConfig = {
   key: 'root',
   storage, 
-  whitelist: ['auth', 'item'], // Chỉ lưu state của auth và cart
+  whitelist: ['auth', 'cart'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

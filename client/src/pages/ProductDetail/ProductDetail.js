@@ -1,12 +1,11 @@
 import Layout from "../../layout/Layout";
 import "./style.css";
-import {useEffect, useState, useRef } from "react";
+import {useEffect, useState } from "react";
 import Collapse from "../../components/Collapse/Collapse";
-import { Button } from "@headlessui/react";
 import { Link, useParams,  } from "react-router-dom";
-import { addToCart } from "../../services/cartService";
 import {useDispatch, useSelector} from "react-redux";
 import {getLaptopById} from "../../store/actions/laptopAction";
+import {addToCart} from "../../store/actions/cartAction";
 const ProductDetail = () => {
   const { id } = useParams();
 
@@ -42,12 +41,17 @@ const ProductDetail = () => {
     }
   }, [laptop]);
 
-  const changeImage = (src) => {
-    setMainImage(src);
-  };
+  // const changeImage = (src) => {
+  //   setMainImage(src);
+  // };
+  //
+  // const handleOpenChange = (openState) => {
+  //   setIsOpen3(openState);
+  // };
 
-  const handleOpenChange = (openState) => {
-    setIsOpen3(openState);
+  const handleAddToCart = (laptop) => {
+    dispatch(addToCart(laptop));
+    window.alert('Sản phẩm đã được thêm vào giỏ hàng!');
   };
 
   return (
@@ -145,7 +149,7 @@ const ProductDetail = () => {
                 <div className="flex space-x-4 mb-6">
                   <button
                     className="bg-indigo-600 flex gap-2 items-center text-white px-6 py-2 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                    onClick={() => addToCart(laptop)}
+                    onClick={() => handleAddToCart(laptop)}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -222,10 +226,11 @@ const ProductDetail = () => {
                 <Collapse title={"RAM"} spec={laptop.ram} />
                 <Collapse title={"Ổ cứng"} spec={laptop.storage} />
                 <Collapse title={"Card đồ họa"} spec={laptop.vga} />
-                <Collapse title={"Màn hình"} spec={laptop.screenSize} />
+                <Collapse title={"Màn hình"} spec={`${laptop.screenSize}, ${laptop.resolution}, ${laptop.frameRate}`} />
                 <Collapse title={"Dung lượng pin"} spec={laptop.battery} />
                 <Collapse title={"Cân nặng"} spec={laptop.weight} />
                 <Collapse title={"Hệ điều hành"} spec={laptop.os} />
+                <Collapse title={"Webcam"} spec={laptop.webcam} />
               </>
             )}
 

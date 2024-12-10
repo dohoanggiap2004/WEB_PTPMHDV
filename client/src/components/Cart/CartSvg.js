@@ -1,22 +1,21 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getCart } from "../../services/cartService";
+import {useDispatch, useSelector} from "react-redux";
 export default function Cart() {
   const [quantity, setQuantity] = useState("0");
-  const [cart, setCart] = useState([]);
-  useEffect(() => {
-    const myCart = getCart();
-    setCart(myCart);
-  }, []); 
+
+  const { cart } = useSelector((state) => state.cart) || [];
+
 
   useEffect(() => {
     if (cart.length) {
       const total = cart.reduce((acc, item) => acc + item.quantity, 0);
       setQuantity(total);
     } else {
-      setQuantity(0); 
+      setQuantity(0);
     }
-  }, [cart]); 
+  }, [cart]);
   return (
     <div className="relative">
       <svg

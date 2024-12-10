@@ -9,5 +9,11 @@ router.get('/products', StatisticsController.countProductSales)
 router.get('/available-product', verifyRole('admin'), StatisticsController.countAvailableProduct)
 router.get('/orders', verifyRole('admin'), StatisticsController.countOrderQuantity)
 
+// router.get('/users', StatisticsController.countUser)
+// router.get('/revenue', StatisticsController.calculateRevenue)
+// router.get('/products', StatisticsController.countProductSales)
+// router.get('/available-product', StatisticsController.countAvailableProduct)
+// router.get('/orders', StatisticsController.countOrderQuantity)
+
 module.exports = router;
 

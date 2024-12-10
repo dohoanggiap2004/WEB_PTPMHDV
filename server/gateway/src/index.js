@@ -109,6 +109,18 @@ app.use("/api/laptops", (req, res, next) => {
     }
 });
 
+app.use("/api/installments", (req, res, next) => {
+    if (req.method === "GET") {
+        createProxyMiddleware({
+            target: "http://localhost:8080",
+            changeOrigin: true,
+            pathRewrite: { "^/api/installments": "/api/installments" },
+        })(req, res, next);
+    }else {
+        next()
+    }
+});
+
 app.use("/api/statistics/products",
         createProxyMiddleware({
             target: "http://localhost:8002",
