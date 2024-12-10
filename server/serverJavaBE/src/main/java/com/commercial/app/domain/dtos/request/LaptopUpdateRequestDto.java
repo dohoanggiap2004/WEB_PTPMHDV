@@ -15,6 +15,7 @@ public class LaptopUpdateRequestDto {
     private String model;
     private String description;
     private int price;
+    private Integer specialPrice;
     private String manufacturer;
     private int stockAvailable;
     private String image;

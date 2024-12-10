@@ -6,12 +6,20 @@ import com.commercial.app.domain.entites.InstallmentPlan;
 import com.commercial.app.domain.entites.Laptop;
 import com.commercial.app.domain.mapper.InstallmentMapper;
 import com.commercial.app.repositories.InstallmentPlanRepository;
+import com.commercial.app.repositories.LaptopRepository;
 import com.commercial.app.services.InstallmentService;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -24,6 +32,8 @@ public class ImplInstallmentService implements InstallmentService {
 
     @Autowired
     private InstallmentMapper installmentMapper;
+    @Autowired
+    private LaptopRepository laptopRepository;
 
     // Tạo mới một khoản trả góp
     @Override
@@ -75,17 +85,74 @@ public class ImplInstallmentService implements InstallmentService {
                 .map(installmentMapper::toInstallmentResponseDto)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public String addListInstallments(List<InstallmentRequestDto> installmentRequestDto) {
+        for (InstallmentRequestDto installmentRequestDto1 : installmentRequestDto) {
+            installmentPlanRepository.save(installmentMapper.toInstallment(installmentRequestDto1));
+        }
+        return "Done";
+    }
+
+    @Override
+    public List<InstallmentResponseDto> getRecommendedInstallments() {
+        Pageable pageable = PageRequest.of(0,6);
+        return installmentPlanRepository.findInstallmentsWithZeroInterestOrderByDownPayment(pageable).stream()
+                .map(installmentMapper::toInstallmentResponseDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<InstallmentResponseDto> getInstallmentByLaptop(String laptopId, String downPayment, String term) {
+        Laptop laptop = laptopRepository.findById(laptopId)
+                .orElseThrow(() -> new RuntimeException("Laptop not found with id: " + laptopId));
+        List<InstallmentPlan> installmentPlanList = installmentPlanRepository.findInstallmentPlans(downPayment, term);
+        List<InstallmentResponseDto> list = new ArrayList<>();
+        for (InstallmentPlan installmentPlan : installmentPlanList) {
+            int laptopPrice = laptop.getPrice();  // Get the price from the laptop
+
+            int downPaymentPercent = Integer.parseInt(downPayment.replace("%", "").trim());
+            // Calculate downPayment based on the percent
+            int downPaymentAmount = (laptopPrice * downPaymentPercent) / 100;
+
+            // Calculate remaining loan amount (after downPayment)
+            int remainingLoanAmount = laptopPrice - downPaymentAmount;
+
+            double flatInterestRate = Double.parseDouble(installmentPlan.getFlatInterestRate().replace("%", "").trim());
+            // Calculate the interest
+            int months = Integer.parseInt(term.replace(" tháng", "").trim());
+            double totalInterest = remainingLoanAmount * flatInterestRate * months/ 1200;
+            // Calculate totalPayment after downPayment
+            int totalPayment = remainingLoanAmount + (int) totalInterest;
+
+            int monthlyInstallment = totalPayment / months;
+
+            installmentPlan.setInstallmentPrice(downPaymentAmount);
+            installmentPlan.setMonthlyInstallment(monthlyInstallment);
+            installmentPlan.setTotalPayment(totalPayment);
+
+            list.add(installmentMapper.toInstallmentResponseDto(installmentPlan));
+        }
+        return list;
+    }
+
     public Specification<InstallmentPlan> approximateSearch(String keyword) {
-        return (root, query, criteriaBuilder) -> {
+        return (Root<InstallmentPlan> root, CriteriaQuery<?> query, CriteriaBuilder cb) -> {
+            List<Predicate> predicates = new ArrayList<>();
             String searchPattern = "%" + keyword.toLowerCase() + "%";
 
-            return criteriaBuilder.or(
-                    criteriaBuilder.like(criteriaBuilder.lower(root.get("company")), searchPattern),
-                    criteriaBuilder.like(criteriaBuilder.lower(root.get("term")), searchPattern),
-                    criteriaBuilder.like(criteriaBuilder.lower(root.get("flatInterestRate")), searchPattern),
-                    criteriaBuilder.like(criteriaBuilder.lower(root.get("requiredDocuments")), searchPattern)
-
+            List<String> keywords = Arrays.asList(
+                    "company", "term", "flatInterestRate", "requiredDocuments"
             );
+
+            for (String field : keywords) {
+                try {
+                    predicates.add(cb.like(cb.lower(root.get(field)), searchPattern));
+                } catch (IllegalArgumentException e) {
+                    System.err.println("Field '" + field + "' does not exist or is incompatible: " + e.getMessage());
+                }
+            }
+            return predicates.isEmpty() ? cb.conjunction() : cb.or(predicates.toArray(new Predicate[0]));
         };
     }
 }

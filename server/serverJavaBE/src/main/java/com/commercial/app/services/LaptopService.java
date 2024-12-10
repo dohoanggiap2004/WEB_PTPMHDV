@@ -17,7 +17,7 @@ public interface LaptopService {
     LaptopUpdateRequestDto updateLaptop(String laptopId, LaptopUpdateRequestDto laptopUpdateRequestDto);
     void deleteLaptop(String laptopId);
     void deleteAllLaptops();
-
+    LaptopResponseDto getLaptop(String laptopId);
     Page<LaptopResponseDto> searchLaptops(String keyword, int page, int size);
 
     List<Map<String, Object>> getTopSellingBrands();

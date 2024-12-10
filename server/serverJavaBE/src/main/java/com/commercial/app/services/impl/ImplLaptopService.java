@@ -8,6 +8,10 @@ import com.commercial.app.domain.mapper.LaptopMapper;
 import com.commercial.app.repositories.LaptopRepository;
 import com.commercial.app.repositories.OrderLaptopRepository;
 import com.commercial.app.services.LaptopService;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -69,35 +73,43 @@ public class ImplLaptopService implements LaptopService {
     }
 
     @Override
+    public LaptopResponseDto getLaptop(String laptopId) {
+        Laptop laptop = laptopRepository.findById(laptopId)
+                .orElseThrow(() -> new RuntimeException("Laptop not found"));
+        return laptopMapper.mapToResponseDto(laptop);
+    }
+
+    @Override
     public Page<LaptopResponseDto> searchLaptops(String keyword, int page, int size) {
-        Specification<Laptop> spec = approximateSearch(keyword);
+        Specification<Laptop> spec = buildSpecification(keyword);
         Pageable pageable = PageRequest.of(page, size, Sort.by("manufacturer").ascending());
         Page<Laptop> laptops = laptopRepository.findAll(spec, pageable);
         return laptops.map(laptopMapper::mapToResponseDto);
     }
 
-    public Specification<Laptop> approximateSearch(String keyword) {
-        return (root, query, criteriaBuilder) -> {
+    public Specification<Laptop> buildSpecification(String keyword) {
+        return (Root<Laptop> root, CriteriaQuery<?> query, CriteriaBuilder cb) -> {
+            List<Predicate> predicates = new ArrayList<>();
             String searchPattern = "%" + keyword.toLowerCase() + "%";
 
-            return criteriaBuilder.or(
-                    criteriaBuilder.like(criteriaBuilder.lower(root.get("model")), searchPattern),
-                    criteriaBuilder.like(criteriaBuilder.lower(root.get("battery")), searchPattern),
-                    criteriaBuilder.like(criteriaBuilder.lower(root.get("description")), searchPattern),
-                    criteriaBuilder.like(criteriaBuilder.lower(root.get("cpu")), searchPattern),
-                    criteriaBuilder.like(criteriaBuilder.lower(root.get("ram")), searchPattern),
-                    criteriaBuilder.like(criteriaBuilder.lower(root.get("os")), searchPattern),
-                    criteriaBuilder.like(criteriaBuilder.lower(root.get("vga")), searchPattern),
-                    criteriaBuilder.like(criteriaBuilder.lower(root.get("webcam")), searchPattern),
-                    criteriaBuilder.like(criteriaBuilder.lower(root.get("storage")), searchPattern),
-                    criteriaBuilder.like(criteriaBuilder.lower(root.get("frameRate")), searchPattern),
-                    criteriaBuilder.like(criteriaBuilder.lower(root.get("resolution")), searchPattern),
-                    criteriaBuilder.like(criteriaBuilder.lower(root.get("screenSize")), searchPattern),
-                    criteriaBuilder.like(criteriaBuilder.lower(root.get("manufacturer")), searchPattern)
+            // Fields to search
+            List<String> searchableFields = Arrays.asList(
+                    "model", "battery", "description", "cpu",
+                    "ram", "os", "vga", "webcam",
+                    "storage", "frameRate", "resolution", "screenSize", "manufacturer"
             );
+
+            // Build predicates for each field
+            for (String field : searchableFields) {
+                try {
+                    predicates.add(cb.like(cb.lower(root.get(field)), searchPattern));
+                } catch (IllegalArgumentException e) {
+                    System.err.println("Field '" + field + "' does not exist or is incompatible: " + e.getMessage());
+                }
+            }
+            return predicates.isEmpty() ? cb.conjunction() : cb.or(predicates.toArray(new Predicate[0]));
         };
     }
-
     @Override
     public List<Map<String, Object>> getTopSellingBrands() {
         List<Object[]> results = orderLaptopRepository.findTopSellingBrands();

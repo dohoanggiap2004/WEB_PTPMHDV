@@ -46,6 +46,10 @@ public class Laptop {
 
     @Nationalized
     @Column
+    private Integer specialPrice;
+
+    @Nationalized
+    @Column
     private String os;
 
     @Nationalized

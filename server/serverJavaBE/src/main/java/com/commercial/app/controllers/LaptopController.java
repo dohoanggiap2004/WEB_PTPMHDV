@@ -29,7 +29,10 @@ public class LaptopController {
     public ResponseEntity<List<LaptopResponseDto>> getAllLaptops() {
         return ResponseEntity.ok(laptopService.getAllLaptops());
     }
-
+    @GetMapping("{laptopId}")
+    public ResponseEntity<LaptopResponseDto> getLaptop(@PathVariable String laptopId) {
+        return ResponseEntity.ok(laptopService.getLaptop(laptopId));
+    }
     @PostMapping
     public ResponseEntity<?> addLaptop(@RequestBody LaptopCreateRequestDto laptop) {
         return ResponseEntity.ok(laptopService.createLaptop(laptop));

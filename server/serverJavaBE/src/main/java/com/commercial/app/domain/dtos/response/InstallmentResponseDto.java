@@ -17,7 +17,7 @@ public class InstallmentResponseDto {
 
     private int installmentPrice; // Installment price
 
-    private int downPayment; // Down payment
+    private String downPayment; // Down payment
 
     private String term; // Term in months
 
