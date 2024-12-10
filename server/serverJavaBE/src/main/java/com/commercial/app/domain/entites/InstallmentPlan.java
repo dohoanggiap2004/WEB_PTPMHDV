@@ -26,7 +26,7 @@ public class InstallmentPlan {
     private int installmentPrice; // Installment price
 
     @Column
-    private int downPayment; // Down payment
+    private String downPayment; // Down payment
 
     @Column
     private String term; // Term in months

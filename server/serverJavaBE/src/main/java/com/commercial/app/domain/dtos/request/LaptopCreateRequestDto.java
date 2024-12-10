@@ -23,6 +23,7 @@ public class LaptopCreateRequestDto {
     private String frameRate;
     private String resolution;
     private String screenSize;
+    private Integer specialPrice;
     private int price;
     private String manufacturer;
     private int stockAvailable;

@@ -24,4 +24,12 @@ public interface InstallmentService {
     void deleteInstallment(String installmentId);
 
     List<InstallmentResponseDto> searchInstallments(String installmentName);
+
+    String addListInstallments(List<InstallmentRequestDto> installmentRequestDto);
+
+    List<InstallmentResponseDto> getRecommendedInstallments();
+
+    List<InstallmentResponseDto> getInstallmentByLaptop(String laptopId, String term, String downPayment);
+
+
 }

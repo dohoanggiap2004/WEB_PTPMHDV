@@ -61,4 +61,22 @@ public class InstallmentController {
         List<InstallmentResponseDto> installments = installmentService.searchInstallments(keyword);
         return new ResponseEntity<>(installments, HttpStatus.OK);
     }
+
+    @PostMapping("/list")
+    public ResponseEntity<?> getListInstallments(@RequestBody List<InstallmentRequestDto> installmentRequestDtos) {
+        return ResponseEntity.ok(installmentService.addListInstallments(installmentRequestDtos));
+    }
+
+    @GetMapping("/recommended")
+    public ResponseEntity<List<InstallmentResponseDto>> getRecommendedInstallments() {
+        List<InstallmentResponseDto> installments = installmentService.getRecommendedInstallments();
+        return new ResponseEntity<>(installments, HttpStatus.OK);
+    }
+
+    @GetMapping("/filter")
+    public ResponseEntity<List<InstallmentResponseDto>> filterInstallments(@RequestParam String laptopId,
+                                                                           @RequestParam String downPayment,
+                                                                           @RequestParam String term){
+        return new ResponseEntity<>(installmentService.getInstallmentByLaptop(laptopId, downPayment, term), HttpStatus.OK);
+    }
 }

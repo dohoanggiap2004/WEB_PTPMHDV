@@ -13,7 +13,7 @@ public class InstallmentRequestDto {
 
     private String company; // Company
     private int installmentPrice; // Installment price
-    private int downPayment; // Down payment
+    private String downPayment; // Down payment
     private String term; // Term in months
     private int monthlyInstallment; // Monthly installment
     private String flatInterestRate; // Flat interest rate

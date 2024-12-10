@@ -107,7 +107,6 @@ public class ImplLaptopService implements LaptopService {
                     System.err.println("Field '" + field + "' does not exist or is incompatible: " + e.getMessage());
                 }
             }
-
             return predicates.isEmpty() ? cb.conjunction() : cb.or(predicates.toArray(new Predicate[0]));
         };
     }

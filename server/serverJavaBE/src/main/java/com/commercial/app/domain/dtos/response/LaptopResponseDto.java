@@ -21,6 +21,7 @@ public class LaptopResponseDto {
     private String frameRate;
     private String resolution;
     private String screenSize;
+    private Integer specialPrice;
     private int price;
     private String image;
     private String manufacturer;

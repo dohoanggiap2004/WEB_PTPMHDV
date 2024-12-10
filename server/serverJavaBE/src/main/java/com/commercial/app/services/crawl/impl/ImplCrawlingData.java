@@ -16,6 +16,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Objects;
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class ImplCrawlingData implements CrawlingData {
@@ -147,6 +150,7 @@ public class ImplCrawlingData implements CrawlingData {
         laptop.setFrameRate(product.getGeneral().getAttributes().getLaptop_tan_so_quet() == null? "Mặc định" : product.getGeneral().getAttributes().getLaptop_tan_so_quet());
         laptop.setWebcam(product.getGeneral().getAttributes().getLaptop_camera_webcam() == null? "Mặc định" : product.getGeneral().getAttributes().getLaptop_camera_webcam());
         laptop.setImage("https://cellphones.com.vn/media/catalog/product" + product.getGeneral().getAttributes().getAds_base_image());
+        laptop.setSpecialPrice((int)product.getFilterable().getSpecial_price());
         return laptop;
     }
 }
