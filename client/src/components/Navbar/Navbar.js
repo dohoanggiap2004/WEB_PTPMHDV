@@ -159,8 +159,9 @@ const Navbar = () => {
                                                 <h1 className={'block'}>{laptop.model}</h1>
                                                 <div className={'flex'}>
                                                     <h1 className={'block text-red-700 font-semibold'}>{(
-                                                        laptop.price
-                                                    ).toLocaleString('vi-VN')} VNĐ</h1>
+                                                        laptop.specialPrice && laptop.specialPrice !== 0
+                                                            ? laptop.specialPrice
+                                                            : laptop.price)?.toLocaleString('vi-VN')} VND</h1>
                                                     <h1 className={'block text-gray-400 ml-3 text-sm line-through' +
                                                         ' mt-2'}>{(
                                                         laptop.price
@@ -354,8 +355,9 @@ const Navbar = () => {
                                                 <h1 className={'block'}>{laptop.model}</h1>
                                                 <div className={'flex'}>
                                                     <h1 className={'block text-red-700 font-semibold'}>{(
-                                                        laptop.price
-                                                    ).toLocaleString('vi-VN')} VNĐ</h1>
+                                                        laptop.specialPrice && laptop.specialPrice !== 0
+                                                            ? laptop.specialPrice
+                                                            : laptop.price)?.toLocaleString('vi-VN')} VNĐ</h1>
                                                     <h1 className={'block text-gray-400 ml-3 text-sm line-through' +
                                                         ' mt-2'}>{(
                                                         laptop.price

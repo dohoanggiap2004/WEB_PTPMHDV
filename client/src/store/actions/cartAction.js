@@ -14,7 +14,7 @@ export const addToCart = createAsyncThunk('cart/addToCart', async (laptop, { get
                 : item // Không thay đổi các sản phẩm khác
         );
     } else {
-        updatedCart = [...cart, { ...laptop, quantity: 1 }];
+        updatedCart = [...cart, { ...laptop, quantity: laptop.quantity || 1 }];
     }
 
     return updatedCart;

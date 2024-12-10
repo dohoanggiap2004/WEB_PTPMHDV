@@ -103,7 +103,7 @@ const Cart = () => {
 
                             {cart.map((laptop) => (
                                 <div
-                                    className="md:flex items-stretch py-8 md:py-10 lg:py-8 border-t border-gray-200 h-36">
+                                    className="md:flex items-stretch py-8 md:py-10 lg:py-8 border-t border-gray-200 md:h-36 h-56">
                                     <div className="md:w-4/12 2xl:w-1/4 w-full">
                                         <img
                                             src={laptop.image}
@@ -113,12 +113,12 @@ const Cart = () => {
                                         <img
                                             src={laptop.image}
                                             alt="Black Leather Purse"
-                                            className="md:hidden w-full h-full object-center object-cover"
+                                            className="md:hidden w-14 h-14 object-center object-cover"
                                         />
                                     </div>
                                     <div className="md:pl-3 md:w-8/12 2xl:w-3/4 flex flex-col justify-center">
                                         <div className="flex items-center justify-between w-full">
-                                            <p className="text-base font-black leading-none text-gray-800">
+                                            <p className="md:text-base text-sm font-black leading-none text-gray-800">
                                                 {laptop.model}
                                             </p>
                                             <select
@@ -136,26 +136,28 @@ const Cart = () => {
                                         <p className="text-xs leading-3 text-gray-600 pt-1">
                                             {`Màn hình: ${laptop.screenSize} inches`}
                                         </p>
-                                        <p className="text-xs leading-3 text-gray-600 py-2">
-                                            Color: Black
+                                        <p className="text-xs leading-3 text-gray-600 py-2 ">
+                                            Hệ điều hành: {laptop.os}
                                         </p>
-                                        <p className="w-80 md:w-96 text-xs leading-3 text-gray-600">
+                                        <p className="w-80 md:w-96 text-xs leading-3 text-gray-600 hidden md:block">
                                             {laptop.description}
                                         </p>
                                         <div className="flex items-center justify-between pt-5">
                                             <div className="flex items-center">
-                                                <p className="text-xs leading-3 underline text-gray-800 cursor-pointer">
-                                                    Add to favorites
-                                                </p>
+                                                {/*<p className="text-xs leading-3 underline text-gray-800 cursor-pointer">*/}
+                                                {/*    Add to favorites*/}
+                                                {/*</p>*/}
                                                 <p
-                                                    className="text-xs leading-3 underline text-red-500 pl-5 cursor-pointer"
+                                                    className="text-xs leading-3 underline text-red-500 cursor-pointer"
                                                     onClick={() => dispatch(removeItem(laptop.laptopId))}
                                                 >
                                                     Remove
                                                 </p>
                                             </div>
-                                            <p className="text-base font-black leading-none text-gray-800">
-                                                {laptop.price.toLocaleString('vi-VN')}
+                                            <p className="md:text-base text-sm font-black leading-none text-gray-800">
+                                                {(laptop.specialPrice && laptop.specialPrice !== 0
+                                                    ? laptop.specialPrice
+                                                    : laptop.price)?.toLocaleString('vi-VN')} VND
                                             </p>
                                         </div>
 

@@ -254,7 +254,9 @@ const Home = () => {
                                                     {laptop.price.toLocaleString('vi-VN')} VND
                                                 </p>
                                                 <p className="text-lg mb-3 font-medium text-red-600">
-                                                    {laptop.price.toLocaleString('vi-VN')} VND
+                                                    {(laptop.specialPrice && laptop.specialPrice !== 0
+                                                        ? laptop.specialPrice
+                                                        : laptop.price)?.toLocaleString('vi-VN')} VND
                                                 </p>
                                             </div>
                                         </div>

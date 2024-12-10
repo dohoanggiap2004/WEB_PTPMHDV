@@ -13,11 +13,15 @@ const ProductDetail = () => {
   const [isOpen2, setIsOpen2] = useState(false);
   const [isOpen3, setIsOpen3] = useState(false);
   const dispatch = useDispatch();
-  const { laptop } = useSelector(state => state.laptop);
+  const { laptop, loading } = useSelector(state => state.laptop);
+  const [quantity, setQuantity] = useState(1);
+  const handleQuantityChange = (e) => {
+    setQuantity(e.target.value);
+  }
 
   useEffect(() => {
     dispatch(getLaptopById(id))
-  }, [id])
+  }, [id, dispatch])
 
   const handleOpen1 = () => {
     setIsOpen2(false);
@@ -50,9 +54,11 @@ const ProductDetail = () => {
   // };
 
   const handleAddToCart = (laptop) => {
+    console.log('check laptop', laptop)
     dispatch(addToCart(laptop));
     window.alert('Sản phẩm đã được thêm vào giỏ hàng!');
   };
+  if (loading) return <div>Loading...</div>;
 
   return (
     <>
@@ -118,7 +124,9 @@ const ProductDetail = () => {
                 <p className="text-gray-600 mb-4">{`Mã Laptop: ${laptop.laptopId}`}</p>
                 <div className="mb-4">
                   <span className="text-2xl font-bold text-red-600 mr-2">
-                    {((laptop.price * 80) / 100).toLocaleString('vi-VN')} VND
+                    {(laptop.specialPrice && laptop.specialPrice !== 0
+                        ? laptop.specialPrice
+                        : laptop.price)?.toLocaleString('vi-VN')} VND
                   </span>
                   <span className="text-gray-500 line-through">
                     {(laptop.price || 0 ).toLocaleString('vi-VN')} VND
@@ -141,6 +149,8 @@ const ProductDetail = () => {
                     id="quantity"
                     name="quantity"
                     min="1"
+                    max={'3'}
+                    onChange={(e) => handleQuantityChange(e)}
                     defaultValue="1"
                     className="w-12 text-center rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                   />
@@ -149,7 +159,7 @@ const ProductDetail = () => {
                 <div className="flex space-x-4 mb-6">
                   <button
                     className="bg-indigo-600 flex gap-2 items-center text-white px-6 py-2 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                    onClick={() => handleAddToCart(laptop)}
+                    onClick={() => handleAddToCart({...laptop, quantity: Number(quantity)})}>
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
