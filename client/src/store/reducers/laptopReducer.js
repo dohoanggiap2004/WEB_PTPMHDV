@@ -1,5 +1,5 @@
 // reducers/productSlice.js
-import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
+import {createSlice} from '@reduxjs/toolkit';
 import {getLaptops, getLaptopById, getLaptopByModel, getLaptopByModel2, updateLaptop, createLaptop, deleteLaptop} from "../actions/laptopAction";
 
 const laptopSlice = createSlice({
@@ -47,6 +47,7 @@ const laptopSlice = createSlice({
                 state.error = null;
             })
             .addCase(getLaptopByModel.fulfilled, (state, action) => {
+                console.log('check payload', action.payload)
                 state.loading = false;
                 state.laptops = action.payload;
             })

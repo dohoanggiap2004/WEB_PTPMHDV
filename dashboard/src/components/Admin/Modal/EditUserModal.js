@@ -11,7 +11,6 @@ const EditUserModal = ({ user }) => {
     const [formData, setFormData] = useState({
         userId: user.userId,
         username: user.username,
-        password: user.password,
         email: user.email,
         fullname: user.fullname,
         phone: user.phone,
@@ -20,6 +19,7 @@ const EditUserModal = ({ user }) => {
         ward: user.ward,
         district: '',
         province: '',
+        role: user.role
     });
     const [error, setError] = useState("");
     const handleChange = (e) => {
@@ -35,13 +35,13 @@ const EditUserModal = ({ user }) => {
     };
 
     const handleSubmit = (e) => {
-        e.preventDefault();
         // Add form submission logic here
         if (!validatePhoneNumber(formData.phone)) {
             setError("Số điện thoại không hợp lệ. Vui lòng nhập từ 10 chữ số.");
             return;
         }
         setError('')
+        console.log('check form dâata', formData)
         dispatch(updateUser(formData))
         toggleModal()
     };

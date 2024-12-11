@@ -38,7 +38,7 @@ const Suggestion = () => {
             </div>
             <div className={'bg-white'}>
                 <div className={'rounded-lg shadow-md pt-8 pb-24'}>
-                    <div className="flex gap-8 mx-4">
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 mx-4">
                         <select
                             className="block w-full text-sm font-medium transition duration-75 border border-gray-300 text-blue-400 rounded-lg shadow-sm h-9 focus:border-blue-600 focus:ring-1 focus:ring-inset focus:ring-blue-600 bg-none"
                             name="interestRate"
@@ -126,7 +126,7 @@ const Suggestion = () => {
                     </div>
                 </div>
 
-                <div className={'container px-5 py-6 mx-auto flex flex-wrap bg-white mb-8 rounded-lg shadow-md'}>
+                <div className={'container px-5 py-6 mx-auto flex flex-wrap bg-white mb-8 rounded-lg shadow-md w-auto'}>
 
                     <div style={{backgroundColor: '#F9405E'}} className={'py-8 rounded-lg shadow-md'}>
                         <p className={'text-5xl text-center font-bold text-white'}>Sản phẩm nổi bật</p>

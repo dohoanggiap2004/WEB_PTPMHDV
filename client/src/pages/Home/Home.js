@@ -4,10 +4,9 @@ import "../../components//Carousel/Carousel";
 import Carousel from "../../components//Carousel/Carousel";
 import {Link} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {addToCart} from "../../services/cartService";
-import Cookies from "js-cookie";
+import { addToCart } from "../../store/actions/cartAction";
 import {loginUserSuccess} from "../../store/reducers/authReducer";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import Pagination from "../../components/Pagination/Pagination";
 import {instanceAxios8000} from "../../config/axiosConfig";
 
@@ -63,6 +62,11 @@ const Home = () => {
         console.error('Expected laptops to be an array, but got:', laptops);
         return <div>No laptops available</div>;
     }
+
+    const handleAddToCart = (laptop) => {
+        dispatch(addToCart(laptop));
+        window.alert('Sản phẩm đã được thêm vào giỏ hàng!');
+    };
 
     return (
         <>
@@ -190,10 +194,10 @@ const Home = () => {
                         <Carousel/>
                     </div>
 
-                    <div className="rounded-2xl shadow-md mt-24 col-span-1 lg:grid lg:grid-rows-3 gap-4 hidden">
+                    <div className="mt-24 col-span-1 lg:grid lg:grid-rows-3 hidden">
                         <div>
                             <img
-                                src={'https://cdn2.cellphones.com.vn/insecure/rs:fill:690:300/q:10/plain/https://dashboard.cellphones.com.vn/storage/home-m55-10190-12-11.png'}
+                                src={'https://cdn2.cellphones.com.vn/insecure/rs:fill:690:300/q:90/plain/https://dashboard.cellphones.com.vn/storage/mc-m4-mb.jpg'}
                                 className={'object-cover rounded-2xl shadow-md '}
                             />
                         </div>
@@ -207,7 +211,7 @@ const Home = () => {
 
                         <div>
                             <img
-                                src={'https://cdn2.cellphones.com.vn/insecure/rs:fill:690:300/q:10/plain/https://dashboard.cellphones.com.vn/storage/right-banner-14-10.jpg'}
+                                src={'https://file.hstatic.net/200000722513/file/gearvn-8-pc-gaming-i5-rx6600.png'}
                                 className={'object-cover rounded-2xl shadow-md '}
                             />
                         </div>
@@ -250,14 +254,16 @@ const Home = () => {
                                                     {laptop.price.toLocaleString('vi-VN')} VND
                                                 </p>
                                                 <p className="text-lg mb-3 font-medium text-red-600">
-                                                    {laptop.price.toLocaleString('vi-VN')} VND
+                                                    {(laptop.specialPrice && laptop.specialPrice !== 0
+                                                        ? laptop.specialPrice
+                                                        : laptop.price)?.toLocaleString('vi-VN')} VND
                                                 </p>
                                             </div>
                                         </div>
                                     </Link>
                                     <button
                                         type=""
-                                        onClick={() => addToCart(laptop)}
+                                        onClick={() => handleAddToCart(laptop)}
                                         className="group relative flex w-full justify-center rounded-md border border-transparent bg-yellow-500 px-4 py-2 text-sm font-medium text-white hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:bg-indigo-700 dark:border-transparent dark:hover:bg-indigo-600 dark:focus:ring-indigo-400 dark:focus:ring-offset-2 disabled:cursor-wait disabled:opacity-50"
                                     >
                                         Thêm vào giỏ hàng

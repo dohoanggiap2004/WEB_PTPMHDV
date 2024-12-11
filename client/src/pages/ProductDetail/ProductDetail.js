@@ -1,12 +1,11 @@
 import Layout from "../../layout/Layout";
 import "./style.css";
-import {useEffect, useState, useRef } from "react";
+import {useEffect, useState } from "react";
 import Collapse from "../../components/Collapse/Collapse";
-import { Button } from "@headlessui/react";
 import { Link, useParams,  } from "react-router-dom";
-import { addToCart } from "../../services/cartService";
 import {useDispatch, useSelector} from "react-redux";
 import {getLaptopById} from "../../store/actions/laptopAction";
+import {addToCart} from "../../store/actions/cartAction";
 const ProductDetail = () => {
   const { id } = useParams();
 
@@ -14,11 +13,15 @@ const ProductDetail = () => {
   const [isOpen2, setIsOpen2] = useState(false);
   const [isOpen3, setIsOpen3] = useState(false);
   const dispatch = useDispatch();
-  const { laptop } = useSelector(state => state.laptop);
+  const { laptop, loading } = useSelector(state => state.laptop);
+  const [quantity, setQuantity] = useState(1);
+  const handleQuantityChange = (e) => {
+    setQuantity(e.target.value);
+  }
 
   useEffect(() => {
     dispatch(getLaptopById(id))
-  }, [id])
+  }, [id, dispatch])
 
   const handleOpen1 = () => {
     setIsOpen2(false);
@@ -42,13 +45,20 @@ const ProductDetail = () => {
     }
   }, [laptop]);
 
-  const changeImage = (src) => {
-    setMainImage(src);
-  };
+  // const changeImage = (src) => {
+  //   setMainImage(src);
+  // };
+  //
+  // const handleOpenChange = (openState) => {
+  //   setIsOpen3(openState);
+  // };
 
-  const handleOpenChange = (openState) => {
-    setIsOpen3(openState);
+  const handleAddToCart = (laptop) => {
+    console.log('check laptop', laptop)
+    dispatch(addToCart(laptop));
+    window.alert('Sản phẩm đã được thêm vào giỏ hàng!');
   };
+  if (loading) return <div>Loading...</div>;
 
   return (
     <>
@@ -114,7 +124,9 @@ const ProductDetail = () => {
                 <p className="text-gray-600 mb-4">{`Mã Laptop: ${laptop.laptopId}`}</p>
                 <div className="mb-4">
                   <span className="text-2xl font-bold text-red-600 mr-2">
-                    {((laptop.price * 80) / 100).toLocaleString('vi-VN')} VND
+                    {(laptop.specialPrice && laptop.specialPrice !== 0
+                        ? laptop.specialPrice
+                        : laptop.price)?.toLocaleString('vi-VN')} VND
                   </span>
                   <span className="text-gray-500 line-through">
                     {(laptop.price || 0 ).toLocaleString('vi-VN')} VND
@@ -137,6 +149,8 @@ const ProductDetail = () => {
                     id="quantity"
                     name="quantity"
                     min="1"
+                    max={'3'}
+                    onChange={(e) => handleQuantityChange(e)}
                     defaultValue="1"
                     className="w-12 text-center rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                   />
@@ -145,7 +159,7 @@ const ProductDetail = () => {
                 <div className="flex space-x-4 mb-6">
                   <button
                     className="bg-indigo-600 flex gap-2 items-center text-white px-6 py-2 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                    onClick={() => addToCart(laptop)}
+                    onClick={() => handleAddToCart({...laptop, quantity: Number(quantity)})}>
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -222,10 +236,11 @@ const ProductDetail = () => {
                 <Collapse title={"RAM"} spec={laptop.ram} />
                 <Collapse title={"Ổ cứng"} spec={laptop.storage} />
                 <Collapse title={"Card đồ họa"} spec={laptop.vga} />
-                <Collapse title={"Màn hình"} spec={laptop.screenSize} />
+                <Collapse title={"Màn hình"} spec={`${laptop.screenSize}, ${laptop.resolution}, ${laptop.frameRate}`} />
                 <Collapse title={"Dung lượng pin"} spec={laptop.battery} />
                 <Collapse title={"Cân nặng"} spec={laptop.weight} />
                 <Collapse title={"Hệ điều hành"} spec={laptop.os} />
+                <Collapse title={"Webcam"} spec={laptop.webcam} />
               </>
             )}
 

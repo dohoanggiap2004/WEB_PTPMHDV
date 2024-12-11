@@ -18,6 +18,7 @@ const Option = ({handleSelected, index}) => {
     };
 
     const handleSearch = (e) => {
+        console.log('check input', e.target.value)
         e.target.value ? dispatch(getLaptopByModel(e.target.value)) : dispatch(getLaptops())
     }
 
