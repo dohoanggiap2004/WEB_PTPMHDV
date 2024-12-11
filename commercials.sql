@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 07, 2024 at 07:42 AM
+-- Generation Time: Dec 11, 2024 at 08:55 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -63,7 +63,7 @@ INSERT INTO `brands` (`brandId`, `brandName`) VALUES
 CREATE TABLE `installment_plans` (
   `installmentId` varchar(255) NOT NULL,
   `company` varchar(255) DEFAULT NULL,
-  `downPayment` int(11) DEFAULT NULL,
+  `downPayment` varchar(255) DEFAULT NULL,
   `flatInterestRate` varchar(255) DEFAULT NULL,
   `installmentPrice` int(11) DEFAULT NULL,
   `monthlyInstallment` int(11) DEFAULT NULL,
@@ -77,11 +77,21 @@ CREATE TABLE `installment_plans` (
 --
 
 INSERT INTO `installment_plans` (`installmentId`, `company`, `downPayment`, `flatInterestRate`, `installmentPrice`, `monthlyInstallment`, `requiredDocuments`, `term`, `totalPayment`) VALUES
-('1', 'Saigon Finance', 500000, '0.05', 2000000, 150000, 'CMND, Hợp đồng lao động, Giấy xác nhận lương', '12', 1800000),
-('2', 'Vietnam Credit', 300000, '0.07', 1500000, 70000, 'CMND, Giấy chứng minh thu nhập, Sao kê ngân hàng', '24', 1800000),
-('3', 'Hà Nội Credit', 400000, '0.05', 2000000, 80000, 'CMND, Giấy xác nhận cư trú, Giấy chứng minh thu nhập', '24', 2400000),
-('4', 'TPBank', 3000000, '4%', 15000000, 400000, 'CMND, Sổ hộ khẩu, Giấy xác nhận thu nhập', '36 months', 14400000),
-('5', 'Hao', 30200000, '90%', 152000000, 400000, 'CMND, Sổ hộ khẩu, Giấy xác nhận thu nhập', '1 months', 111400000);
+('07aa0d4d-e133-4856-86ab-655b589fbeda', 'MBBank', '20%', '0%', 0, 0, 'CMND, Bằng lái xe', '9 tháng', 0),
+('0f022abc-75a5-4cc3-8dd0-bcec0a463ae2', 'HDBank', '30%', '0%', 0, 0, 'CMND, Sổ hộ khẩu', '9 tháng', 0),
+('5bfdd30a-c6ba-49db-ae68-51a698ccebae', 'VPBank', '15%', '2.8%', 12000000, 388888, 'CMND', '18 tháng', 12800000),
+('5c032e90-6d5e-40ef-93a9-c11a688ed20f', 'HD Saison', '40%', '2.5%', 28000000, 933333, 'CMND, Sổ hộ khẩu, Giấy xác nhận thu nhập', '18 tháng', 30800000),
+('63612abd-6479-4d0c-9bbf-45ae5197f8fa', 'VPBank', '25%', '4%', 15000000, 625000, 'CMND, Giấy xác nhận thu nhập', '24 tháng', 16500000),
+('8537d5f3-bf36-49ef-b311-74753dd1da5e', 'TPBank', '30%', '0%', 0, 0, 'CMND, Sổ hộ khẩu', '3 tháng', 0),
+('940c9205-ca6e-49a5-b73d-2e8126704d46', 'Agribank', '50%', '0%', 0, 0, 'CMND, Giấy chứng nhận cư trú', '9 tháng', 0),
+('95cbb04f-09ec-4f1f-8b5e-fec7ac189a1f', 'ACB', '20%', '0%', 0, 0, 'CMND, Hợp đồng lao động', '6 tháng', 0),
+('9866ab10-8b5f-4dc3-a62d-a81df63c15ee', 'TPBank', '30%', '3%', 20000000, 1166666, 'CMND, Sổ hộ khẩu', '12 tháng', 22000000),
+('9e6f204d-6c97-4f45-9c5a-85f466e64fe7', 'VPBank', '25%', '0%', 0, 0, 'CMND, Giấy xác nhận thu nhập', '6 tháng', 0),
+('9ec729e9-3b64-499a-a9c5-3df83c60a949', 'Vietcombank', '40%', '0%', 0, 0, 'CMND, Sổ hộ khẩu', '3 tháng', 0),
+('b8c1746f-8ef9-475e-b2e1-aec5271dabe0', 'TPBank', '35%', '3.2%', 18000000, 975000, 'CMND, Sổ hộ khẩu, Giấy xác nhận thu nhập', '12 tháng', 19600000),
+('cc9a339e-d7f1-49f6-a24d-0006ef056f95', 'Sacombank', '15%', '0%', 0, 0, 'CMND, Hóa đơn tiền điện', '6 tháng', 0),
+('dd011149-d73b-4251-b577-df086b5c7c59', 'BIDV', '25%', '0%', 0, 0, 'CMND, Giấy xác nhận thu nhập', '3 tháng', 0),
+('ee4b4ede-751c-484e-b2b7-1b4ead6fbd0d', 'Techcombank', '35%', '0%', 0, 0, 'CMND, Sổ hộ khẩu', '3 tháng', 0);
 
 -- --------------------------------------------------------
 
@@ -107,7 +117,8 @@ CREATE TABLE `laptops` (
   `storage` varchar(255) DEFAULT NULL,
   `vga` varchar(255) DEFAULT NULL,
   `webcam` varchar(255) DEFAULT NULL,
-  `weight` varchar(255) DEFAULT NULL
+  `weight` varchar(255) DEFAULT NULL,
+  `specialPrice` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -159,11 +170,10 @@ INSERT INTO `orders` (`orderId`, `completeDate`, `orderAddress`, `orderDate`, `o
 --
 
 CREATE TABLE `orders_laptops` (
-  `id` bigint(20) NOT NULL,
+  `laptopId` varchar(255) NOT NULL,
+  `orderId` bigint(20) NOT NULL,
   `quantity` int(11) DEFAULT NULL,
-  `totalPrice` int(11) DEFAULT NULL,
-  `laptopId` char(36) DEFAULT NULL,
-  `orderId` bigint(20) DEFAULT NULL
+  `totalPrice` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -176,13 +186,6 @@ CREATE TABLE `refreshtokens` (
   `userId` varchar(255) DEFAULT NULL,
   `token` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `refreshtokens`
---
-
-INSERT INTO `refreshtokens` (`userId`, `token`) VALUES
-('17', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE3IiwidXNlcm5hbWUiOiJhZG1pbiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTczMzU1MzQ2MCwiZXhwIjoxNzM0MTU4MjYwfQ.KP-n6Uj14tBlrMrVVQ8hwauLbfCTfgF2WXZmOaxthig');
 
 -- --------------------------------------------------------
 
@@ -295,8 +298,7 @@ ALTER TABLE `orders`
 -- Indexes for table `orders_laptops`
 --
 ALTER TABLE `orders_laptops`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `FK9mpq9q90e41dmwd93r32aoabp` (`laptopId`),
+  ADD PRIMARY KEY (`laptopId`,`orderId`),
   ADD KEY `FKp5a6f357myfmoj5seea0x5r21` (`orderId`);
 
 --
@@ -335,12 +337,6 @@ ALTER TABLE `brands`
 --
 ALTER TABLE `orders`
   MODIFY `orderId` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=114;
-
---
--- AUTO_INCREMENT for table `orders_laptops`
---
-ALTER TABLE `orders_laptops`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `vouchers`
