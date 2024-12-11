@@ -21,4 +21,5 @@ public interface LaptopService {
     Page<LaptopResponseDto> searchLaptops(String keyword, int page, int size);
 
     List<Map<String, Object>> getTopSellingBrands();
+    List<LaptopResponseDto> getRecommendedLaptops(String laptopId);
 }

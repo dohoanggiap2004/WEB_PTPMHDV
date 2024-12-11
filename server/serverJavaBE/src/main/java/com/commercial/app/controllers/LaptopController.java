@@ -33,6 +33,10 @@ public class LaptopController {
     public ResponseEntity<LaptopResponseDto> getLaptop(@PathVariable String laptopId) {
         return ResponseEntity.ok(laptopService.getLaptop(laptopId));
     }
+    @GetMapping("/suggest/{laptopId}")
+    public ResponseEntity<List<LaptopResponseDto>> getSuggestLaptop(@PathVariable String laptopId) {
+        return ResponseEntity.ok(laptopService.getRecommendedLaptops(laptopId));
+    }
     @PostMapping
     public ResponseEntity<?> addLaptop(@RequestBody LaptopCreateRequestDto laptop) {
         return ResponseEntity.ok(laptopService.createLaptop(laptop));

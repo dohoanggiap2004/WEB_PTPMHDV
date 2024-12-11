@@ -149,6 +149,14 @@ public class ImplLaptopService implements LaptopService {
         return response;
     }
 
+    @Override
+    public List<LaptopResponseDto> getRecommendedLaptops(String laptopId) {
+        Laptop laptop = laptopRepository.findById(laptopId)
+                .orElseThrow(() -> new RuntimeException("Laptop not found"));
+        return laptopRepository.findTop10ByManufacturerAndDescriptionAndResolution(laptop.getManufacturer(), laptop.getDescription(), laptop.getResolution())
+                .stream().map(laptopMapper::mapToResponseDto).collect(Collectors.toList());
+    }
+
 
     private Laptop convertToDomain(Laptop laptop ,LaptopUpdateRequestDto laptopUpdateRequestDto) {
         laptop.setModel(laptopUpdateRequestDto.getModel());
