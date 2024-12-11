@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { getCart } from "../../services/cartService";
 import {useDispatch, useSelector} from "react-redux";
 export default function Cart() {
   const [quantity, setQuantity] = useState("0");

@@ -48,6 +48,15 @@ export const getLaptopByModel2 = createAsyncThunk('laptops/fetchLaptopByModel2',
     }
 })
 
+export const getLaptopSuggestion = createAsyncThunk('laptops/fetchLaptopSuggestion', async (payload, thunkAPI) => {
+    try {
+        const response = await instanceAxios8000.get(`/api/laptops/suggest/${payload}`);
+        return response.data;
+    } catch (error) {
+        thunkAPI.rejectWithValue(error.response.data);
+    }
+})
+
 export const createLaptop = createAsyncThunk('laptops/createLaptop', async (payload, thunkAPI) => {
     try {
         const response = await instanceAxios8000.post('/api/laptops', payload);

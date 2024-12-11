@@ -4,7 +4,7 @@ import Layout from "../../layout/Layout";
 import { useLocation } from "react-router-dom";
 import CardEstimation from "../../components/CardEstimation/CardEstimation";
 import {useDispatch, useSelector} from "react-redux";
-import {getInstallments} from "../../store/actions/installmentAction";
+import { getInstallmentsRecommendation } from "../../store/actions/installmentAction";
 const Estimation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [formData, setFormData] = useState({
@@ -33,7 +33,7 @@ const Estimation = () => {
   //   return <div>No laptops available</div>;
   // }
   useEffect(() => {
-    dispatch(getInstallments())
+    dispatch(getInstallmentsRecommendation())
   }, [])
 
   const financingOptions = [

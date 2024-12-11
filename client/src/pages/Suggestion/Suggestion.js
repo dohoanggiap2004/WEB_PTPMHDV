@@ -3,8 +3,8 @@ import {useDispatch, useSelector} from "react-redux";
 import React, {useEffect, useState} from "react";
 import {getCountProductSales} from "../../store/actions/dashboardAction";
 import {Link} from "react-router-dom";
-import {addToCart} from "../../services/cartService";
 import SwipeProducts from "../../components/SwipeProducts/SwipeProducts";
+import {addToCart} from "../../store/actions/cartAction";
 
 const Suggestion = () => {
     const {productSales} = useSelector(state => state.dashboard);
@@ -26,6 +26,11 @@ const Suggestion = () => {
     useEffect(() => {
         dispatch(getCountProductSales())
     }, []);
+
+    const handleAddToCart = (laptop) => {
+        dispatch(addToCart(laptop));
+        window.alert('Sản phẩm đã được thêm vào giỏ hàng!');
+    };
     return (
         <Layout>
             <div className="relative inline-block mt-24">
@@ -168,7 +173,7 @@ const Suggestion = () => {
                                     </Link>
                                     <button
                                         type=""
-                                        onClick={() => addToCart(laptop)}
+                                        onClick={() => handleAddToCart(laptop)}
                                         className="group relative flex w-full justify-center rounded-md border border-transparent bg-yellow-500 px-4 py-2 text-sm font-medium text-white hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:bg-indigo-700 dark:border-transparent dark:hover:bg-indigo-600 dark:focus:ring-indigo-400 dark:focus:ring-offset-2 disabled:cursor-wait disabled:opacity-50"
                                     >
                                         Thêm vào giỏ hàng

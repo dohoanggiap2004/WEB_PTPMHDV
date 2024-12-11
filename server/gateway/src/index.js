@@ -129,6 +129,14 @@ app.use("/api/statistics/products",
 
 }));
 
+app.use("/data",
+    createProxyMiddleware({
+        target: "http://localhost:8080",
+        changeOrigin: true,
+        pathRewrite: { "^/data": "/data" },
+    }));
+
+
 app.use('/auth', createProxyMiddleware({
     target: "http://localhost:8002",
     pathRewrite: { "^/auth": "/auth" },

@@ -1,6 +1,6 @@
 // reducers/productSlice.js
 import {createSlice} from '@reduxjs/toolkit';
-import {getLaptops, getLaptopById, getLaptopByModel, getLaptopByModel2, updateLaptop, createLaptop, deleteLaptop} from "../actions/laptopAction";
+import {getLaptops, getLaptopById, getLaptopByModel, getLaptopByModel2, updateLaptop, createLaptop, deleteLaptop, getLaptopSuggestion} from "../actions/laptopAction";
 
 const laptopSlice = createSlice({
     name: 'laptops',
@@ -8,6 +8,7 @@ const laptopSlice = createSlice({
         laptops: [],
         laptop: '',
         laptopsSearch: [],
+        laptopsSuggestion: [],
         loading: false,
         error: null,
     },
@@ -37,6 +38,20 @@ const laptopSlice = createSlice({
                 state.laptop = action.payload;
             })
             .addCase(getLaptopById.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            })
+
+            //get laptop suggestion
+            .addCase(getLaptopSuggestion.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(getLaptopSuggestion.fulfilled, (state, action) => {
+                state.loading = false;
+                state.laptopsSuggestion = action.payload;
+            })
+            .addCase(getLaptopSuggestion.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
             })
