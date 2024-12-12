@@ -106,12 +106,14 @@ public class ImplInstallmentService implements InstallmentService {
     public List<InstallmentResponseDto> getInstallmentByLaptop(String laptopId, String downPayment, String term) {
         Laptop laptop = laptopRepository.findById(laptopId)
                 .orElseThrow(() -> new RuntimeException("Laptop not found with id: " + laptopId));
-        List<InstallmentPlan> installmentPlanList = installmentPlanRepository.findInstallmentPlans(downPayment, term);
+        String dp = downPayment + "%";
+        String t = term + " tháng";
+        List<InstallmentPlan> installmentPlanList = installmentPlanRepository.findInstallmentPlans(dp, t);
         List<InstallmentResponseDto> list = new ArrayList<>();
         for (InstallmentPlan installmentPlan : installmentPlanList) {
             int laptopPrice = laptop.getPrice();  // Get the price from the laptop
 
-            int downPaymentPercent = Integer.parseInt(downPayment.replace("%", "").trim());
+            int downPaymentPercent = Integer.parseInt(downPayment);
             // Calculate downPayment based on the percent
             int downPaymentAmount = (laptopPrice * downPaymentPercent) / 100;
 
@@ -120,7 +122,7 @@ public class ImplInstallmentService implements InstallmentService {
 
             double flatInterestRate = Double.parseDouble(installmentPlan.getFlatInterestRate().replace("%", "").trim());
             // Calculate the interest
-            int months = Integer.parseInt(term.replace(" tháng", "").trim());
+            int months = Integer.parseInt(term);
             double totalInterest = remainingLoanAmount * flatInterestRate * months/ 1200;
             // Calculate totalPayment after downPayment
             int totalPayment = remainingLoanAmount + (int) totalInterest;
