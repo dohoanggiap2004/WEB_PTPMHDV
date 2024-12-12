@@ -4,6 +4,7 @@ import {
     getInstallments,
     getInstallmentById,
     getInstallmentByCompany,
+    getInstallmentsFilter,
     getInstallmentsRecommendation,
     createInstallment,
     updateInstallment,
@@ -13,6 +14,7 @@ import {
 const installmentSlice = createSlice({
     initialState: {
         installments: [],
+        installmentsFilter: [],
         loading: false,
         error: null,
     },
@@ -43,6 +45,20 @@ const installmentSlice = createSlice({
                 state.installments = action.payload;
             })
             .addCase(getInstallmentsRecommendation.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            })
+
+            // get installments filter
+            .addCase(getInstallmentsFilter.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(getInstallmentsFilter.fulfilled, (state, action) => {
+                state.loading = false;
+                state.installmentsFilter = action.payload;
+            })
+            .addCase(getInstallmentsFilter.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
             })

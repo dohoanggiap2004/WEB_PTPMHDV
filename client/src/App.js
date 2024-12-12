@@ -16,8 +16,24 @@ import {Provider} from "react-redux";
 import {PersistGate} from "redux-persist/integration/react";
 import {persistor} from "./store/reducers/store";
 import Suggestion from "./pages/Suggestion/Suggestion";
+import {useEffect} from "react";
+import {instanceAxios8000} from "./config/axiosConfig";
+import Cookies from "js-cookie";
 
 function App() {
+    const getAccessToken = async () => {
+        try {
+            await instanceAxios8000.get('/refresh-token');
+        } catch (error) {
+            console.error('Error refreshing token:', error);
+        }
+    };
+    useEffect(async () => {
+        const accessToken = Cookies.get('accessToken');
+        if (!accessToken) {
+            await getAccessToken();
+        }
+    }, []);
     return (
         <>
             <Provider store={store}>

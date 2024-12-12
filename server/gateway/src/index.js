@@ -89,6 +89,20 @@ const routes = [
         methods: ["GET", "POST", "PUT", "DELETE"],
     },
     {
+        context: "/api/place-order",
+        target: "http://localhost:8002",
+        changeOrigin: true,
+        pathRewrite: {"^/api/place-order": "/api/place-order"},
+        methods: ["GET", "POST", "PUT", "DELETE"],
+    },
+    {
+        context: "/api/mail/send-mail",
+        target: "http://localhost:8002",
+        changeOrigin: true,
+        pathRewrite: {"^/api/mail/send-mail": "/api/mail/send-mail"},
+        methods: ["GET", "POST", "PUT", "DELETE"],
+    },
+    {
         context: "/api/laptops",
         target: "http://localhost:8080",
         changeOrigin: true,

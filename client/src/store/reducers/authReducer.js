@@ -27,7 +27,7 @@ const loginSlice = createSlice({
     },
     logoutUserSuccess(state) {
       state.isLoginUser = false;
-      state.isLoginAdmin ? state.role = 'admin' : state.role = '';
+      state.role = '';
       state.error = null; // Xóa lỗi nếu có
     },
   },

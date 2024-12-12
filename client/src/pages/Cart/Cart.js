@@ -4,31 +4,38 @@ import "./style.css";
 import {useState, useEffect} from "react";
 import {removeItem, clearCart, updateQuantity} from '../../store/actions/cartAction'
 import {useDispatch, useSelector} from "react-redux";
+import Cookies from 'js-cookie';
+import {jwtDecode} from 'jwt-decode';
+import {instanceAxios8000} from "../../config/axiosConfig";
+import {placeOrder} from "../../store/actions/orderAction";
+import {sendMail} from "../../store/actions/mailAction";
 
 const Cart = () => {
     const {cart} = useSelector(state => state.cart);
+    const {order, error} = useSelector(state => state.order)
     const dispatch = useDispatch()
-    const [totalPrice, setTotalPrice] = useState(0)
+    const [totalPayment, setTotalPayment] = useState(0)
     const [province, setProvince] = useState([]);
     const [district, setDistrict] = useState([]);
     const [data, setData] = useState([]);
     const [formData, setFormData] = useState({
-        fullname: "",
-        phone: "",
+        email: "",
+        fullname: '',
+        phoneNumber: "",
         province: "",
         district: "",
         ward: "",
         addressDetail: "",
         paymentMethod: "",
-        shipMethod: "",
+        shippingMethod: "",
     });
 
     useEffect(() => {
         let total = 0
         cart.map(laptop => {
-            total += laptop.quantity * laptop.price
+            total += laptop.specialPrice !== 0 ? laptop.specialPrice * laptop.quantity : laptop.price * laptop.quantity;
         })
-        setTotalPrice(total)
+        setTotalPayment(total)
     }, [cart])
 
     const handleChange = (e) => {
@@ -39,10 +46,97 @@ const Cart = () => {
         });
     };
 
-    const handleClick = (e) => {
-        e.preventDefault();
-        console.log(formData);
+    const getAccessToken = async () => {
+        try {
+            await instanceAxios8000.get('/refresh-token');
+        } catch (error) {
+            console.error('Error refreshing token:', error);
+        }
     };
+
+    const getUserIdFromToken = async () => {
+        try {
+            // Lấy accessToken từ cookies
+            let accessToken = Cookies.get('accessToken');
+            console.log('check acc', accessToken)
+            if (!accessToken) {
+                console.log('Access token not found. Attempting to refresh...');
+                await getAccessToken(); // Làm mới accessToken
+                accessToken = Cookies.get('accessToken'); // Lấy lại token từ cookies sau khi làm mới
+                console.log('check acc aff', accessToken)
+                if (!accessToken) {
+                    throw new Error('Access token not found in cookies even after refresh');
+                }
+            }
+
+            // Giải mã accessToken
+            const decodedToken = jwtDecode(accessToken); // Sử dụng jwtDecode
+            if (!decodedToken || !decodedToken.userId) {
+                throw new Error('Invalid token structure or missing ID');
+            }
+
+            // Trích xuất ID từ token
+            return decodedToken.userId;
+        } catch (error) {
+            console.error('Error decoding token:', error.message);
+            return null; // Xử lý khi không lấy được ID
+        }
+    };
+
+    const handlePlaceOrder = async (e) => {
+        e.preventDefault();
+        const userId = await getUserIdFromToken()
+        const orderInfo = {
+            orderDate: new Date().toISOString().split('T')[0],
+            status: 'Đang xử lí ',
+            orderNote: '',
+            orderAddress: `${formData.addressDetail}, ${formData.ward}, ${formData.district}, ${formData.province}`,
+            phoneNumber: formData.phoneNumber,
+            paymentMethod: formData.paymentMethod,
+            shippingMethod: formData.shippingMethod,
+            totalPayment: totalPayment,
+            userId: userId,
+        }
+        const productsInfo = cart.map(laptop => (
+            {
+                laptopId: laptop.laptopId,
+                quantity: laptop.quantity,
+                specialPrice: laptop.specialPrice,
+                price: laptop.price,
+            }
+        ))
+        const payload = {
+            orderInfo: orderInfo,
+            productsInfo: productsInfo
+        }
+
+        dispatch(placeOrder(payload))
+
+        error ? alert(error.message) : alert('Đặt hàng thành công, vui lòng check email của bạn!')
+    };
+
+    useEffect(() => {
+        const orderInfo = {
+            orderDate: new Date().toISOString().split('T')[0],
+            status: 'Đang xử lí ',
+            orderNote: '',
+            orderAddress: `${formData.addressDetail}, ${formData.ward}, ${formData.district}, ${formData.province}`,
+            phoneNumber: formData.phoneNumber,
+            paymentMethod: formData.paymentMethod,
+            shippingMethod: formData.shippingMethod,
+            totalPayment: totalPayment,
+            orderId: order.orderId,
+            fullname: formData.fullname
+        }
+
+        const payloadMail = {
+            orderInfo: orderInfo,
+            productsInfo: cart,
+            email: formData.email
+        }
+        // console.log('check mail ', payloadMail)
+        dispatch(sendMail(payloadMail))
+    }, [order])
 
     useEffect(() => {
         const getData = async () => {
@@ -154,10 +248,12 @@ const Cart = () => {
                                                     Remove
                                                 </p>
                                             </div>
-                                            <p className="md:text-base text-sm font-black leading-none text-gray-800">
-                                                {(laptop.specialPrice && laptop.specialPrice !== 0
-                                                    ? laptop.specialPrice
-                                                    : laptop.price)?.toLocaleString('vi-VN')} VND
+                                            <p className="md:text-base text-sm font-black leading-none text-red-700">
+                                                {(
+                                                    laptop.specialPrice && laptop.specialPrice !== 0
+                                                        ? laptop.specialPrice
+                                                        : laptop.price
+                                                )?.toLocaleString('vi-VN')} VND
                                             </p>
                                         </div>
 
@@ -221,24 +317,24 @@ const Cart = () => {
                                             <div className="grid grid-cols-2 gap-4">
                                                 <div>
                                                     <label
-                                                        htmlFor="fullname"
+                                                        htmlFor="email"
                                                         className="block text-gray-700 dark:text-white mb-1"
                                                     >
-                                                        Họ và tên
+                                                        Email
                                                     </label>
                                                     <input
                                                         type="text"
-                                                        id="fullname"
-                                                        name="fullname"
+                                                        id="email"
+                                                        name="email"
                                                         required
                                                         className="w-full rounded-lg border py-2 px-3 dark:bg-gray-700 dark:text-white dark:border-none"
-                                                        value={formData.fullname}
+                                                        value={formData.email}
                                                         onChange={handleChange}
                                                     />
                                                 </div>
                                                 <div>
                                                     <label
-                                                        htmlFor="phone"
+                                                        htmlFor="phoneNumber"
                                                         className="block text-gray-700 dark:text-white mb-1"
                                                     >
                                                         Điện thoại
@@ -246,13 +342,31 @@ const Cart = () => {
                                                     <input
                                                         required
                                                         type="text"
-                                                        id="phone"
-                                                        name="phone"
+                                                        id="phoneNumber"
+                                                        name="phoneNumber"
                                                         className="w-full rounded-lg border py-2 px-3 dark:bg-gray-700 dark:text-white dark:border-none"
-                                                        value={formData.phone}
+                                                        value={formData.phoneNumber}
                                                         onChange={handleChange}
                                                     />
                                                 </div>
+                                            </div>
+
+                                            <div className="mt-4">
+                                                <label
+                                                    htmlFor="fullname"
+                                                    className="block text-gray-700 dark:text-white mb-1"
+                                                >
+                                                    Họ và tên
+                                                </label>
+                                                <input
+                                                    required
+                                                    type="text"
+                                                    id="fullname"
+                                                    name="fullname"
+                                                    className="w-full rounded-lg border py-2 px-3 dark:bg-gray-700 dark:text-white dark:border-none"
+                                                    value={formData.fullname}
+                                                    onChange={handleChange}
+                                                />
                                             </div>
 
                                             <div className="mt-4">
@@ -369,7 +483,7 @@ const Cart = () => {
                                                             <input
                                                                 required
                                                                 type="radio"
-                                                                name="shipMethod"
+                                                                name="shippingMethod"
                                                                 value="Giao hàng nhanh"
                                                                 onChange={handleChange}
 
@@ -408,7 +522,8 @@ const Cart = () => {
                                 <div className="border-t mt-8">
                                     <div className="flex font-semibold justify-between py-2 text-sm uppercase">
                                         <span>Tổng tiền</span>
-                                        <span className="text-red-700 font-bold">{totalPrice.toLocaleString('vi-VN')}</span>
+                                        <span
+                                            className="text-red-700 font-bold">{totalPayment.toLocaleString('vi-VN')}</span>
                                     </div>
                                     <hr className="border-gray-400 my-2"/>
 
@@ -424,15 +539,17 @@ const Cart = () => {
 
                                     <div className="flex font-semibold justify-between py-2 text-sm uppercase">
                                         <span>Thành tiền</span>
-                                        <span className="text-red-700 font-bold">{(totalPrice + 35000).toLocaleString('vi-VN')}</span>
+                                        <span className="text-red-700 font-bold">{(
+                                            totalPayment + 35000
+                                        ).toLocaleString('vi-VN')}</span>
                                     </div>
                                     <hr className="border-gray-400 my-2"/>
 
                                     <button
                                         className="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full mt-6"
-                                        onClick={handleClick}
+                                        onClick={handlePlaceOrder}
                                     >
-                                        Thanh toán
+                                        Đặt hàng
                                     </button>
                                 </div>
                             </form>

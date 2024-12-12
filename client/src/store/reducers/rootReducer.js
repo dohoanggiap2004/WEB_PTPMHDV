@@ -9,6 +9,7 @@ import dashboardReducer from "./dashboardReducer";
 import installmentReducer from "./installmentReducer";
 import brandReducer from "./brandReducer";
 import cardReducer from "./cartReducer";
+import mailReducer from "./mailReducer";
 // Kết hợp các reducer
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   installment: installmentReducer,
   brand: brandReducer,
   cart: cardReducer,
+  mail: mailReducer,
 });
 
 export default rootReducer;

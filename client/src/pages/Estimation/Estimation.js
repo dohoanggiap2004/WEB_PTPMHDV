@@ -4,19 +4,20 @@ import Layout from "../../layout/Layout";
 import { useLocation } from "react-router-dom";
 import CardEstimation from "../../components/CardEstimation/CardEstimation";
 import {useDispatch, useSelector} from "react-redux";
-import { getInstallmentsRecommendation } from "../../store/actions/installmentAction";
+import {getInstallmentsFilter, getInstallmentsRecommendation} from "../../store/actions/installmentAction";
 const Estimation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [formData, setFormData] = useState({
-    interestRate: "",
+    downPayment: "",
     term: "",
   });
   const dispatch = useDispatch();
-  const { installments } = useSelector(state => state.installment);
+  const { installments, installmentsFilter } = useSelector(state => state.installment);
   const location = useLocation();
   const laptop = location.state;
   const handleClick = () => {
     console.log(formData);
+    dispatch(getInstallmentsFilter({...formData, laptopId: laptop.laptopId}))
     setIsOpen(true);
   };
 
@@ -36,30 +37,30 @@ const Estimation = () => {
     dispatch(getInstallmentsRecommendation())
   }, [])
 
-  const financingOptions = [
-    {
-      company: "fecredit",
-      price: 11990000,
-      downPayment: 1199000,
-      term: "9 tháng",
-      monthlyInstallment: 1211000,
-      interestRate: "0%",
-      requiredDocuments: ["CMND/CCCD"],
-      totalPayment: 12098000,
-      priceDifference: 108000,
-    },
-    {
-      company: "acs",
-      price: 10990000,
-      downPayment: 1099000,
-      term: "9 tháng",
-      monthlyInstallment: 1435000,
-      interestRate: "5.94% / 3.3%",
-      requiredDocuments: ["CMND/CCCD"],
-      totalPayment: 14014000,
-      priceDifference: 3024000,
-    },
-  ];
+  // const financingOptions = [
+  //   {
+  //     company: "fecredit",
+  //     price: 11990000,
+  //     downPayment: 1199000,
+  //     term: "9 tháng",
+  //     monthlyInstallment: 1211000,
+  //     interestRate: "0%",
+  //     requiredDocuments: ["CMND/CCCD"],
+  //     totalPayment: 12098000,
+  //     priceDifference: 108000,
+  //   },
+  //   {
+  //     company: "acs",
+  //     price: 10990000,
+  //     downPayment: 1099000,
+  //     term: "9 tháng",
+  //     monthlyInstallment: 1435000,
+  //     interestRate: "5.94% / 3.3%",
+  //     requiredDocuments: ["CMND/CCCD"],
+  //     totalPayment: 14014000,
+  //     priceDifference: 3024000,
+  //   },
+  // ];
 
   return (
     <>
@@ -122,9 +123,9 @@ const Estimation = () => {
             <div className="flex gap-8">
               <select
                 className="block w-full text-sm font-medium transition duration-75 border border-gray-300 text-blue-400 rounded-lg shadow-sm h-9 focus:border-blue-600 focus:ring-1 focus:ring-inset focus:ring-blue-600 bg-none"
-                name="interestRate"
+                name="downPayment"
                 onChange={handleChange}
-                value={formData.interestRate}
+                value={formData.downPayment}
                 required
               >
                 <option value="" disabled hidden>
@@ -186,21 +187,20 @@ const Estimation = () => {
                 </div>
 
                 {/* Hiển thị các công ty trả góp */}
-                {financingOptions.length > 0 ? (
+                {installmentsFilter.length > 0 ? (
                   <div className="flex lg:w-3/4 mt-4 w-full flex-wrap border border-gray-300 rounded-lg">
-                    {financingOptions.map((option) => (
+                    {installmentsFilter.map((option) => (
                       <div className="lg:w-1/3 w-full lg:mt-px border-2 border-gray-300 lg:border-none rounded-lg lg:rounded-none ">
                         <p className="bg-gray-100 text-gray-600 h-16 text-center px-2 flex items-center -mt-px justify-center border-t border-gray-300">
                           {option.company}
                         </p>
                         {/* ram */}
                         <p className="text-gray-600 text-center h-12 flex items-center justify-center bg-gray-200">
-                          {option.price}
+                          {option.installmentPrice.toLocaleString('vi-VN')}
                         </p>
                         {/* ổ cứng */}
                         <p className="bg-gray-100 text-gray-600 text-center h-12 flex items-center justify-center">
-                          {(option.price / 100) *
-                            parseInt(formData.interestRate)}
+                          {option.downPayment.toLocaleString('vi-VN')}
                         </p>
                         {/* card đồ họa */}
                         <p className="h-12 text-gray-600 px-6 text-center leading-relaxed flex items-center justify-center bg-gray-200">
@@ -208,11 +208,11 @@ const Estimation = () => {
                         </p>
                         {/* màn hình */}
                         <p className="bg-gray-100 text-gray-600 text-center h-12 flex items-center justify-center">
-                          {option.monthlyInstallment}
+                          {option.monthlyInstallment.toLocaleString('vi-VN')}
                         </p>
                         {/* pin */}
                         <p className="text-gray-600 text-center h-12 flex items-center justify-center bg-gray-200">
-                          {option.interestRate}
+                          {option.flatInterestRate}
                         </p>
                         {/* cân nặng */}
                         <p className="bg-gray-100 text-gray-600 text-center h-12 flex items-center justify-center">
@@ -220,10 +220,10 @@ const Estimation = () => {
                         </p>
                         {/* hệ điều hành */}
                         <p className="text-gray-600 text-center h-12 flex items-center justify-center bg-gray-200">
-                          {option.totalPayment}
+                          {option.totalPayment.toLocaleString('vi-VN')}
                         </p>
                         <p className="bg-gray-100 text-gray-600 text-center h-12 flex items-center justify-center">
-                          {option.priceDifference}
+                          {(option.totalPayment - laptop.specialPrice || laptop.price).toLocaleString('vi-VN')}
                         </p>
                       </div>
                     ))}
@@ -241,7 +241,7 @@ const Estimation = () => {
                 className="flex items-center ms-auto text-white bg-indigo-500 border-0 py-2 px-4 focus:outline-none hover:bg-indigo-600 rounded"
                 onClick={handleClick}
               >
-                SO SÁNH
+                TÌM KIẾM
                 <svg
                   fill="none"
                   stroke="currentColor"

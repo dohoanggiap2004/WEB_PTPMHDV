@@ -97,7 +97,6 @@ const UserAvatar = ({ handleLogOut }) => {
             <div>
               <a
                 onClick={toggleModal}
-                href="#"
                 className="block px-4 py-2 text-sm text-yellow-600 hover:underline"
                 role="menuitem"
                 id="user-menu-item-2"
