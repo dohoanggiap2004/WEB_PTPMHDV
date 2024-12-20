@@ -68,8 +68,8 @@ public class InstallmentController {
     }
 
     @GetMapping("/recommended")
-    public ResponseEntity<List<InstallmentResponseDto>> getRecommendedInstallments() {
-        List<InstallmentResponseDto> installments = installmentService.getRecommendedInstallments();
+    public ResponseEntity<List<InstallmentResponseDto>> getRecommendedInstallments(@RequestParam String laptopId) {
+        List<InstallmentResponseDto> installments = installmentService.getRecommendedInstallments(laptopId);
         return new ResponseEntity<>(installments, HttpStatus.OK);
     }
 

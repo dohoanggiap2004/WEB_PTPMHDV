@@ -95,11 +95,39 @@ public class ImplInstallmentService implements InstallmentService {
     }
 
     @Override
-    public List<InstallmentResponseDto> getRecommendedInstallments() {
+    public List<InstallmentResponseDto> getRecommendedInstallments(String laptopId) {
+        Laptop laptop = laptopRepository.findById(laptopId)
+                .orElseThrow(() -> new RuntimeException("Laptop not found with id: " + laptopId));
         Pageable pageable = PageRequest.of(0,6);
-        return installmentPlanRepository.findInstallmentsWithZeroInterestOrderByDownPayment(pageable).stream()
-                .map(installmentMapper::toInstallmentResponseDto)
-                .collect(Collectors.toList());
+        List<InstallmentPlan> list = installmentPlanRepository.findInstallmentsWithZeroInterestOrderByDownPayment(pageable);
+        List<InstallmentResponseDto> listDto = new ArrayList<>();
+
+        for (InstallmentPlan installmentPlan : list) {
+            int laptopPrice = laptop.getSpecialPrice() == 0? laptop.getPrice() : laptop.getSpecialPrice();  // Get the price from the laptop
+
+            int downPaymentPercent = Integer.parseInt(installmentPlan.getDownPayment().replace("%", "").trim());
+            // Calculate downPayment based on the percent
+            int downPaymentAmount = (laptopPrice * downPaymentPercent) / 100;
+
+            // Calculate remaining loan amount (after downPayment)
+            int remainingLoanAmount = laptopPrice - downPaymentAmount;
+
+            double flatInterestRate = Double.parseDouble(installmentPlan.getFlatInterestRate().replace("%", "").trim());
+            // Calculate the interest
+            int months = Integer.parseInt(installmentPlan.getTerm().replace(" tháng", "").trim());
+            double totalInterest = remainingLoanAmount * flatInterestRate * months/ 1200;
+            // Calculate totalPayment after downPayment
+            int totalPayment = remainingLoanAmount + (int) totalInterest;
+
+            int monthlyInstallment = totalPayment / months;
+
+            installmentPlan.setInstallmentPrice(laptopPrice);
+            installmentPlan.setMonthlyInstallment(monthlyInstallment);
+            installmentPlan.setTotalPayment(totalPayment);
+
+            listDto.add(installmentMapper.toInstallmentResponseDto(installmentPlan));
+        }
+        return listDto;
     }
 
     @Override
@@ -111,7 +139,7 @@ public class ImplInstallmentService implements InstallmentService {
         List<InstallmentPlan> installmentPlanList = installmentPlanRepository.findInstallmentPlans(dp, t);
         List<InstallmentResponseDto> list = new ArrayList<>();
         for (InstallmentPlan installmentPlan : installmentPlanList) {
-            int laptopPrice = laptop.getPrice();  // Get the price from the laptop
+            int laptopPrice = laptop.getSpecialPrice() == 0? laptop.getPrice() : laptop.getSpecialPrice();  // Get the price from the laptop
 
             int downPaymentPercent = Integer.parseInt(downPayment);
             // Calculate downPayment based on the percent
@@ -129,7 +157,7 @@ public class ImplInstallmentService implements InstallmentService {
 
             int monthlyInstallment = totalPayment / months;
 
-            installmentPlan.setInstallmentPrice(downPaymentAmount);
+            installmentPlan.setInstallmentPrice(laptopPrice);
             installmentPlan.setMonthlyInstallment(monthlyInstallment);
             installmentPlan.setTotalPayment(totalPayment);
 
