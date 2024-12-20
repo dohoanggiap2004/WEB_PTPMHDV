@@ -47,6 +47,15 @@ export const deleteOrder = createAsyncThunk('orders/deleteOrder', async (payload
     }
 })
 
+export const placeOrder = createAsyncThunk('orders/placeOrder', async (payload, thunkAPI) => {
+    try {
+        const response = await instanceAxios8000.post('/api/place-order', payload);
+        return response.data.newOrder.newOrder;
+    } catch (error) {
+        thunkAPI.rejectWithValue(error.response.data);
+    }
+})
+
 
 
 

@@ -19,6 +19,21 @@ export const getInstallmentsRecommendation = createAsyncThunk('installments/fetc
     }
 });
 
+export const getInstallmentsFilter = createAsyncThunk('installments/fetchInstallmentsFilter', async (payload, thunkAPI) => {
+    try {
+        const response = await instanceAxios8000.get('/api/installments/filter', {
+            params: {
+                laptopId: payload.laptopId,
+                downPayment: payload.downPayment,
+                term: payload.term
+            }
+        });
+        return response.data;
+    } catch (error) {
+        thunkAPI.rejectWithValue(error.response.data);
+    }
+});
+
 export const getInstallmentById = createAsyncThunk('installments/fetchInstallmentById', async (payload, thunkAPI) => {
     try {
         const response = await instanceAxios8000.get(`/api/installments/${payload}`);

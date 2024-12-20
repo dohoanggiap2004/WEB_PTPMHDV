@@ -9,6 +9,8 @@ import {loginUserSuccess} from "../../store/reducers/authReducer";
 import {useDispatch} from "react-redux";
 import Pagination from "../../components/Pagination/Pagination";
 import {instanceAxios8000} from "../../config/axiosConfig";
+import {logoutUser} from "../../store/actions/authAction";
+import Cookies from "js-cookie";
 
 const Home = () => {
 
@@ -18,6 +20,25 @@ const Home = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const [pageSize] = useState(20); // Số mục mỗi trang
+
+    const getAccessToken = async () => {
+        try {
+            await instanceAxios8000.get('/refresh-token');
+        } catch (error) {
+            dispatch(logoutUser())
+            console.error('Error refreshing token:', error);
+        }
+    };
+    useEffect(() => {
+        const fetchAccessToken = async () => {
+            const accessToken = Cookies.get('accessToken');
+            if (!accessToken) {
+                await getAccessToken();
+            }
+        };
+
+        fetchAccessToken();
+    }, []);
 
     useEffect(() => {
         fetchLaptops(currentPage, pageSize);
@@ -67,6 +88,8 @@ const Home = () => {
         dispatch(addToCart(laptop));
         window.alert('Sản phẩm đã được thêm vào giỏ hàng!');
     };
+
+
 
     return (
         <>

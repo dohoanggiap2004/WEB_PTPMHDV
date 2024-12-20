@@ -46,13 +46,13 @@ const routes = [
     //     pathRewrite: { "^/refresh-token": "/refresh-token" },
     //     methods: ["GET", "POST", "PUT", "DELETE"],
     // },
-    {
-        context: "/logout",
-        target: "http://localhost:8002",
-        changeOrigin: true,
-        pathRewrite: {"^/logout": "/logout"},
-        methods: ["GET", "POST", "PUT", "DELETE"],
-    },
+    // {
+    //     context: "/logout",
+    //     target: "http://localhost:8002",
+    //     changeOrigin: true,
+    //     pathRewrite: {"^/logout": "/logout"},
+    //     methods: ["GET", "POST", "PUT", "DELETE"],
+    // },
     {
         context: "/api/installments",
         target: "http://localhost:8080",
@@ -67,13 +67,13 @@ const routes = [
         pathRewrite: {"^/api/users": "/api/users"},
         methods: ["GET", "POST", "PUT", "DELETE"],
     },
-    // {
-    //     context: "/api/laptops",
-    //     target: "http://localhost:8080",
-    //     changeOrigin: true,
-    //     pathRewrite: {"^/api/laptops": "/api/laptops"},
-    //     methods: ["GET", "POST", "PUT", "DELETE"],
-    // },
+    {
+        context: "/api/elastic",
+        target: "http://localhost:3500",
+        changeOrigin: true,
+        pathRewrite: {"^/api/elastic": "/api/elastic"},
+        methods: ["GET", "POST", "PUT", "DELETE"],
+    },
     {
         context: "/api/brands",
         target: "http://localhost:8080",
@@ -86,6 +86,20 @@ const routes = [
         target: "http://localhost:8080",
         changeOrigin: true,
         pathRewrite: {"^/api/orders": "/api/orders"},
+        methods: ["GET", "POST", "PUT", "DELETE"],
+    },
+    {
+        context: "/api/place-order",
+        target: "http://localhost:8002",
+        changeOrigin: true,
+        pathRewrite: {"^/api/place-order": "/api/place-order"},
+        methods: ["GET", "POST", "PUT", "DELETE"],
+    },
+    {
+        context: "/api/mail/send-mail",
+        target: "http://localhost:8002",
+        changeOrigin: true,
+        pathRewrite: {"^/api/mail/send-mail": "/api/mail/send-mail"},
         methods: ["GET", "POST", "PUT", "DELETE"],
     },
     {
@@ -136,7 +150,6 @@ app.use("/data",
         pathRewrite: { "^/data": "/data" },
     }));
 
-
 app.use('/auth', createProxyMiddleware({
     target: "http://localhost:8002",
     pathRewrite: { "^/auth": "/auth" },
@@ -148,6 +161,13 @@ app.use('/refresh-token', createProxyMiddleware({
     target: "http://localhost:8002",
     changeOrigin: true,
     pathRewrite: { "^/refresh-token": "/refresh-token" },
+}))
+
+app.use('/logout', createProxyMiddleware({
+    target: "http://localhost:8002",
+    changeOrigin: true,
+    pathRewrite: { "^/logout": "/logout" },
+    methods: ["GET", "POST", "PUT", "DELETE"],
 }))
 
 app.use(verifyJWT)

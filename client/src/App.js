@@ -12,7 +12,7 @@ import UserProfile from "./pages/User/UserProfile";
 import Unauthorized from "./pages/Unauthozired/Unauthozired";
 import RoleProtectedRoute from "./Utils/verifyRole";
 import store from "./store/reducers/store";
-import {Provider} from "react-redux";
+import {Provider, useDispatch} from "react-redux";
 import {PersistGate} from "redux-persist/integration/react";
 import {persistor} from "./store/reducers/store";
 import Suggestion from "./pages/Suggestion/Suggestion";

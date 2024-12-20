@@ -3,10 +3,12 @@ import { Link } from "react-router-dom";
 import ConfirmModal from "../Modal/ConfirmModal";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../store/actions/authAction.js";
+import {getUserId} from "../../Utils/decodeToken";
 const UserAvatar = ({ handleLogOut }) => {
   const [isLogout, setIsLogout] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [userId, setUserId] = useState();
   const dispatch = useDispatch();
 
   const toggleMenu = () => {
@@ -30,6 +32,11 @@ const UserAvatar = ({ handleLogOut }) => {
       handleLogout();
     }
   }, [isLogout]);
+  
+  useEffect(() => {
+    const id = getUserId()
+    setUserId(id)
+  }, [])
 
   return (
     <>
@@ -56,7 +63,7 @@ const UserAvatar = ({ handleLogOut }) => {
         </button>
 
         {/* link to user profile when clicking in md sm screen */}
-        <Link to={"/user-profile/1"}>
+        <Link to={`/user-profile/${userId}`}>
           <button
               type="button"
               className="flex lg:hidden relative rounded-full bg-gray-800 text-sm text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
@@ -97,7 +104,6 @@ const UserAvatar = ({ handleLogOut }) => {
             <div>
               <a
                 onClick={toggleModal}
-                href="#"
                 className="block px-4 py-2 text-sm text-yellow-600 hover:underline"
                 role="menuitem"
                 id="user-menu-item-2"

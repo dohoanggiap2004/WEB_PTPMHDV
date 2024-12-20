@@ -87,6 +87,27 @@ export const deleteLaptop = createAsyncThunk('laptops/deleteLaptop', async (payl
     }
 })
 
+export const getLaptopsElasticByUserId = createAsyncThunk('laptops/fetchLaptopElasticByUserId', async (payload, thunkAPI) => {
+    try {
+        const response = await instanceAxios8000.get(`/api/elastic/recommendations/${payload}`);
+        return response.data;
+    }catch (error) {
+        thunkAPI.rejectWithValue(error.response.data);
+    }
+})
+
+export const getLaptopsViewedByUserId = createAsyncThunk('laptops/fetchLaptopViewedByUserId', async (payload, thunkAPI) => {
+    try {
+        console.log('check payload', payload)
+        const response = await instanceAxios8000.get(`/api/elastic/view-history/${payload}`);
+        console.log('check response', response.data)
+
+        return response.data;
+    }catch (error) {
+        thunkAPI.rejectWithValue(error.response.data);
+    }
+})
+
 
 
 

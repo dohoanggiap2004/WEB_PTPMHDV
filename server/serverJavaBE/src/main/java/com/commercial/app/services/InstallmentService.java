@@ -27,7 +27,7 @@ public interface InstallmentService {
 
     String addListInstallments(List<InstallmentRequestDto> installmentRequestDto);
 
-    List<InstallmentResponseDto> getRecommendedInstallments();
+    List<InstallmentResponseDto> getRecommendedInstallments(String laptopId);
 
     List<InstallmentResponseDto> getInstallmentByLaptop(String laptopId, String term, String downPayment);
 

@@ -1,6 +1,15 @@
 // reducers/productSlice.js
 import {createSlice} from '@reduxjs/toolkit';
-import {getLaptops, getLaptopById, getLaptopByModel, getLaptopByModel2, updateLaptop, createLaptop, deleteLaptop, getLaptopSuggestion} from "../actions/laptopAction";
+import {getLaptops,
+    getLaptopById,
+    getLaptopByModel,
+    getLaptopByModel2,
+    updateLaptop,
+    createLaptop,
+    deleteLaptop,
+    getLaptopsElasticByUserId,
+    getLaptopsViewedByUserId,
+    getLaptopSuggestion} from "../actions/laptopAction";
 
 const laptopSlice = createSlice({
     name: 'laptops',
@@ -9,7 +18,10 @@ const laptopSlice = createSlice({
         laptop: '',
         laptopsSearch: [],
         laptopsSuggestion: [],
+        laptopsElastic: [],
+        laptopsViewed: [],
         loading: false,
+        loadingElastic: false,
         error: null,
     },
     extraReducers: (builder) => {
@@ -52,6 +64,34 @@ const laptopSlice = createSlice({
                 state.laptopsSuggestion = action.payload;
             })
             .addCase(getLaptopSuggestion.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            })
+
+            //get laptop suggestion by elastic search
+            .addCase(getLaptopsElasticByUserId.pending, (state) => {
+                state.loadingElastic = true;
+                state.error = null;
+            })
+            .addCase(getLaptopsElasticByUserId.fulfilled, (state, action) => {
+                state.loadingElastic = false;
+                state.laptopsElastic = action.payload;
+            })
+            .addCase(getLaptopsElasticByUserId.rejected, (state, action) => {
+                state.loadingElastic = false;
+                state.error = action.payload;
+            })
+
+            //get laptop viewed by user
+            .addCase(getLaptopsViewedByUserId.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(getLaptopsViewedByUserId.fulfilled, (state, action) => {
+                state.loading = false;
+                state.laptopsViewed = action.payload;
+            })
+            .addCase(getLaptopsViewedByUserId.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
             })

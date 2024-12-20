@@ -6,7 +6,7 @@ class RefreshTokenController{
     async handleRefreshToken(req, res){
         const token = req.cookies.refreshToken;  // Retrieve the refresh token from cookies
         console.log('check token', token)
-        if (!token) return res.sendStatus(401);  // No token provided
+        if (!token) return res.sendStatus(404);  // No token provided
     
         jwt.verify(token, process.env.REFRESH_TOKEN_SECRET, async (err, user) => {
             if (err) {

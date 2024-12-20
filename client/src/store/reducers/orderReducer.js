@@ -1,11 +1,12 @@
 // reducers/productSlice.js
-import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
-import { getOrders, getOrderById, updateOrder, deleteOrder, createOrder} from "../actions/orderAction";
+import {createSlice} from '@reduxjs/toolkit';
+import { getOrders, getOrderById, updateOrder, deleteOrder, createOrder, placeOrder} from "../actions/orderAction";
 
 const orderSlice = createSlice({
     name: 'orders',
     initialState: {
         orders: [],
+        order: {},
         loading: false,
         error: null,
     },
@@ -49,6 +50,20 @@ const orderSlice = createSlice({
                 state.orders.push(action.payload);
             })
             .addCase(createOrder.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            })
+
+            //place order
+            .addCase(placeOrder.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(placeOrder.fulfilled, (state, action) => {
+                state.loading = false;
+                state.order = action.payload;
+            })
+            .addCase(placeOrder.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
             })
