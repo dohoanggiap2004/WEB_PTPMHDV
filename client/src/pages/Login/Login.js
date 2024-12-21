@@ -103,6 +103,8 @@ const Login = () => {
                     </div>
                   </div>
 
+                  {error && (<p className={'text-red-700 italic'}>Sai tên tài khoản hoặc mật khẩu</p>)}
+
                   <div>
                     <button
                       data-testid="login"

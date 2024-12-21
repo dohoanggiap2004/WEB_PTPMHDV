@@ -46,13 +46,13 @@ const routes = [
     //     pathRewrite: { "^/refresh-token": "/refresh-token" },
     //     methods: ["GET", "POST", "PUT", "DELETE"],
     // },
-    // {
-    //     context: "/logout",
-    //     target: "http://localhost:8002",
-    //     changeOrigin: true,
-    //     pathRewrite: {"^/logout": "/logout"},
-    //     methods: ["GET", "POST", "PUT", "DELETE"],
-    // },
+    {
+        context: "/api/view-history",
+        target: "http://localhost:8002",
+        changeOrigin: true,
+        pathRewrite: {"^/api/view-history": "/api/view-history"},
+        methods: ["GET", "POST", "PUT", "DELETE"],
+    },
     {
         context: "/api/installments",
         target: "http://localhost:8080",

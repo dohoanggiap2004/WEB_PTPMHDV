@@ -18,10 +18,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.text.NumberFormat;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -117,10 +115,12 @@ public class ImplInstallmentService implements InstallmentService {
             int months = Integer.parseInt(installmentPlan.getTerm().replace(" tháng", "").trim());
             double totalInterest = remainingLoanAmount * flatInterestRate * months/ 1200;
             // Calculate totalPayment after downPayment
-            int totalPayment = remainingLoanAmount + (int) totalInterest;
+            int totalPayment = laptopPrice + (int) totalInterest + 80000;
 
-            int monthlyInstallment = totalPayment / months;
-
+            int monthlyInstallment =(remainingLoanAmount + (int) totalInterest + 80000) / months;
+            Locale localeVN = new Locale("vi", "VN");
+            NumberFormat vn = NumberFormat.getInstance(localeVN);
+            installmentPlan.setDownPayment(installmentPlan.getDownPayment() + " (" + vn.format(downPaymentAmount) + "đ)");
             installmentPlan.setInstallmentPrice(laptopPrice);
             installmentPlan.setMonthlyInstallment(monthlyInstallment);
             installmentPlan.setTotalPayment(totalPayment);
@@ -153,10 +153,13 @@ public class ImplInstallmentService implements InstallmentService {
             int months = Integer.parseInt(term);
             double totalInterest = remainingLoanAmount * flatInterestRate * months/ 1200;
             // Calculate totalPayment after downPayment
-            int totalPayment = remainingLoanAmount + (int) totalInterest;
+            int totalPayment = laptopPrice + (int) totalInterest + 80000;
 
-            int monthlyInstallment = totalPayment / months;
+            int monthlyInstallment =(remainingLoanAmount + (int) totalInterest + 80000) / months;
 
+            Locale localeVN = new Locale("vi", "VN");
+            NumberFormat vn = NumberFormat.getInstance(localeVN);
+            installmentPlan.setDownPayment(installmentPlan.getDownPayment() + " (" + vn.format(downPaymentAmount) + "đ)");
             installmentPlan.setInstallmentPrice(laptopPrice);
             installmentPlan.setMonthlyInstallment(monthlyInstallment);
             installmentPlan.setTotalPayment(totalPayment);

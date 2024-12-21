@@ -4,8 +4,7 @@ const { sequelize } = require('../../config/sequelizeConnect');
 
 const User = sequelize.define('User', {
   userId: {
-    type: DataTypes.BIGINT, // Thay INTEGER bằng BIGINT để khớp với bảng
-    autoIncrement: true,
+    type: DataTypes.CHAR(36),
     primaryKey: true,
   },
   username: {

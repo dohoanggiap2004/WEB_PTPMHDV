@@ -4,7 +4,7 @@ const Carousel = ({autoSlide = true, autoSlideInterval = 3000 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const images = [
     'https://file.hstatic.net/200000722513/file/thang_12_camp_tong_banner_web_slider_800x400.jpg',
-     'https://cdn2.cellphones.com.vn/insecure/rs:fill:690:300/q:90/plain/https://dashboard.cellphones.com.vn/storage/asus-home-ai-12-11.jpg',
+     'https://file.hstatic.net/200000722513/file/thang_11_laptop_asus_rog800x400.jpg',
     'https://file.hstatic.net/200000722513/file/thang_12_laptop_msi_yep_24_gearvn_800x400_fe7bf7fd53c94a8f82c331cf534c35d3.png',
   ];
   useEffect(() => {

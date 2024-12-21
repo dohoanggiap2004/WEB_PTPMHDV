@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {useDispatch} from "react-redux";
 import {addToCart} from "../../store/actions/cartAction";
+import {Link} from "react-router-dom";
 
 const SwipeCards = ({laptops}) => {
     const dispatch = useDispatch()
@@ -60,7 +61,7 @@ const SwipeCards = ({laptops}) => {
                     <div className="mb-4 relative px-0.5">
                         <div className="flex gap-4">
                             {visibleCards.map((card) => (
-                                <div key={card.laptopId} className="flex-none w-64 md:w-52 lg:w-52">
+                                <Link to={`/productdetail/${card.laptopId}`} key={card.laptopId} className="flex-none w-64 md:w-52 lg:w-52">
                                     <div
                                         className="bg-white border border-gray-200 rounded-lg overflow-hidden mb-4  min-h-[380px]">
                                         <img src={card.image} alt={card.model} className="w-full h-40 object-cover"/>
@@ -102,7 +103,7 @@ const SwipeCards = ({laptops}) => {
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </Link>
                             ))}
                         </div>
                     </div>

@@ -57,17 +57,16 @@ const Suggestion = () => {
                     </span>
             </div>
             <div className={'bg-white'}>
-                <div className={'rounded-lg shadow-md pt-8 pb-24'}>
-
+                <div className={'rounded-lg border-b-2 pt-8 pb-6'}>
                     <div
-                        className={'container px-5 py-6 mx-auto flex flex-wrap bg-white mb-8 rounded-lg shadow-md w-auto'}>
+                        className={'container px-5 py-6 mx-auto flex flex-wrap bg-white mb-4  w-auto'}>
 
-                        <div style={{backgroundColor: '#F9405E'}} className={'py-8 rounded-lg shadow-md'}>
-                            <p className={'text-5xl text-center font-bold text-white'}>Sản phẩm bạn đã xem</p>
+                        <div style={{backgroundColor: '#F9405E'}} className={'py-8 rounded-lg shadow-md w-full'}>
+                            <p className={'text-5xl text-center font-bold text-white'}>Sản phẩm bạn đã xem gần đây</p>
 
                             <div
                                 className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 md:grid-cols-3 lg:grid-cols-5 xl:gap-x-8 mx-2">
-                                {laptopsViewed.map((laptop) => (
+                                {laptopsViewed && laptopsViewed.length > 0 ? laptopsViewed.map((laptop) => (
                                     <div
                                         key={laptop.laptopId}
                                         className="group relative border-2 dark:bg-gray-800 rounded-lg shadow-md p-2 bg-white"
@@ -108,19 +107,30 @@ const Suggestion = () => {
                                             Thêm vào giỏ hàng
                                         </button>
                                     </div>
-                                ))}
+                                )) : (<p></p>)}
                             </div>
                         </div>
                     </div>
+                </div>
 
+                <div className={'shadow-md rounded-md pt-6 mb-8 mx-4 mt-6'}>
+                    <div className={'text-xl font-bold text-gray-500 ms-8'}>
+                        <p>SẢN PHẨM GỢI Ý DÀNH CHO BẠN</p>
+                    </div>
                     <div className={'mx-auto flex items-center justify-center mt-4'}>
-                        {/*<SwipeProducts laptops={laptopsElastic}/>*/}
+                        {laptopsElastic && laptopsElastic.length > 0 ? (
+                            <div className={'mx-auto flex items-center justify-center mt-4 '}>
+                                <SwipeProducts laptops={laptopsElastic}/>
+                            </div>
+                        ) : (
+                            <p>Không có sản phẩm nào phù hợp</p>
+                        )}
                     </div>
                 </div>
 
                 <div className={'container px-5 py-6 mx-auto flex flex-wrap bg-white mb-8 rounded-lg shadow-md w-auto'}>
 
-                    <div style={{backgroundColor: '#F9405E'}} className={'py-8 rounded-lg shadow-md'}>
+                <div style={{backgroundColor: '#F9405E'}} className={'py-8 rounded-lg shadow-md'}>
                         <p className={'text-5xl text-center font-bold text-white'}>Sản phẩm nổi bật</p>
 
                         <div

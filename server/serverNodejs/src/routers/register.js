@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const router = express.Router();
 const User = require('../app/models/User');
 const {sequelize} = require('../config/sequelizeConnect');
-
+const { v4: uuidv4 } = require('uuid');
 
 router.post('/auth/register', async (req, res) => {
     const {username, password, ...userInfo} = req.body;
@@ -20,11 +20,15 @@ router.post('/auth/register', async (req, res) => {
             return res.status(400).send('Username already exists');
         }
 
+        // Tạo UUID 36 ký tự
+        const uuid = uuidv4();
+
         // Mã hóa mật khẩu
         const hashedPassword = await bcrypt.hash(password, 10);
 
         // Lưu người dùng mới vào cơ sở dữ liệu
         await User.create({
+            userId: uuid,
             username: username,
             password: hashedPassword,
             ...userInfo,

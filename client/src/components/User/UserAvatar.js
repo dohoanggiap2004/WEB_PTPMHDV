@@ -94,7 +94,7 @@ const UserAvatar = ({ handleLogOut }) => {
                 aria-labelledby="user-menu-button"
             >
               <Link
-                  to={"/user-profile/1"}
+                  to={`/user-profile/${userId}`}
                   className="block px-4 py-2 text-sm text-yellow-600 hover:underline"
                   role="menuitem"
               id="user-menu-item-0"

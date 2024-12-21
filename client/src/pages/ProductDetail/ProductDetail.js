@@ -7,6 +7,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {getLaptopById, getLaptopSuggestion} from "../../store/actions/laptopAction";
 import {addToCart} from "../../store/actions/cartAction";
 import SwipeProducts from "../../components/SwipeProducts/SwipeProducts";
+import {getUserId} from "../../Utils/decodeToken";
+import {instanceAxios8000} from "../../config/axiosConfig";
 
 const ProductDetail = () => {
     const {id} = useParams();
@@ -25,6 +27,17 @@ const ProductDetail = () => {
         dispatch(getLaptopById(id))
         dispatch(getLaptopSuggestion(id))
     }, [id, dispatch])
+
+    useEffect(() => {
+        const payload = {
+            userId: getUserId(),
+            laptopId: id,
+        }
+        const createNewView = async () => {
+            await instanceAxios8000.post('http://localhost:8000/api/view-history', payload)
+        }
+        createNewView()
+    }, [id])
 
     const handleOpen1 = () => {
         setIsOpen2(false);
@@ -252,7 +265,7 @@ const ProductDetail = () => {
                             </>
                         )}
 
-                        {isOpen2 && <h1>dbfdfbd</h1>}
+                        {isOpen2 && <h1>{laptop.description}</h1>}
                     </div>
                 </div>
 

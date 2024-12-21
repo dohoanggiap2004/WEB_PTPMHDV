@@ -10,9 +10,13 @@ export const getInstallments = createAsyncThunk('installments/fetchInstallments'
     }
 });
 
-export const getInstallmentsRecommendation = createAsyncThunk('installments/fetchInstallmentsRecommendation', async (_, thunkAPI) => {
+export const getInstallmentsRecommendation = createAsyncThunk('installments/fetchInstallmentsRecommendation', async (payload, thunkAPI) => {
     try {
-        const response = await instanceAxios8000.get('/api/installments/recommended');
+        const response = await instanceAxios8000.get('/api/installments/recommended', {
+            params: {
+                laptopId: payload
+            }
+        });
         return response.data;
     } catch (error) {
         thunkAPI.rejectWithValue(error.response.data);

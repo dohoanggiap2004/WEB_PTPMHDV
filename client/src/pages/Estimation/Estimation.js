@@ -12,13 +12,17 @@ const Estimation = () => {
     term: "",
   });
   const dispatch = useDispatch();
-  const { installments, installmentsFilter } = useSelector(state => state.installment);
+  const { installments, installmentsFilter, loading } = useSelector(state => state.installment);
   const location = useLocation();
   const laptop = location.state;
   const handleClick = () => {
     dispatch(getInstallmentsFilter({...formData, laptopId: laptop.laptopId}))
     setIsOpen(true);
   };
+
+  useEffect(() => {
+    console.log('check filter', installmentsFilter)
+  }, [installmentsFilter])
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -29,9 +33,10 @@ const Estimation = () => {
   };
 
   useEffect(() => {
-    dispatch(getInstallmentsRecommendation())
+    dispatch(getInstallmentsRecommendation(laptop.laptopId))
   }, [])
 
+  if(loading)return (<p>Loading...</p>)
 
 
   return (
@@ -166,28 +171,28 @@ const Estimation = () => {
                 </div>
 
                 {/* Hiển thị các công ty trả góp */}
-                {installmentsFilter.length > 0 ? (
+                {installmentsFilter && installmentsFilter.length > 0 ? (
                   <div className="flex lg:w-3/4 mt-4 w-full flex-wrap border border-gray-300 rounded-lg">
                     {installmentsFilter.map((option) => (
-                      <div className="lg:w-1/3 w-full lg:mt-px border-2 border-gray-300 lg:border-none rounded-lg lg:rounded-none ">
+                      <div className="lg:w-1/3 w-full lg:mt-px border-2 border-gray-300 lg:border-none rounded-lg lg:rounded-none " key={option.installmentId}>
                         <p className="bg-gray-100 text-gray-600 h-16 text-center px-2 flex items-center -mt-px justify-center border-t border-gray-300">
                           {option.company}
                         </p>
                         {/* ram */}
                         <p className="text-gray-600 text-center h-12 flex items-center justify-center bg-gray-200">
-                          {laptop.specialPrice.toLocaleString('vi-VN')}
+                          {(option.installmentPrice).toLocaleString('vi-VN')}
                         </p>
                         {/* ổ cứng */}
                         <p className="bg-gray-100 text-gray-600 text-center h-12 flex items-center justify-center">
-                          {`${option.downPayment} (${option.installmentPrice.toLocaleString('vi-VN')})`}
+                          {`${option.downPayment} `}
                         </p>
                         {/* card đồ họa */}
                         <p className="h-12 text-gray-600 px-6 text-center leading-relaxed flex items-center justify-center bg-gray-200">
-                          {formData.term}
+                          {option.term}
                         </p>
                         {/* màn hình */}
                         <p className="bg-gray-100 text-gray-600 text-center h-12 flex items-center justify-center">
-                          {option.monthlyInstallment.toLocaleString('vi-VN')}
+                          {(option.monthlyInstallment).toLocaleString('vi-VN')}
                         </p>
                         {/* pin */}
                         <p className="text-gray-600 text-center h-12 flex items-center justify-center bg-gray-200">
@@ -199,10 +204,10 @@ const Estimation = () => {
                         </p>
                         {/* hệ điều hành */}
                         <p className="text-gray-600 text-center h-12 flex items-center justify-center bg-gray-200">
-                          {option.totalPayment.toLocaleString('vi-VN')}
+                          {(option.totalPayment).toLocaleString('vi-VN')}
                         </p>
                         <p className="bg-gray-100 text-gray-600 text-center h-12 flex items-center justify-center">
-                          {(option.totalPayment - laptop.specialPrice || laptop.price).toLocaleString('vi-VN')}
+                          {(option.totalPayment - option.installmentPrice).toLocaleString('vi-VN')}
                         </p>
                       </div>
                     ))}

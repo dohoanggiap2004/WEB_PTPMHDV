@@ -20,7 +20,9 @@ SET time_zone = "+00:00";
 --
 -- Database: `commercials`
 --
-
+DROP DATABASE IF EXISTS commercials; 
+CREATE DATABASE commercials;          
+USE commercials;
 -- --------------------------------------------------------
 
 --
@@ -187,6 +189,7 @@ CREATE TABLE `refreshtokens` (
   `token` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+
 -- --------------------------------------------------------
 
 --
@@ -235,6 +238,7 @@ INSERT INTO `users` (`userId`, `addressDetail`, `createdAt`, `dateOfBirth`, `dis
 ('9', 'Số 2021, Đường YZA', '2024-11-07 23:12:46.000000', NULL, 'Quận 9', 'vuthanha@example.com', 'Vũ Thanh A', '$2a$10$HUBNGXk5k5zVVtnXcdhjfg0ORoK5yftP5u7U2TzOSjzzHkR56b1xa', '0989012345', 'TP.HCM', 'user', '2024-11-07 23:12:46.000000', 'vuthanha', 'Phường 9');
 
 -- --------------------------------------------------------
+
 
 --
 -- Table structure for table `vouchers`
@@ -354,6 +358,20 @@ ALTER TABLE `vouchers`
 ALTER TABLE `orders`
   ADD CONSTRAINT `FK6co8q7ko456baksb6tdjq2dfv` FOREIGN KEY (`userId`) REFERENCES `users` (`userId`),
   ADD CONSTRAINT `FKgpwojd1dbx2rns87d67pydkv6` FOREIGN KEY (`voucherId`) REFERENCES `vouchers` (`voucherId`);
+  
+  --
+-- Table structure for table `view_history`
+--
+
+CREATE TABLE `view_history` (
+  `userId` CHAR(36) NOT NULL, -- UUID dạng CHAR(36)
+  `laptopId` CHAR(36) NOT NULL, -- UUID dạng CHAR(36)
+  `updatedAt` DATETIME(6) DEFAULT NULL,
+  `createdAt` DATETIME(6) DEFAULT NULL,
+  PRIMARY KEY (`userId`, `laptopId`), -- Khóa chính là tổ hợp của userId và laptopId
+  CONSTRAINT `fk_user_view` FOREIGN KEY (`userId`) REFERENCES `users`(`userId`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_laptop_view` FOREIGN KEY (`laptopId`) REFERENCES `laptops`(`laptopId`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Constraints for table `orders_laptops`
@@ -362,6 +380,8 @@ ALTER TABLE `orders_laptops`
   ADD CONSTRAINT `FK9mpq9q90e41dmwd93r32aoabp` FOREIGN KEY (`laptopId`) REFERENCES `laptops` (`laptopId`),
   ADD CONSTRAINT `FKp5a6f357myfmoj5seea0x5r21` FOREIGN KEY (`orderId`) REFERENCES `orders` (`orderId`);
 COMMIT;
+
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

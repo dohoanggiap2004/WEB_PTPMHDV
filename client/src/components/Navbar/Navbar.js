@@ -64,31 +64,31 @@ const Navbar = () => {
     const products = [
         {
             name: "HP",
-            description: "Get a better understanding of your traffic",
+            description: "Hiệu suất mạnh mẽ và bảo mật.",
             href: "#",
             icon: ComputerDesktopIcon,
         },
         {
             name: "ASUS",
-            description: "Speak directly to your customers",
+            description: "Cấu hình cao và thiết kế tinh tế.",
             href: "#",
             icon: ComputerDesktopIcon,
         },
         {
             name: "DELL",
-            description: "Your customers’ data will be safe and secure",
+            description: "Bền bỉ, hiệu suất cao, bảo mật tốt.",
             href: "#",
             icon: ComputerDesktopIcon,
         },
         {
             name: "LENOVO",
-            description: "Connect with third-party tools",
+            description: "Mạnh mẽ, tối ưu cho công việc và học tập",
             href: "#",
             icon: ComputerDesktopIcon,
         },
         {
             name: "MSI",
-            description: "Build strategic funnels that will convert",
+            description: "Mạnh mẽ, lý tưởng cho game và đồ họa",
             href: "#",
             icon: ComputerDesktopIcon,
         },

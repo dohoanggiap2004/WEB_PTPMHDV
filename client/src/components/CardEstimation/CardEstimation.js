@@ -6,10 +6,10 @@ const CardEstimation = ({installments}) => {
                     <div
                         className="w-full max-w-80 p-2 bg-white border border-gray-200 rounded-lg shadow-md sm:p-4 dark:bg-gray-800 dark:border-gray-700">
                         <h5 className="mb-4 text-xl font-medium text-gray-500 dark:text-gray-400">
-                            {installment.company}
+                            {`${installment.company} (Kỳ hạn ${installment.term})`}
                         </h5>
                         <div className="flex items-baseline text-gray-900 dark:text-white">
-                            <span className="text-2xl font-extrabold tracking-tight">1.543.000</span>
+                            <span className="text-2xl font-extrabold tracking-tight">{installment.monthlyInstallment.toLocaleString('vi-VN')}</span>
                             <span className="ms-1 text-xl font-normal text-gray-500 dark:text-gray-400">
           /tháng
         </span>
@@ -21,7 +21,7 @@ const CardEstimation = ({installments}) => {
           </span>
                                 <span
                                     className="text-sm  font-normal leading-tight text-gray-500 dark:text-gray-400">
-            0%
+            {installment.flatInterestRate}
           </span>
                             </li>
                             <li className="flex">
@@ -30,7 +30,7 @@ const CardEstimation = ({installments}) => {
           </span>
                                 <span
                                     className="text-sm font-normal leading-tight text-gray-500 dark:text-gray-400">
-            11.490.000
+            {installment.installmentPrice.toLocaleString('vi-VN')}
           </span>
                             </li>
                             <li className="flex">
@@ -39,7 +39,7 @@ const CardEstimation = ({installments}) => {
           </span>
                                 <span
                                     className="text-sm font-normal leading-tight text-gray-500 dark:text-gray-400 ms-3">
-            20%(2.298.000)
+            {installment.downPayment}
           </span>
                             </li>
                             <li className="flex">
@@ -48,7 +48,7 @@ const CardEstimation = ({installments}) => {
           </span>
                                 <span
                                     className="text-sm font-normal leading-tight text-gray-500 dark:text-gray-400 ms-1">
-            100.000
+            {(installment.totalPayment - installment.installmentPrice).toLocaleString('vi-VN')}
           </span>
                             </li>
                             <li className="flex">
@@ -57,7 +57,7 @@ const CardEstimation = ({installments}) => {
           </span>
                                 <span
                                     className="text-sm font-normal leading-tight text-gray-500 dark:text-gray-400 ms-1">
-            CCCD/CMND
+            {installment.requiredDocuments}
           </span>
                             </li>
                             <li className="flex">
@@ -66,7 +66,7 @@ const CardEstimation = ({installments}) => {
           </span>
                                 <span
                                     className="text-sm font-normal leading-tight text-gray-500 dark:text-gray-400 ms-1">
-            11.590.000
+            {installment.totalPayment.toLocaleString('vi-VN')}
           </span>
                             </li>
                         </ul>
