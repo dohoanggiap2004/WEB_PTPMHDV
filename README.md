@@ -1,7 +1,7 @@
 # WEB_PTPMHDV
 
 # Requirements
-## Nodejs version up to 20
+## Nodejs version >= 20
 ## Jdk 17
 
 # Project Setup and Run Guide
