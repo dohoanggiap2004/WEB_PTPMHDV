@@ -88,7 +88,7 @@ const UserAvatar = ({ handleLogOut }) => {
         </Link>
         {menuOpen && (
             <div
-                className="absolute hidden lg:block mt-2 w-48 right-0 origin-top-right rounded-md bg-white  py-1 shadow-lg ring-1 ring-black ring-opacity-5 z-50"
+                className="absolute hidden lg:block mt-2 w-48 xl2:right-60 right-0 origin-top-right rounded-md bg-white  py-1 shadow-lg ring-1 ring-black ring-opacity-5 z-50"
                 role="menu"
                 aria-orientation="vertical"
                 aria-labelledby="user-menu-button"

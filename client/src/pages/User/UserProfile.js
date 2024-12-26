@@ -307,7 +307,7 @@ export default function UserProfile() {
                         Giới tính:
                       </label>
 
-                      <div className="flex items-center -mt-2">
+                      <div className="flex items-center -mt-2 ms-6">
                         <input
                           type="radio"
                           id="male"

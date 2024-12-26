@@ -1,4 +1,4 @@
-import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
+import {BrowserRouter as Router, Navigate, Route, Routes} from "react-router-dom";
 import "./App.css";
 import ScrollConfig from "./config/scrollConfig";
 import Admin from "./pages/Admin/Dashboard/Admin_Dashboard";
@@ -48,6 +48,7 @@ function App() {
                     <Router>
                         <ScrollConfig/>
                         <Routes>
+                            <Route path="/" element={<Navigate to="/admin/login" />} />
                             <Route path="/admin" element={
                                 <RoleProtectedRoute requiredRole={'admin'}>
                                     <Admin/>
