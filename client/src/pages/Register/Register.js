@@ -44,6 +44,7 @@ const Register = () => {
       const response = await instanceAxios8000.post("/auth/register", formData);
       if (response.status === 201) { // Kiểm tra nếu status trả về là 200
         navigate("/login");
+        window.alert("Đăng kí tài khoản thành công")
       } else {
         setError("Có lỗi xảy ra, vui lòng đăng ký lại");
       }

@@ -20,7 +20,9 @@ export const loginUser = (formData) => async (dispatch) => {
 export const loginGG = () => async (dispatch) => {
     try {
         dispatch(loginRequest());
-        window.location.href = "http://localhost:8002/auth/google"; // Redirect to Google OAuth
+        window.location.href = "http://localhost:8002/auth/google";
+        dispatch(loginUserSuccess());
+        // Redirect to Google OAuth
     } catch (error) {
         dispatch(loginFailure(error.response?.data.message || error.message));
     }

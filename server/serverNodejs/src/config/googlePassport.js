@@ -1,6 +1,7 @@
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const passport = require("passport");
 const User = require('../app/models/User')
+const { v4: uuidv4 } = require('uuid');
 require("dotenv").config();
 const googlePassport = () => {
     passport.use(
@@ -14,9 +15,11 @@ const googlePassport = () => {
             },
             async (accessToken, refreshToken, profile, cb) => {
                 try {
+                    const uuid = uuidv4()
                     const user = await User.findOrCreate({
                         where: { email: profile.emails[0].value }, // Search for user by email (or any unique field)
                         defaults: {
+                            userId: uuid,
                             username: profile.displayName,
                             email: profile.emails[0].value,
                             fullname: profile.displayName,

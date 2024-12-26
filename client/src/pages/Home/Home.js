@@ -32,6 +32,7 @@ const Home = () => {
     useEffect(() => {
         const fetchAccessToken = async () => {
             const accessToken = Cookies.get('accessToken');
+            dispatch(loginUserSuccess())
             if (!accessToken) {
                 await getAccessToken();
             }

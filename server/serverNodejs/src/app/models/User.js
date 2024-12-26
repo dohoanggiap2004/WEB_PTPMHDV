@@ -27,9 +27,6 @@ const User = sequelize.define('User', {
   dateOfBirth: {
     type: DataTypes.STRING(255), // Chỉnh lại kiểu dữ liệu theo bảng (varchar)
   },
-  address: {
-    type: DataTypes.STRING(255), // Thêm trường address
-  },
   addressDetail: {
     type: DataTypes.STRING(255), // Thêm trường addressDetail
   },
